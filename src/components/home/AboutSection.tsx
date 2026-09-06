@@ -1,0 +1,210 @@
+import { motion } from 'framer-motion';
+import { Mic2, Users, Star, Music, Award, Flame } from 'lucide-react';
+
+const stats = [
+  { icon: Flame, label: 'Anos de Fogo', value: '12+', accent: '#FF8C2E' },
+  { icon: Mic2, label: 'Shows Realizados', value: '800+', accent: '#D4842E' },
+  { icon: Users, label: 'Capacidade', value: '500', accent: '#5B9BD5' },
+  { icon: Music, label: 'Artistas Parceiros', value: '200+', accent: '#FF8C2E' },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
+export default function AboutSection() {
+  return (
+    <section id="sobre" className="py-16 sm:py-24 sm:py-32 lg:py-40 px-4 sm:px-6 relative overflow-hidden bg-dark-950">
+      {/* Neon background effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-pink-500/8 blur-[200px]" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-purple-500/8 blur-[180px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] rounded-full bg-pink-600/3 blur-[120px]" />
+      </div>
+
+      {/* Decorative lines */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-pink-500/30 to-transparent" />
+
+      <div className="max-w-7xl mx-auto relative">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-10 sm:mb-16 lg:mb-24"
+        >
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-pink-500/60" />
+            <span className="text-[10px] tracking-[0.5em] text-pink-400/80 uppercase font-medium">Sobre Nos</span>
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-pink-500/60" />
+          </div>
+          <h2 className="text-3xl sm:text-4xl sm:text-5xl lg:text-7xl font-bold text-white uppercase tracking-tight">
+            A EXPERIENCIA{' '}
+            <span
+              className="block"
+              style={{
+                background: 'linear-gradient(135deg, #FF8C2E 0%, #FFB066 40%, #D4842E 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              DEFINITIVA
+            </span>
+          </h2>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-center">
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            {/* Neon glow behind image */}
+            <div
+              className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl"
+              style={{ background: 'linear-gradient(135deg, #FF8C2E, #D4842E)' }}
+            />
+
+            <div className="relative rounded-2xl overflow-hidden">
+              {/* Neon border */}
+              <div
+                className="absolute inset-0 rounded-2xl p-[2px]"
+                style={{ background: 'linear-gradient(135deg, #FF8C2E, #D4842E, #5B9BD5)' }}
+              >
+                <div className="w-full h-full rounded-2xl bg-dark-950" />
+              </div>
+
+              <img
+                src="https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1024"
+                alt="Lux House interior"
+                loading="lazy"
+                decoding="async"
+                className="relative w-full h-64 sm:h-80 sm:h-96 lg:h-[520px] object-cover rounded-2xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/30 to-transparent rounded-2xl" />
+
+              {/* Floating badge */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+                className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 sm:right-auto sm:max-w-xs"
+                style={{
+                  background: 'rgba(9, 9, 9, 0.9)',
+                  border: '1px solid rgba(255, 140, 46, 0.3)',
+                  borderRadius: '16px',
+                  boxShadow: '0 0 30px rgba(255, 140, 46, 0.2)',
+                }}
+              >
+                <div className="p-4 sm:p-5 flex items-center gap-3 sm:gap-4">
+                  <div
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0"
+                    style={{
+                      background: 'linear-gradient(135deg, #FF8C2E, #D4842E)',
+                      boxShadow: '0 0 20px rgba(255, 140, 46, 0.4)',
+                    }}
+                  >
+                    <Award size={18} className="text-white sm:!size-5" />
+                  </div>
+                  <div>
+                    <div className="text-[9px] tracking-[0.3em] text-pink-400/70 uppercase">Reconhecida como</div>
+                    <div className="text-white font-bold text-sm">Melhor Casa de Show</div>
+                    <div className="text-white/30 text-[10px] mt-0.5">Vinhedo - SP 2024</div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Text */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h3 className="text-xl sm:text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+              Onde a noite{' '}
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #FF8C2E, #D4842E)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                ganha vida
+              </span>
+            </h3>
+
+            <p className="text-white/50 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+              A Lux House e o palco onde a musica brasileira se expressa
+              em sua forma mais autentica e vibrante. Nossa casa foi construida com a missao de
+              criar experiencias inesqueciveis em Vinhedo e regiao.
+            </p>
+            <p className="text-white/40 leading-relaxed mb-8 sm:mb-12 text-xs sm:text-sm">
+              Do funk ao eletronica, passando pelos melhores DJs - cada noite e uma experiencia
+              cuidadosamente curada. Com capacidade para 300 convidados, sistema de som de ultima
+              geracao e ambiente premium preparado para voce curtar cada segundo.
+            </p>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:gap-6">
+              {stats.map(({ icon: Icon, label, value, accent }, i) => (
+                <motion.div
+                  key={label}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
+                  whileHover={{ scale: 1.03 }}
+                  className="group cursor-default relative"
+                >
+                  <div
+                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"
+                    style={{ background: `${accent}20` }}
+                  />
+                  <div
+                    className="relative rounded-2xl p-4 sm:p-6 transition-all duration-300"
+                    style={{
+                      background: 'rgba(9, 9, 9, 0.6)',
+                      border: `1px solid ${accent}25`,
+                    }}
+                  >
+                    <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                      <div
+                        className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center"
+                        style={{
+                          background: `${accent}15`,
+                          boxShadow: `0 0 20px ${accent}30`,
+                        }}
+                      >
+                        <Icon size={16} style={{ color: accent }} className="sm:!size-5" />
+                      </div>
+                      <div
+                        className="text-2xl sm:text-3xl sm:text-4xl font-bold"
+                        style={{
+                          background: `linear-gradient(135deg, ${accent}, #fff)`,
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                        }}
+                      >
+                        {value}
+                      </div>
+                    </div>
+                    <div className="text-white/40 text-[11px] sm:text-xs sm:text-sm">{label}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
