@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from 'react';
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Clock, Car, Train, Calendar, Zap } from 'lucide-react';
 import { useIsMobile } from '../../hooks/useIsMobile';
@@ -9,23 +9,6 @@ const COMING_SOON = 'Em breve';
 const MapSection = memo(function MapSection() {
   const isMobile = useIsMobile();
   const { data: event } = usePublicEvent();
-  const [mapVisible, setMapVisible] = useState(false);
-
-  // Defer iframe load until section is near viewport
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setMapVisible(true);
-          obs.disconnect();
-        }
-      },
-      { rootMargin: '200px' },
-    );
-    const el = document.getElementById('local');
-    if (el) obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
 
   const isComingSoon = event?.status === 'coming_soon';
   const location = event?.location || (isComingSoon ? COMING_SOON : 'Rod. Edenor João Tasca, 980, Vinhedo - SP');
@@ -39,7 +22,7 @@ const MapSection = memo(function MapSection() {
   const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.92044944303!2d-46.963326200000004!3d-23.0266929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf2d40e0f25a5b%3A0x2f788dcc83ff167b!2sRod.%20Edenor%20Jo%C3%A3o%20Tasca%2C%20980%2C%20Vinhedo%20-%20SP%2C%2013280-000!5e0!3m2!1spt-BR!2sbr!4v1783061992069!5m2!1spt-BR!2sbr';
 
   return (
-    <section className="py-16 sm:py-24 sm:py-32 lg:py-40 px-4 sm:px-6 relative overflow-hidden bg-dark-900 grain-overlay">
+    <section id="local" className="py-16 sm:py-24 sm:py-32 lg:py-40 px-4 sm:px-6 relative overflow-hidden bg-dark-900 grain-overlay">
       {!isMobile && (
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/3 left-0 w-[400px] h-[400px] rounded-full bg-magenta-500/6 blur-[180px]" />
@@ -99,7 +82,6 @@ const MapSection = memo(function MapSection() {
                 boxShadow: isMobile ? 'none' : '0 0 40px rgba(122, 0, 255, 0.15)',
               }}
             >
-              {mapVisible && (
               <iframe
                 title="Local do evento"
                 src={mapSrc}
@@ -108,12 +90,6 @@ const MapSection = memo(function MapSection() {
                 allowFullScreen
                 loading="lazy"
               />
-              )}
-              {!mapVisible && (
-                <div className="w-full h-full flex items-center justify-center bg-dark-900">
-                  <MapPin size={32} className="text-magenta-400/30" />
-                </div>
-              )}
             </div>
           </motion.div>
 

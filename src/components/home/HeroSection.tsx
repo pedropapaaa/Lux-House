@@ -1,5 +1,5 @@
 import { MapPin, ChevronDown, Shield, Mic, Music2, Ticket, Wine } from 'lucide-react';
-import { staticMotion as motion } from '../ui/StaticMotion';
+import { motion } from 'framer-motion';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import { usePublicEvent } from '../../hooks/usePublicEvent';
 import { useSettings } from '../../hooks/useSettings';

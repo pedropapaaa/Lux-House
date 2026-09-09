@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&family=Creepster&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Cinzel:wght@400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -444,15 +446,6 @@
   /* Keep the event experience compact and readable on small screens */
   section {
     scroll-margin-top: 72px;
-    /* Skip rendering offscreen sections until scrolled near */
-    content-visibility: auto;
-    contain-intrinsic-size: auto 500px;
-  }
-
-  /* Hero and sections with fixed backgrounds don't need this */
-  section#home {
-    content-visibility: visible;
-    contain-intrinsic-size: auto none;
   }
 
   h1, h2, h3 {
@@ -465,8 +458,8 @@
 
   /* Reduce blur effects - very expensive on mobile */
   .glass-card {
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   /* Remove all glow effects on mobile */
@@ -516,19 +509,6 @@
   .shadow-glass-lg,
   .shadow-premium {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
-  }
-
-  /* GPU-accelerate animated elements for smoother scroll */
-  .cd-box,
-  .cd-glow,
-  .cd-shine {
-    will-change: transform, opacity;
-    transform: translateZ(0);
-  }
-
-  /* Reduce grain overlay cost on mobile */
-  .grain-overlay::after {
-    opacity: 0.015;
   }
 }
 

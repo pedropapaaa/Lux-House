@@ -21,22 +21,8 @@ export function EventProvider({ children }: { children: ReactNode }) {
     return localStorage.getItem(STORAGE_KEY) || DEFAULT_EVENT_ID;
   });
 
-  // Lazy: only fetch all events when admin pages actually need them.
-  // The public home uses usePublicEvent() which fetches a single event.
-  // This query is enabled only when an admin route is active.
-  const [eventsEnabled, setEventsEnabled] = useState(false);
-
-  useEffect(() => {
-    // Enable the events query only if we're on an admin route
-    const checkAdmin = () => setEventsEnabled(window.location.pathname.startsWith('/admin'));
-    checkAdmin();
-    window.addEventListener('popstate', checkAdmin);
-    return () => window.removeEventListener('popstate', checkAdmin);
-  }, []);
-
   const { data: events = [], isLoading } = useQuery<Event[]>({
     queryKey: ['events', 'all'],
-    enabled: eventsEnabled,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('events')

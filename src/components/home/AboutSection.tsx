@@ -1,7 +1,5 @@
-import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Mic2, Users, Music, Award, Flame } from 'lucide-react';
-import { useIsMobile } from '../../hooks/useIsMobile';
 
 const stats = [
   { icon: Flame, label: 'Anos de Fogo', value: '12+', accent: '#E90083' },
@@ -15,18 +13,15 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-const AboutSection = memo(function AboutSection() {
-  const isMobile = useIsMobile();
+export default function AboutSection() {
   return (
     <section id="sobre" className="py-16 sm:py-24 sm:py-32 lg:py-40 px-4 sm:px-6 relative overflow-hidden bg-dark-950 grain-overlay">
-      {/* Neon background effects - hidden on mobile */}
-      {!isMobile && (
+      {/* Neon background effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-magenta-500/8 blur-[200px]" />
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-purple-500/8 blur-[180px]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] rounded-full bg-pink-600/3 blur-[120px]" />
       </div>
-      )}
 
       {/* Decorative lines */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-magenta-500/30 to-transparent" />
@@ -68,13 +63,11 @@ const AboutSection = memo(function AboutSection() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            {/* Neon glow behind image - hidden on mobile */}
-            {!isMobile && (
+            {/* Neon glow behind image */}
             <div
               className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl"
               style={{ background: 'linear-gradient(135deg, #7A00FF, #E90083)' }}
             />
-            )}
 
             <div className="relative rounded-2xl overflow-hidden">
               {/* Neon border */}
@@ -86,7 +79,7 @@ const AboutSection = memo(function AboutSection() {
               </div>
 
               <img
-                src="https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=600&h=800&fit=crop"
+                src="https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1024"
                 alt="Lux House interior"
                 loading="lazy"
                 decoding="async"
@@ -214,6 +207,4 @@ const AboutSection = memo(function AboutSection() {
       </div>
     </section>
   );
-});
-
-export default AboutSection;
+}
