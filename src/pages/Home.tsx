@@ -1,12 +1,12 @@
 import { useState, useCallback, lazy, Suspense, useEffect, useRef, type ReactNode } from 'react';
 import Navbar from '../components/layout/Navbar';
-import Footer from '../components/layout/Footer';
 import HeroSection from '../components/home/HeroSection';
-import PurchaseModal from '../components/purchase/PurchaseModal';
 
 // Lazy-load below-the-fold sections so they don't block initial render
 const AttractionsSection = lazy(() => import('../components/home/AttractionsSection'));
 const AnnouncementsSection = lazy(() => import('../components/home/AnnouncementsSection'));
+const Footer = lazy(() => import('../components/layout/Footer'));
+const PurchaseModal = lazy(() => import('../components/purchase/PurchaseModal')); 
 const MapSection = lazy(() => import('../components/home/MapSection'));
 const FAQSection = lazy(() => import('../components/home/FAQSection'));
 
@@ -59,8 +59,14 @@ export default function Home() {
       <DeferredSection id="faq" minHeight="560px">
         <FAQSection />
       </DeferredSection>
-      <Footer />
-      <PurchaseModal open={modalOpen} onClose={closeModal} />
+      <DeferredSection id="footer" minHeight="260px">
+        <Footer />
+      </DeferredSection>
+      {modalOpen && (
+        <Suspense fallback={null}>
+          <PurchaseModal open={modalOpen} onClose={closeModal} />
+        </Suspense>
+      )}
     </div>
   );
 }

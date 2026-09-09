@@ -5,7 +5,7 @@ import { usePublicEvent } from '../../hooks/usePublicEvent';
 
 const AnnouncementsSection = memo(function AnnouncementsSection() {
   const { data: event } = usePublicEvent();
-  const imageUrl = event?.banner_url || '/images/sunset_o_melhor copy.png';
+  const imageUrl = event?.banner_url || '/images/sunset_o_melhor copy.webp';
   const [imgRatio, setImgRatio] = useState<number | null>(null);
 
   return (
