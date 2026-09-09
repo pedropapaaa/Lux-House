@@ -40,7 +40,7 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
 
   const sidebar = (
     <div className="flex flex-col h-full">
-      <div className="p-5 border-b border-white/5">
+      <div className="p-5 border-b border-white/8">
         <div className="flex items-center gap-3">
           <picture>
             <source srcSet="/images/logo.webp" type="image/webp" />
@@ -53,15 +53,15 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
             />
           </picture>
           <div>
-            <div className="text-sm font-semibold text-gradient-primary">Lux House</div>
+            <div className="text-sm font-semibold tracking-wide text-white">Lux House</div>
             <div className="text-[9px] tracking-widest text-white/25 uppercase flex items-center gap-1">
-              <Sparkles size={8} className="text-purple-400" /> ERP
+              <Sparkles size={8} className="text-magenta-400" /> LUX OPERATIONS
             </div>
           </div>
         </div>
       </div>
 
-      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+      <nav className="flex-1 p-3 space-y-1.5 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -72,7 +72,7 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
               className={({ isActive }) =>
                 `flex items-start gap-3 px-4 py-3 rounded-xl text-sm transition-all duration-200 ${
                   isActive
-                    ? 'bg-purple-500/15 text-purple-400 border border-purple-500/20'
+                    ? 'bg-magenta-500/12 text-magenta-300 border border-magenta-500/25 shadow-[inset_3px_0_0_#ec3ca8]' 
                     : 'text-white/40 hover:text-white/80 hover:bg-white/5 border border-transparent'
                 }`
               }
@@ -91,7 +91,7 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
         })}
       </nav>
 
-      <div className="p-3 border-t border-white/5">
+      <div className="p-3 border-t border-white/8">
         <button
           onClick={handleSignOut}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-white/30 hover:text-white/70 hover:bg-white/5 transition-colors"
@@ -103,10 +103,10 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
   );
 
   return (
-    <div className="min-h-screen bg-dark-950 text-white flex">
+    <div className="min-h-screen bg-dark-950 text-white flex selection:bg-magenta-500/30">
       {/* Desktop sidebar */}
       {!isMobile && (
-        <aside className="w-64 shrink-0 border-r border-white/5 bg-dark-900/60 backdrop-blur-xl sticky top-0 h-screen">
+        <aside className="w-[272px] shrink-0 border-r border-white/8 bg-dark-900/80 backdrop-blur-xl sticky top-0 h-screen">
           {sidebar}
         </aside>
       )}
@@ -127,7 +127,7 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
               animate={{ x: 0 }}
               exit={{ x: -300 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed left-0 top-0 bottom-0 w-64 bg-dark-900 z-50"
+              className="fixed left-0 top-0 bottom-0 w-[272px] bg-dark-900 z-50 shadow-2xl"
             >
               {sidebar}
             </motion.aside>
@@ -138,7 +138,7 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
       {/* Main content */}
       <div className="flex-1 min-w-0">
         {/* Top bar with event selector */}
-        <div className="sticky top-0 z-30 bg-dark-950/95 backdrop-blur-xl border-b border-white/5 px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+        <div className="sticky top-0 z-30 bg-dark-950/96 backdrop-blur-xl border-b border-white/8 px-3 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
           {isMobile && (
             <button
               onClick={() => setSidebarOpen(true)}
@@ -148,13 +148,13 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
             </button>
           )}
           <EventSelector />
-          <div className="hidden sm:block text-[9px] tracking-widest text-white/20 uppercase ml-auto">Lux House ERP</div>
+          <div className="hidden sm:block text-[10px] tracking-[0.18em] text-white/30 uppercase ml-auto">Lux Operations</div>
         </div>
 
-        <main className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
-          <div className="mb-6 sm:mb-8">
-            <h1 className="font-playfair text-2xl sm:text-3xl text-white">{title}</h1>
-            <div className="h-0.5 w-12 bg-gradient-to-r from-purple-500 to-pink-500 mt-2 rounded-full" />
+        <main className="p-4 sm:p-6 lg:p-8 w-full max-w-[1440px] mx-auto">
+          <div className="mb-7 sm:mb-9">
+            <p className="text-[10px] tracking-[0.22em] uppercase text-magenta-400/80 mb-2">Lux Operations</p>
+            <h1 className="font-luxe text-3xl sm:text-4xl font-semibold tracking-tight text-white">{title}</h1>
           </div>
           {children}
         </main>

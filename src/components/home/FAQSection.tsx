@@ -34,8 +34,8 @@ const faqs = [
   },
 ];
 
-function FAQItem({ q, a, isOpen, onToggle, index, isMobile }: { q: string; a: string; isOpen: boolean; onToggle: () => void; index: number; isMobile: boolean }) {
-  const accent = index % 3 === 0 ? '#7A00FF' : index % 3 === 1 ? '#E90083' : '#245CFF';
+function FAQItem({ q, a, isOpen, onToggle, index }: { q: string; a: string; isOpen: boolean; onToggle: () => void; index: number }) {
+  const accent = index % 2 === 0 ? '#9B61FF' : '#E90083';
 
   return (
     <motion.div
@@ -44,7 +44,7 @@ function FAQItem({ q, a, isOpen, onToggle, index, isMobile }: { q: string; a: st
     >
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-3 sm:gap-4 py-4 sm:py-6 px-4 sm:px-6 sm:px-8 text-left group"
+        className="w-full min-h-16 flex items-center justify-between gap-3 sm:gap-4 py-4 sm:py-5 px-4 sm:px-6 text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-magenta-500/50"
       >
         <div className="flex items-start gap-3 sm:gap-4">
           <div
@@ -106,7 +106,7 @@ const FAQSection = memo(function FAQSection() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-magenta-500/30 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
-      <div className="max-w-3xl mx-auto relative">
+      <div className="w-full max-w-3xl mx-auto relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
@@ -154,7 +154,6 @@ const FAQSection = memo(function FAQSection() {
               isOpen={openIndex === i}
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
               index={i}
-              isMobile={isMobile}
             />
           ))}
         </motion.div>

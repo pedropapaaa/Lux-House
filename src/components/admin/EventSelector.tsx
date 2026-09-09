@@ -78,7 +78,7 @@ export function EventSelector() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.97 }}
               transition={{ duration: 0.15 }}
-              className="absolute top-full left-0 mt-2 w-80 glass-card rounded-xl overflow-hidden z-50 shadow-glass-lg"
+              className="absolute top-full left-0 mt-2 w-[min(20rem,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] glass-card rounded-xl overflow-hidden z-50 shadow-glass-lg"
             >
               <div className="p-3 border-b border-white/5">
                 <div className="relative">

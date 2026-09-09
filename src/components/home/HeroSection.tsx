@@ -74,9 +74,9 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
         {/* Neon purple glow — positioned lower */}
         <div className="absolute bottom-0 left-0 right-0 h-1/2" style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(122,0,255,0.18) 0%, rgba(233,0,131,0.08) 35%, transparent 75%)' }} />
         {/* Magenta accent glow — right side */}
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full" style={{ background: 'rgba(233,0,131,0.06)', filter: 'blur(150px)' }} />
+        <div className="absolute top-1/4 right-0 w-[min(500px,80vw)] h-[min(500px,80vw)] rounded-full" style={{ background: 'rgba(233,0,131,0.06)', filter: 'blur(150px)' }} />
         {/* Sunset glow — very subtle, bottom */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] rounded-full" style={{ background: 'rgba(255,90,36,0.04)', filter: 'blur(100px)' }} />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[min(600px,90vw)] h-[200px] rounded-full" style={{ background: 'rgba(255,90,36,0.04)', filter: 'blur(100px)' }} />
       </div>
 
       {/* Neon atmosphere — light rays, particles, glow orbs */}
@@ -140,7 +140,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
       {/* Mobile atmosphere — single glow + particles */}
       {isMobile && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 3 }}>
-          <div className="absolute top-1/4 right-0 w-[300px] h-[300px] rounded-full" style={{ background: 'rgba(233,0,131,0.05)', filter: 'blur(100px)' }} />
+          <div className="absolute top-1/4 right-0 w-[min(300px,70vw)] h-[min(300px,70vw)] rounded-full" style={{ background: 'rgba(233,0,131,0.05)', filter: 'blur(100px)' }} />
           <div className="absolute bottom-0 left-0 right-0" style={{ height: '70px' }}>
             {[...Array(5)].map((_, i) => (
               <motion.div
@@ -166,7 +166,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
       {!isMobile && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div
-            className="absolute -bottom-1/4 left-0 w-[150%] h-[50%] rounded-full"
+            className="absolute -bottom-1/4 left-0 w-[100%] h-[50%] rounded-full"
             style={{
               background: 'radial-gradient(ellipse at center, rgba(122,0,255,0.04) 0%, rgba(233,0,131,0.03) 40%, transparent 70%)',
               filter: 'blur(60px)',
@@ -175,7 +175,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
             transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.div
-            className="absolute -bottom-1/4 right-0 w-[120%] h-[40%] rounded-full"
+            className="absolute -bottom-1/4 right-0 w-[100%] h-[40%] rounded-full"
             style={{
               background: 'radial-gradient(ellipse at center, rgba(255,43,166,0.03) 0%, transparent 60%)',
               filter: 'blur(70px)',
@@ -189,9 +189,9 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
       {/* Glow orbs - hidden on mobile for performance */}
       {!isMobile && (
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full" style={{ background: 'rgba(122,0,255,0.06)', filter: 'blur(150px)' }} />
-          <div className="absolute bottom-1/3 right-1/3 w-[400px] h-[400px] rounded-full" style={{ background: 'rgba(233,0,131,0.04)', filter: 'blur(130px)' }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full" style={{ background: 'rgba(36,92,255,0.02)', filter: 'blur(100px)' }} />
+          <div className="absolute top-1/4 left-1/4 w-[min(500px,70vw)] h-[min(500px,70vw)] rounded-full" style={{ background: 'rgba(122,0,255,0.06)', filter: 'blur(150px)' }} />
+          <div className="absolute bottom-1/3 right-1/3 w-[min(400px,60vw)] h-[min(400px,60vw)] rounded-full" style={{ background: 'rgba(233,0,131,0.04)', filter: 'blur(130px)' }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(600px,90vw)] h-[300px] rounded-full" style={{ background: 'rgba(36,92,255,0.02)', filter: 'blur(100px)' }} />
         </div>
       )}
 
@@ -200,16 +200,16 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
         variants={stagger}
         initial="hidden"
         animate="visible"
-        className="relative z-10 w-full max-w-6xl mx-auto px-5 sm:px-6 pt-28 sm:pt-36 pb-10 sm:pb-14"
+        className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-12 sm:pb-16"
       >
-        <div className="grid lg:grid-cols-2 gap-6 sm:gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)] gap-10 sm:gap-12 lg:gap-20 items-center">
           {/* LEFT - Main content */}
           <div className="text-center lg:text-left">
             {/* Main headline */}
             <motion.div variants={itemVariant} className="mb-4">
               <h1 className="font-display font-extrabold text-ivory leading-[0.95] tracking-tight">
                 <span
-                  className="block uppercase whitespace-nowrap"
+                  className="block uppercase break-words"
                   style={{
                     fontSize: 'clamp(2rem, 8vw, 5rem)',
                     letterSpacing: '-0.03em',
@@ -383,7 +383,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
           >
             {/* Neon date box */}
             <motion.div
-              className="relative w-full max-w-[260px] sm:max-w-xs"
+              className="relative w-full max-w-[300px] sm:max-w-[340px]"
               animate={isMobile ? undefined : { y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             >
@@ -478,7 +478,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
 
             {/* Scroll cue - desktop only */}
             <motion.button
-              onClick={() => document.querySelector('#atrações')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.querySelector('#atracoes')?.scrollIntoView({ behavior: 'smooth' })}
               className="hidden lg:flex flex-col items-center gap-2 text-ivory/30 hover:text-ivory/60 transition-colors"
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
@@ -491,7 +491,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
 
         {/* Mobile scroll cue */}
         <motion.button
-          onClick={() => document.querySelector('#atrações')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => document.querySelector('#atracoes')?.scrollIntoView({ behavior: 'smooth' })}
           className="lg:hidden flex flex-col items-center gap-2 text-ivory/30 hover:text-ivory/50 transition-colors mx-auto mt-6 sm:mt-10"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}

@@ -35,7 +35,7 @@ const AttractionsSection = memo(function AttractionsSection() {
       }));
 
   return (
-    <section id="atrações" className="py-16 sm:py-24 sm:py-32 lg:py-40 px-4 sm:px-6 relative bg-dark-900 grain-overlay">
+    <section id="atracoes" className="py-16 sm:py-24 sm:py-32 lg:py-40 px-4 sm:px-6 relative bg-dark-900 grain-overlay">
       {!isMobile && (
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/4 left-0 w-[400px] h-[400px] rounded-full bg-magenta-500/6 blur-[180px]" />
@@ -46,7 +46,7 @@ const AttractionsSection = memo(function AttractionsSection() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-magenta-500/30 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
-      <div className="max-w-7xl mx-auto relative">
+      <div className="lux-container relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
@@ -142,11 +142,11 @@ const AttractionsSection = memo(function AttractionsSection() {
                 )}
 
                 <div
-                  className="relative rounded-2xl overflow-hidden"
+                  className="relative rounded-[18px] overflow-hidden border border-white/8"
                   style={{
                     background: 'rgba(9, 2, 15, 0.8)',
-                    border: `2px solid ${a.accent}25`,
-                    boxShadow: isMobile ? 'none' : `0 0 40px ${a.accent}15`,
+                    border: `1px solid ${a.accent}28`,
+                    boxShadow: isMobile ? 'none' : `0 16px 40px rgba(0,0,0,0.24)`,
                   }}
                 >
                   {a.badge && (

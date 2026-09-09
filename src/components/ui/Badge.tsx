@@ -30,7 +30,7 @@ export function Badge({ variant = 'gray', children }: BadgeProps) {
     <motion.span
       initial={{ scale: 0.95, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      className={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide ${styles[resolvedVariant]}`}
+      className={`inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-semibold tracking-[0.08em] uppercase ${styles[resolvedVariant]}`}
     >
       {children}
     </motion.span>

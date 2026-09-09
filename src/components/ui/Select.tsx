@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
 import type { SelectHTMLAttributes, ReactNode } from 'react';
-import { motion } from 'framer-motion';
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -17,21 +16,20 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {label && (
           <label
             htmlFor={selectId}
-            className="text-[10px] tracking-[0.2em] uppercase text-white/40 font-medium"
+            className="text-[11px] tracking-[0.14em] uppercase text-white/55 font-medium"
           >
             {label}
           </label>
         )}
         <div className="relative">
-          <motion.select
+          <select
             ref={ref}
             id={selectId}
-            whileFocus={{ scale: 1.01 }}
-            className={`w-full input-premium rounded-xl px-4 py-3.5 text-sm text-white outline-none appearance-none cursor-pointer pr-10 ${className}`}
+            className={`w-full input-premium rounded-xl px-4 py-3 text-sm text-white outline-none appearance-none cursor-pointer pr-10 ${className}`}
             {...props}
           >
             {children}
-          </motion.select>
+          </select>
           <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
             <svg
               className="w-4 h-4 text-white/30"
@@ -44,13 +42,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </div>
         </div>
         {error && (
-          <motion.p
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
+          <p
             className="text-xs text-red-400"
           >
             {error}
-          </motion.p>
+          </p>
         )}
       </div>
     );

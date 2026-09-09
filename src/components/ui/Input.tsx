@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
 import type { InputHTMLAttributes } from 'react';
-import { motion } from 'framer-motion';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -16,26 +15,23 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-[10px] tracking-[0.2em] uppercase text-white/40 font-medium"
+            className="text-[11px] tracking-[0.14em] uppercase text-white/55 font-medium"
           >
             {label}
           </label>
         )}
-        <motion.input
+        <input
           ref={ref}
           id={inputId}
-          whileFocus={{ scale: 1.01 }}
-          className={`w-full input-premium rounded-xl px-4 py-3.5 text-sm text-white outline-none ${className}`}
+          className={`w-full input-premium rounded-xl px-4 py-3 text-sm text-white outline-none ${className}`}
           {...props}
         />
         {error && (
-          <motion.p
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
+          <p
             className="text-xs text-red-400 flex items-center gap-1"
           >
             {error}
-          </motion.p>
+          </p>
         )}
       </div>
     );

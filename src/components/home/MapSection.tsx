@@ -33,7 +33,7 @@ const MapSection = memo(function MapSection() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-magenta-500/30 to-transparent" />
 
-      <div className="max-w-7xl mx-auto relative">
+      <div className="lux-container relative">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
@@ -42,10 +42,21 @@ const MapSection = memo(function MapSection() {
           className="text-center mb-10 sm:mb-14 lg:mb-20"
         >
           <div className="flex items-center justify-center gap-4 mb-5">
-            <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #7A00FF)' }} />
-            <span className="text-[10px] tracking-[0.5em] text-purple-400/80 uppercase font-medium">Localizacao</span>
-            <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #E90083)' }} />
+            <Zap
+              size={16}
+              className="text-purple-400"
+              style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #7A00FF)' }}
+            />
+            <span className="text-[10px] tracking-[0.5em] text-purple-400/80 uppercase font-medium">
+              Localizacao
+            </span>
+            <Zap
+              size={16}
+              className="text-magenta-400"
+              style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #E90083)' }}
+            />
           </div>
+
           <h2 className="text-3xl sm:text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-ivory uppercase tracking-tight">
             COMO{' '}
             <span
@@ -85,8 +96,7 @@ const MapSection = memo(function MapSection() {
               <iframe
                 title="Local do evento"
                 src={mapSrc}
-                width="100%"
-                height="100%"
+                className="absolute inset-0 block w-full h-full border-0"
                 allowFullScreen
                 loading="lazy"
               />
@@ -105,7 +115,7 @@ const MapSection = memo(function MapSection() {
               {
                 icon: Clock,
                 label: 'HORÁRIO',
-                accent: '#245CFF',
+                accent: '#9B61FF',
                 content: time,
               },
             ].map(({ icon: Icon, label, accent, content }, i) => (
@@ -134,6 +144,7 @@ const MapSection = memo(function MapSection() {
                     >
                       <Icon size={18} style={{ color: accent }} className="sm:!size-5" />
                     </div>
+
                     <div>
                       <div
                         className="text-[9px] sm:text-[10px] tracking-[0.3em] uppercase mb-1.5 sm:mb-2 font-bold"
@@ -141,7 +152,10 @@ const MapSection = memo(function MapSection() {
                       >
                         {label}
                       </div>
-                      <div className="text-ivory/70 text-xs sm:text-sm sm:text-base leading-relaxed">{content}</div>
+
+                      <div className="text-ivory/70 text-xs sm:text-sm sm:text-base leading-relaxed">
+                        {content}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -171,10 +185,17 @@ const MapSection = memo(function MapSection() {
                   >
                     <Car size={18} className="text-purple-400 sm:!size-5" />
                   </div>
-                  <div className="text-[9px] sm:text-[10px] tracking-widest text-purple-400/70 uppercase mb-1 sm:mb-1.5 font-medium">Estacionamento</div>
-                  <div className="text-ivory/50 text-xs sm:text-sm">{isComingSoon ? COMING_SOON : 'Disponivel no local'}</div>
+
+                  <div className="text-[9px] sm:text-[10px] tracking-widest text-purple-400/70 uppercase mb-1 sm:mb-1.5 font-medium">
+                    Estacionamento
+                  </div>
+
+                  <div className="text-ivory/50 text-xs sm:text-sm">
+                    {isComingSoon ? COMING_SOON : 'Disponivel no local'}
+                  </div>
                 </div>
               </motion.div>
+
               <motion.div
                 initial={{ opacity: 0, y: isMobile ? 0 : 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -185,20 +206,26 @@ const MapSection = memo(function MapSection() {
                   className="rounded-2xl p-4 sm:p-6 h-full"
                   style={{
                     background: 'rgba(9, 2, 15, 0.6)',
-                    border: '1px solid rgba(36, 92, 255, 0.15)',
+                    border: '1px solid rgba(155, 97, 255, 0.15)',
                   }}
                 >
                   <div
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-3 sm:mb-4"
                     style={{
                       background: 'rgba(36, 92, 255, 0.15)',
-                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(36, 92, 255, 0.3)',
+                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(155, 97, 255, 0.3)',
                     }}
                   >
-                    <Train size={18} className="text-blue-400 sm:!size-5" />
+                    <Train size={18} className="text-purple-400 sm:!size-5" />
                   </div>
-                  <div className="text-[9px] sm:text-[10px] tracking-widest text-blue-400/70 uppercase mb-1 sm:mb-1.5 font-medium">Acesso</div>
-                  <div className="text-ivory/50 text-xs sm:text-sm">{isComingSoon ? COMING_SOON : 'Seguir instruçoes no local'}</div>
+
+                  <div className="text-[9px] sm:text-[10px] tracking-widest text-purple-400/70 uppercase mb-1 sm:mb-1.5 font-medium">
+                    Acesso
+                  </div>
+
+                  <div className="text-ivory/50 text-xs sm:text-sm">
+                    {isComingSoon ? COMING_SOON : 'Seguir instruçoes no local'}
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -228,12 +255,23 @@ const MapSection = memo(function MapSection() {
                   >
                     <Calendar size={16} className="text-white sm:!size-4" />
                   </div>
-                  <div className="text-[9px] sm:text-[10px] tracking-[0.3em] text-magenta-400 uppercase font-bold">Data do Evento</div>
+
+                  <div className="text-[9px] sm:text-[10px] tracking-[0.3em] text-magenta-400 uppercase font-bold">
+                    Data do Evento
+                  </div>
                 </div>
+
                 <div className="text-2xl sm:text-3xl sm:text-4xl font-display font-bold text-ivory mb-2">
-                  {isComingSoon ? COMING_SOON : (weekday && day && monthName ? `${weekday}, ${day} de ${monthName}` : COMING_SOON)}
+                  {isComingSoon
+                    ? COMING_SOON
+                    : weekday && day && monthName
+                      ? `${weekday}, ${day} de ${monthName}`
+                      : COMING_SOON}
                 </div>
-                <div className="text-ivory/40 text-xs sm:text-sm tracking-widest">{isComingSoon ? COMING_SOON : (event?.event_time || '--H')}</div>
+
+                <div className="text-ivory/40 text-xs sm:text-sm tracking-widest">
+                  {isComingSoon ? COMING_SOON : (event?.event_time || '--H')}
+                </div>
               </div>
             </motion.div>
           </div>

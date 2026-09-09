@@ -119,10 +119,12 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
         setCouponError('Cupom inválido ou não encontrado.');
         return;
       }
+
       if (data.max_uses !== null && data.used_count >= data.max_uses) {
         setCouponError('Este cupom já atingiu o limite de usos.');
         return;
       }
+
       setAppliedCoupon({
         id: data.id,
         code: data.code,
@@ -172,12 +174,12 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
         // Free order: approve immediately via secure RPC, skip QR code
         const { error: approveError } = await supabase
           .rpc('approve_free_order', { order_id: order.id });
+
         if (approveError) throw approveError;
 
-        void supabase
-          .rpc('increment_coupon_usage', { coupon_id: appliedCoupon!.id })
-          .then(() => {})
-          .catch(() => {});
+        void Promise.resolve(
+          supabase.rpc('increment_coupon_usage', { coupon_id: appliedCoupon!.id })
+        ).catch(() => {});
 
         handleClose();
         // Navigate to payment page which will auto-redirect to ticket once approved
@@ -196,15 +198,16 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
       });
 
       if (!res.ok) {
-        const errBody = await res.json().catch(() => ({ error: 'Erro ao processar pagamento.' }));
+        const errBody = await res.json().catch(() => ({
+          error: 'Erro ao processar pagamento.',
+        }));
         throw new Error(errBody.error ?? 'Erro ao processar pagamento.');
       }
 
       if (appliedCoupon) {
-        void supabase
-          .rpc('increment_coupon_usage', { coupon_id: appliedCoupon.id })
-          .then(() => {})
-          .catch(() => {});
+        void Promise.resolve(
+          supabase.rpc('increment_coupon_usage', { coupon_id: appliedCoupon.id })
+        ).catch(() => {});
       }
 
       handleClose();
@@ -242,7 +245,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
             </motion.div>
 
             {/* Divider */}
-            <div className="my-6 sm:my-8 flex items-center gap-4">
+            <div className="my-6 sm:my-8 flex items-center gap-4" aria-hidden="true">
               <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
               <User size={14} className="text-purple-500/40" />
               <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
@@ -352,17 +355,31 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
 
               {appliedCoupon ? (
                 <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${free ? 'border-yellow-500/40 bg-yellow-500/10' : 'border-emerald-500/30 bg-emerald-500/10'}`}>
-                  {free ? <Gift size={14} className="text-yellow-400 shrink-0" /> : <Check size={14} className="text-emerald-400 shrink-0" />}
+                  {free ? (
+                    <Gift size={14} className="text-yellow-400 shrink-0" />
+                  ) : (
+                    <Check size={14} className="text-emerald-400 shrink-0" />
+                  )}
+
                   <div className="flex-1">
                     <span className={`font-mono text-sm font-semibold tracking-wider ${free ? 'text-yellow-400' : 'text-emerald-400'}`}>
                       {appliedCoupon.code}
                     </span>
+
                     <span className={`ml-2 text-xs ${free ? 'text-yellow-400/80 font-semibold' : 'text-emerald-400/70'}`}>
-                      {free ? '— GRÁTIS' : `- ${appliedCoupon.discount_type === 'percent'
-                        ? `${appliedCoupon.discount_value}%`
-                        : appliedCoupon.discount_value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`}
+                      {free
+                        ? '— GRÁTIS'
+                        : `- ${
+                            appliedCoupon.discount_type === 'percent'
+                              ? `${appliedCoupon.discount_value}%`
+                              : appliedCoupon.discount_value.toLocaleString('pt-BR', {
+                                  style: 'currency',
+                                  currency: 'BRL',
+                                })
+                          }`}
                     </span>
                   </div>
+
                   <button
                     type="button"
                     onClick={handleRemoveCoupon}
@@ -372,23 +389,34 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                   </button>
                 </div>
               ) : (
-                <div className="flex gap-2">
+                <div className="flex w-full min-w-0 gap-2">
                   <input
                     ref={couponInputRef}
                     value={couponInput}
-                    onChange={(e) => { setCouponInput(e.target.value.toUpperCase()); setCouponError(''); }}
-                    onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleApplyCoupon())}
+                    onChange={(e) => {
+                      setCouponInput(e.target.value.toUpperCase());
+                      setCouponError('');
+                    }}
+                    onKeyDown={(e) =>
+                      e.key === 'Enter' &&
+                      (e.preventDefault(), handleApplyCoupon())
+                    }
                     placeholder="CÓDIGO DO CUPOM"
-                    className="input-premium flex-1 rounded-xl px-4 py-3 text-sm text-white outline-none uppercase placeholder:normal-case placeholder:tracking-normal tracking-widest"
+                    className="input-premium w-0 min-w-0 flex-1 rounded-xl px-4 py-3 text-sm text-white outline-none uppercase placeholder:normal-case placeholder:tracking-normal tracking-widest"
                     maxLength={20}
                   />
+
                   <button
                     type="button"
                     onClick={handleApplyCoupon}
                     disabled={!couponInput.trim() || couponLoading}
-                    className="px-4 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm font-medium transition-colors hover:bg-emerald-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 shrink-0"
+                    className="shrink-0 px-4 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm font-medium transition-colors hover:bg-emerald-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2"
                   >
-                    {couponLoading ? <Loader2 size={14} className="animate-spin" /> : <Tag size={13} />}
+                    {couponLoading ? (
+                      <Loader2 size={14} className="animate-spin" />
+                    ) : (
+                      <Tag size={13} />
+                    )}
                     Aplicar
                   </button>
                 </div>
@@ -406,12 +434,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
               <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className={`mb-6 p-4 sm:p-5 rounded-xl border ${free ? 'border-yellow-500/25' : 'border-purple-500/20'}`}
-                style={{
-                  background: free
-                    ? 'linear-gradient(135deg, rgba(234, 179, 8, 0.08), rgba(251, 146, 60, 0.08))'
-                    : 'linear-gradient(135deg, rgba(212, 132, 46, 0.08), rgba(255, 140, 46, 0.08))',
-                }}
+                className={`mb-6 p-4 sm:p-5 rounded-xl border ${free ? 'border-yellow-500/25 bg-yellow-500/5' : 'border-magenta-500/20 bg-magenta-500/5'}`}
               >
                 <div className="flex items-center justify-between">
                   <div>
@@ -421,12 +444,17 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                     </div>
                     <div className="text-sm text-white/60">1 ingresso</div>
                   </div>
+
                   <div className="text-right">
                     {appliedCoupon && (
                       <div className="text-xs text-white/30 line-through mb-0.5">
-                        {selectedLot.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                        {selectedLot.price.toLocaleString('pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL',
+                        })}
                       </div>
                     )}
+
                     {free ? (
                       <div className="flex items-center gap-2">
                         <Gift size={16} className="text-yellow-400" />
@@ -434,9 +462,13 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                       </div>
                     ) : (
                       <div className="font-playfair text-2xl text-gradient-primary">
-                        {finalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                        {finalPrice.toLocaleString('pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL',
+                        })}
                       </div>
                     )}
+
                     <div className="text-[10px] text-white/30 flex items-center gap-1 mt-1">
                       {free ? (
                         <>

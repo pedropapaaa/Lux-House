@@ -4,7 +4,6 @@ import {
   CalendarClock, Clock, Plus, Trash2, Edit3, ChevronUp, ChevronDown,
   Radio, Megaphone, Image as ImageIcon, Save, X, AlertTriangle,
 } from 'lucide-react';
-import { useEventContext } from '../../context/EventContext';
 import { useUpdateEvent } from '../../hooks/useEvents';
 import {
   useEventSchedule, useCreateScheduleItem, useUpdateScheduleItem, useDeleteScheduleItem, useReorderSchedule,
@@ -41,7 +40,6 @@ function SectionCard({ icon: Icon, title, children }: { icon: React.ElementType;
 }
 
 export default function PlanningModal({ open, onClose, event }: { open: boolean; onClose: () => void; event: Event | null }) {
-  const { selectedEventId } = useEventContext();
   const updateMut = useUpdateEvent();
   const { data: schedule = [], isLoading: scheduleLoading } = useEventSchedule(event?.id ?? '');
   const createScheduleMut = useCreateScheduleItem(event?.id ?? '');
@@ -183,7 +181,7 @@ export default function PlanningModal({ open, onClose, event }: { open: boolean;
   ];
 
   return (
-    <Modal open={open} onClose={onClose} title={`Planejamento — ${event.name}`} maxWidth="2xl">
+    <Modal open={open} onClose={onClose} title={`Planejamento — ${event.name}`} maxWidth="xl">
       <div className="p-6">
         {/* Tabs */}
         <div className="flex gap-2 mb-6 border-b border-white/5 pb-3 overflow-x-auto">

@@ -49,13 +49,13 @@ export function Modal({ open, onClose, title, children, maxWidth = 'lg' }: Modal
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className={`relative w-full ${widths[maxWidth]} glass-card rounded-2xl overflow-hidden`}
+            className={`relative w-full ${widths[maxWidth]} glass-card rounded-2xl overflow-hidden border-white/10 shadow-2xl`}
           >
             {/* Header */}
             {title && (
-              <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
+              <div className="flex items-center justify-between px-6 py-5 sm:px-7 border-b border-white/8">
                 <div>
-                  <h2 className="font-playfair text-xl text-white">{title}</h2>
+                  <h2 className="font-luxe text-2xl font-semibold text-white">{title}</h2>
                   <div className="h-0.5 w-12 bg-gradient-to-r from-purple-500 to-pink-500 mt-2 rounded-full" />
                 </div>
                 <motion.button

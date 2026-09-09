@@ -6,7 +6,7 @@ import { usePublicEvent } from '../../hooks/usePublicEvent';
 export default function AnnouncementsSection() {
   const { data: event } = usePublicEvent();
   const imageUrl = event?.banner_url || '/images/sunset_o_melhor copy.png';
-  const [imgRatio, setImgRatio] = useState<number | null>(null);
+  const [imgRatio, setImgRatio] = useState<string | null>(null);
 
   return (
     <section id="avisos" className="relative py-12 sm:py-20 px-4 sm:px-6 bg-dark-950 overflow-hidden grain-overlay">

@@ -11,7 +11,7 @@ const removeBoltWatermark = () => {
   const candidates = document.querySelectorAll('div[style*="position: fixed"][style*="bottom"][style*="right"][style*="z-index"]');
   
   candidates.forEach(el => {
-    const text = el.innerText || '';
+    const text = (el as HTMLElement).innerText || '';
     const hasBoltText = text.toLowerCase().includes('bolt') || text.toLowerCase().includes('built with');
     const hasBoltIcon = el.querySelector('svg') && el.querySelector('a[href*="bolt.new"]');
 
@@ -24,7 +24,7 @@ const removeBoltWatermark = () => {
   // 2. Remover por classes Tailwind comuns
   const tailwindCandidates = document.querySelectorAll('.fixed.bottom-4.right-4, .fixed.bottom-2.right-2, .absolute.bottom-4.right-4');
   tailwindCandidates.forEach(el => {
-    if (el.innerText.toLowerCase().includes('bolt') || el.querySelector('a[href*="bolt.new"]')) {
+    if ((el as HTMLElement).innerText.toLowerCase().includes('bolt') || el.querySelector('a[href*="bolt.new"]')) {
       el.remove();
     }
   });

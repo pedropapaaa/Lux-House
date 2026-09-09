@@ -89,7 +89,7 @@ function TicketResultCard({
               <div className="font-mono text-gold-400 text-sm tracking-widest font-medium">{ticket.code}</div>
             </div>
           </div>
-          <Badge variant={wasUsed ? 'red' : justCheckedIn ? 'green' : 'gold'}>
+          <Badge variant={wasUsed ? 'red' : justCheckedIn ? 'green' : 'pink'}>
             {wasUsed ? 'Utilizado' : justCheckedIn ? 'Check-in OK' : 'Válido'}
           </Badge>
         </div>
