@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mic2, Users, Music, Award, Flame } from 'lucide-react';
+import { Mic2, Users, Star, Music, Award, Flame } from 'lucide-react';
 
 const stats = [
   { icon: Flame, label: 'Anos de Fogo', value: '12+', accent: '#E90083' },

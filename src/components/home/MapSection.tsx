@@ -11,6 +11,8 @@ const MapSection = memo(function MapSection() {
   const { data: event } = usePublicEvent();
 
   const isComingSoon = event?.status === 'coming_soon';
+  const isEnded = event?.status === 'ended';
+
   const location = event?.location || (isComingSoon ? COMING_SOON : 'Rod. Edenor João Tasca, 980, Vinhedo - SP');
   const time = event?.event_time || (isComingSoon ? COMING_SOON : '21h00 - 03h30');
 

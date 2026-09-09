@@ -443,19 +443,6 @@
 
 /* Mobile Performance Optimizations */
 @media (max-width: 768px) {
-  /* Keep the event experience compact and readable on small screens */
-  section {
-    scroll-margin-top: 72px;
-  }
-
-  h1, h2, h3 {
-    overflow-wrap: anywhere;
-  }
-
-  iframe {
-    max-width: 100%;
-  }
-
   /* Reduce blur effects - very expensive on mobile */
   .glass-card {
     backdrop-filter: blur(8px);

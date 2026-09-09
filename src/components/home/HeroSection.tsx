@@ -207,22 +207,32 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
           <div className="text-center lg:text-left">
             {/* Main headline */}
             <motion.div variants={itemVariant} className="mb-4">
-              <h1 className="font-display font-extrabold text-ivory leading-[0.95] tracking-tight">
+              <h1 className="font-display font-extrabold text-ivory leading-[0.88] tracking-tight break-words">
                 <span
-                  className="block uppercase whitespace-nowrap"
+                  className="block uppercase"
                   style={{
-                    fontSize: 'clamp(2rem, 8vw, 5rem)',
-                    letterSpacing: '-0.03em',
-                    background: 'linear-gradient(135deg, #F8F4FF 0%, #B970FF 30%, #7A00FF 60%, #E90083 100%)',
+                    fontSize: 'clamp(3rem, 15vw, 10rem)',
+                    letterSpacing: '-0.04em',
+                    textShadow: isMobile ? 'none' : '0 0 60px rgba(122,0,255,0.2), 0 0 120px rgba(233,0,131,0.1)',
+                    lineHeight: '0.88',
+                  }}
+                >
+                  {headline.split(' ')[0]}
+                </span>
+                <span
+                  className="block uppercase"
+                  style={{
+                    fontSize: 'clamp(3rem, 15vw, 10rem)',
+                    letterSpacing: '-0.04em',
+                    background: 'linear-gradient(135deg, #7A00FF 0%, #E90083 30%, #FF2BA6 60%, #7A00FF 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
-                    textShadow: isMobile ? 'none' : '0 0 60px rgba(122,0,255,0.2), 0 0 120px rgba(233,0,131,0.1)',
-                    filter: isMobile ? 'none' : 'drop-shadow(0 0 35px rgba(233, 0, 131, 0.6)) drop-shadow(0 0 70px rgba(122, 0, 255, 0.2))',
-                    lineHeight: '0.95',
+                    filter: isMobile ? 'none' : 'drop-shadow(0 0 35px rgba(233, 0, 131, 0.8)) drop-shadow(0 0 70px rgba(122, 0, 255, 0.3))',
+                    lineHeight: '0.88',
                   }}
                 >
-                  {headline}
+                  {headline.split(' ').slice(1).join(' ') || 'SUNSET'}
                 </span>
               </h1>
               {/* Decorative underline — neon glow */}
