@@ -1,0 +1,1 @@
+import{r as n}from"./vendor-react-DhfxZCml.js";function o(){const[i,t]=n.useState(r);return n.useEffect(()=>{const e=()=>t(window.innerWidth<768);return e(),window.addEventListener("resize",e,{passive:!0}),()=>window.removeEventListener("resize",e)},[]),i}function r(){return typeof window=="undefined"?!1:window.innerWidth<768}export{o as u};

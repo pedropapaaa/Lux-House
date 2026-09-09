@@ -1,0 +1,8 @@
+[functions.create-payment]
+verify_jwt = false
+
+[functions.mp-webhook]
+verify_jwt = false
+
+[functions.resend-ticket]
+verify_jwt = true
