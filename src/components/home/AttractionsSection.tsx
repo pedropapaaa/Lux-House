@@ -29,7 +29,7 @@ const AttractionsSection = memo(function AttractionsSection() {
         artist: s.title,
         genre: s.description || '',
         description: s.description || '',
-        image: event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
+        image: s.title === 'DJ Rayder' ? 'https://images.pexels.com/photos/5949086/pexels-photo-5949086.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
         accent: ['#7A00FF', '#E90083', '#FF2BA6'][i % 3],
         badge: i === 0 ? 'DESTAQUE' : null,
       }));
