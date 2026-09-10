@@ -30,11 +30,12 @@ export default function ParticipantsPage() {
           id, code, buyer_name, buyer_email, lot_name, is_used, used_at, created_at,
           orders!inner ( event_id, buyer_last_name, buyer_city, total_amount, created_at, payment_status )
         `)
-        .or(`event_id.eq.${selectedEventId},orders.event_id.eq.${selectedEventId}`)
+        .eq('orders.event_id', selectedEventId)
         .order('created_at', { ascending: false });
       if (error) throw error;
       return data ?? [];
     },
+    enabled: !!selectedEventId,
   });
 
   const processed = useMemo(() => {
