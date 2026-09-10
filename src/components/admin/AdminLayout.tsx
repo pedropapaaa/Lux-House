@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useIsMobile } from '../../hooks/useIsMobile';
-import { EventSelector } from './EventSelector';
 
 interface NavItem {
   to: string;
@@ -137,7 +136,7 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
 
       {/* Main content */}
       <div className="flex-1 min-w-0">
-        {/* Top bar with event selector */}
+        {/* Top bar */}
         <div className="sticky top-0 z-30 bg-dark-950/96 backdrop-blur-xl border-b border-white/8 px-3 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
           {isMobile && (
             <button
@@ -147,8 +146,7 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
               {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           )}
-          <EventSelector />
-          <div className="hidden sm:block text-[10px] tracking-[0.18em] text-white/30 uppercase ml-auto">Lux Operations</div>
+          <div className="text-[10px] tracking-[0.18em] text-white/30 uppercase ml-auto">Site único · Lux Operations</div>
         </div>
 
         <main className="p-4 sm:p-6 lg:p-8 w-full max-w-[1440px] mx-auto">
