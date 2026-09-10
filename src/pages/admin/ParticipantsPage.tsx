@@ -2,15 +2,18 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   UserCheck, Search, Check, Clock, MapPin,
-  Users, ChevronLeft, ChevronRight,
+  Users, ChevronLeft, ChevronRight, DatabaseZap, LockKeyhole,
 } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '../../lib/supabase';
 import { useAdminGuard } from '../../hooks/useAdminGuard';
 import { useEventContext } from '../../context/EventContext';
 import { AdminLayout } from '../../components/admin/AdminLayout';
 import { Badge } from '../../components/ui/Badge';
 import { Spinner } from '../../components/ui/Spinner';
+import { Modal } from '../../components/ui/Modal';
+import { Input } from '../../components/ui/Input';
+import { Button } from '../../components/ui/Button';
 
 const PAGE_SIZE = 20;
 
@@ -20,6 +23,10 @@ export default function ParticipantsPage() {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<'all' | 'checked_in' | 'not_checked_in'>('all');
   const [page, setPage] = useState(1);
+  const [resetOpen, setResetOpen] = useState(false);
+  const [password, setPassword] = useState('');
+  const [resetError, setResetError] = useState('');
+  const queryClient = useQueryClient();
 
   const { data: participants = [], isLoading } = useQuery({
     queryKey: ['participants', selectedEventId],
@@ -66,6 +73,27 @@ export default function ParticipantsPage() {
   const totalCheckedIn = processed.filter((p) => p.isUsed).length;
   const totalNotCheckedIn = processed.length - totalCheckedIn;
 
+  const resetDatabase = useMutation({
+    mutationFn: async (confirmationPassword: string) => {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const email = sessionData.session?.user.email;
+      if (!email) throw new Error('Sessão administrativa não encontrada.');
+
+      const { error: authError } = await supabase.auth.signInWithPassword({ email, password: confirmationPassword });
+      if (authError) throw new Error('Senha incorreta.');
+
+      const { error: resetErrorResponse } = await supabase.rpc('reset_operational_data');
+      if (resetErrorResponse) throw new Error('Não foi possível limpar os dados.');
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries();
+      setPassword('');
+      setResetError('');
+      setResetOpen(false);
+    },
+    onError: (error: Error) => setResetError(error.message),
+  });
+
   if (loading) {
     return <div className="min-h-screen bg-dark-950 flex items-center justify-center"><Spinner size={48} /></div>;
   }
@@ -77,6 +105,16 @@ export default function ParticipantsPage() {
         <StatCard icon={Users} label="Total" value={String(processed.length)} color="purple" />
         <StatCard icon={Check} label="Entraram" value={String(totalCheckedIn)} color="emerald" />
         <StatCard icon={Clock} label="Faltam entrar" value={String(totalNotCheckedIn)} color="amber" />
+      </div>
+
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 p-4 rounded-2xl border border-red-500/15 bg-red-500/5">
+        <div>
+          <p className="text-sm text-white/75 flex items-center gap-2"><DatabaseZap size={15} className="text-red-300" /> Limpeza operacional</p>
+          <p className="text-xs text-white/35 mt-1">Apaga participantes, pedidos e operações financeiras.</p>
+        </div>
+        <Button variant="danger" size="sm" onClick={() => { setResetError(''); setPassword(''); setResetOpen(true); }}>
+          <LockKeyhole size={14} /> Limpar banco
+        </Button>
       </div>
 
       {/* Filters */}
@@ -173,6 +211,20 @@ export default function ParticipantsPage() {
           )}
         </div>
       )}
+      <Modal open={resetOpen} onClose={() => !resetDatabase.isPending && setResetOpen(false)} title="Limpar dados operacionais" maxWidth="sm">
+        <div className="p-6 space-y-4">
+          <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20">
+            <p className="text-sm text-red-300 font-medium">Esta ação não pode ser desfeita.</p>
+            <p className="text-xs text-white/45 mt-1">Todos os participantes, pedidos, ingressos, transações, caixa, vendas de bar e histórico operacional serão removidos.</p>
+          </div>
+          <Input label="Digite sua senha administrativa para confirmar" type="password" value={password} onChange={(event) => { setPassword(event.target.value); setResetError(''); }} autoComplete="current-password" />
+          {resetError && <p className="text-sm text-red-400">{resetError}</p>}
+          <div className="flex gap-3">
+            <Button variant="ghost" onClick={() => setResetOpen(false)} disabled={resetDatabase.isPending} className="flex-1">Cancelar</Button>
+            <Button variant="danger" onClick={() => resetDatabase.mutate(password)} loading={resetDatabase.isPending} disabled={password.length < 6} className="flex-1">Confirmar limpeza</Button>
+          </div>
+        </div>
+      </Modal>
     </AdminLayout>
   );
 }

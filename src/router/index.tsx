@@ -16,6 +16,7 @@ const FinanceiroPage = lazy(() => import('../pages/admin/FinanceiroPage'));
 const AuditoriaPage = lazy(() => import('../pages/admin/AuditoriaPage'));
 const LivePanel     = lazy(() => import('../pages/admin/LivePanel'));
 const ParticipantsPage = lazy(() => import('../pages/admin/ParticipantsPage'));
+const EventEditPage = lazy(() => import('../pages/admin/EventEditPage'));
 const EobrainIAPage  = lazy(() => import('../pages/admin/EobrainIAPage'));
 
 // Simple loader without framer-motion for faster initial render
@@ -44,6 +45,7 @@ export const router = createBrowserRouter([
   { path: '/admin',              element: wrap(<AdminLogin />) },
   { path: '/admin/dashboard',    element: wrap(<AdminDashboard />) },
   { path: '/admin/participantes', element: wrap(<ParticipantsPage />) },
+  { path: '/admin/evento',       element: wrap(<EventEditPage />) },
   { path: '/admin/checkin',      element: wrap(<CheckinLite />) },
   { path: '/admin/live',         element: wrap(<LivePanel />) },
   { path: '/admin/financeiro',   element: wrap(<FinanceiroPage />) },
