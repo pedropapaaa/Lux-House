@@ -164,7 +164,7 @@ Deno.serve(async (req: Request) => {
     // Fetch order
     const { data: order } = await supabase
       .from("orders")
-      .select("*, lots(*)")
+      .select("*, lots(*), events(*)")
       .eq("id", orderId)
       .maybeSingle();
 
@@ -210,9 +210,10 @@ Deno.serve(async (req: Request) => {
 
       if (!ticketCode) ticketCode = `RLIO-${Date.now()}`;
 
-      const eventDate = "Sabádo, 18 de Julho de 2025";
-      const eventTime = "21h00 — 03h30";
-      const eventLocation = "Vinhedo — São Paulo, SP";
+      const event = order.events as { event_date?: string | null; event_time?: string | null; location?: string | null } | null;
+      const eventDate = event?.event_date ?? "Data do evento";
+      const eventTime = event?.event_time ?? "Consulte os detalhes do evento";
+      const eventLocation = event?.location ?? "Vinhedo — São Paulo, SP";
 
       // Insert ticket
       await supabase.from("tickets").insert({
@@ -224,6 +225,7 @@ Deno.serve(async (req: Request) => {
         event_date: eventDate,
         event_time: eventTime,
         event_location: eventLocation,
+        event_id: order.event_id,
       });
 
       // Send email

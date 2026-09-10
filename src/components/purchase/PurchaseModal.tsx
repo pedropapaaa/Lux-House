@@ -163,6 +163,8 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
           buyer_email: data.email,
           quantity: 1,
           total_amount: finalPrice,
+          coupon_id: appliedCoupon?.id ?? null,
+          discount_amount: selectedLot.price - finalPrice,
           payment_status: 'pending',
         })
         .select()
@@ -177,9 +179,11 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
 
         if (approveError) throw approveError;
 
-        void Promise.resolve(
-          supabase.rpc('increment_coupon_usage', { coupon_id: appliedCoupon!.id })
-        ).catch(() => {});
+        if (appliedCoupon) {
+          void Promise.resolve(
+            supabase.rpc('increment_coupon_usage', { coupon_id: appliedCoupon.id })
+          ).catch(() => {});
+        }
 
         handleClose();
         // Navigate to payment page which will auto-redirect to ticket once approved

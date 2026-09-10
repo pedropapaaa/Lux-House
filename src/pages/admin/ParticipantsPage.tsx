@@ -28,9 +28,9 @@ export default function ParticipantsPage() {
         .from('tickets')
         .select(`
           id, code, buyer_name, buyer_email, lot_name, is_used, used_at, created_at,
-          orders!inner ( buyer_last_name, buyer_city, total_amount, created_at, payment_status )
+          orders!inner ( event_id, buyer_last_name, buyer_city, total_amount, created_at, payment_status )
         `)
-        .eq('event_id', selectedEventId)
+        .or(`event_id.eq.${selectedEventId},orders.event_id.eq.${selectedEventId}`)
         .order('created_at', { ascending: false });
       if (error) throw error;
       return data ?? [];
