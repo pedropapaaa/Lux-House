@@ -15,7 +15,6 @@ const CheckinLite   = lazy(() => import('../pages/CheckinLite'));
 const FinanceiroPage = lazy(() => import('../pages/admin/FinanceiroPage'));
 const AuditoriaPage = lazy(() => import('../pages/admin/AuditoriaPage'));
 const LivePanel     = lazy(() => import('../pages/admin/LivePanel'));
-const EventsPage     = lazy(() => import('../pages/admin/EventsPage'));
 const ParticipantsPage = lazy(() => import('../pages/admin/ParticipantsPage'));
 const EobrainIAPage  = lazy(() => import('../pages/admin/EobrainIAPage'));
 
@@ -44,7 +43,6 @@ export const router = createBrowserRouter([
   { path: '/meus-ingressos',     element: wrap(<MyTickets />) },
   { path: '/admin',              element: wrap(<AdminLogin />) },
   { path: '/admin/dashboard',    element: wrap(<AdminDashboard />) },
-  { path: '/admin/eventos',      element: wrap(<EventsPage />) },
   { path: '/admin/participantes', element: wrap(<ParticipantsPage />) },
   { path: '/admin/checkin',      element: wrap(<CheckinLite />) },
   { path: '/admin/live',         element: wrap(<LivePanel />) },

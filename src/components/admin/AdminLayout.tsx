@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, ScanLine, DollarSign,
   Sparkles, LogOut, Menu, X, ShieldCheck, Activity,
-  CalendarDays, UserCheck, Brain,
+  UserCheck, Brain,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useIsMobile } from '../../hooks/useIsMobile';
@@ -19,7 +19,6 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { to: '/admin/dashboard', label: 'Início', description: 'Visão geral do evento.', icon: LayoutDashboard },
-  { to: '/admin/eventos', label: 'Eventos', description: 'Gerencie todos os seus eventos.', icon: CalendarDays },
   { to: '/admin/participantes', label: 'Participantes', description: 'Veja quem entrou e quem ainda falta entrar.', icon: UserCheck },
   { to: '/admin/live', label: 'Ao Vivo', description: 'Acompanhe o evento em tempo real.', icon: Activity },
   { to: '/admin/checkin', label: 'Check-in', description: 'Controle a entrada dos participantes.', icon: ScanLine },
