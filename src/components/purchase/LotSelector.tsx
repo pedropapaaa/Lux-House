@@ -36,9 +36,10 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
           const isSelected = selectedId === lot.id;
           const isUpcoming = isClosed && activeIndex !== -1 && i > activeIndex;
 
+          const isSoldOut = lot.status === 'sold_out' || (isClosed && !isUpcoming && available === 0);
           const badgeLabel =
-            lot.status === 'sold_out' || (isClosed && !isUpcoming) ? 'Esgotado'
-            : isUpcoming ? 'Em breve...' : '';
+            isSoldOut ? 'Esgotado'
+            : isUpcoming ? 'Em breve' : '';
 
           return (
             <motion.button
@@ -102,10 +103,10 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                       </span>
                       {badgeLabel && (
                         <span
-                          className={`text-[9px] px-2.5 py-1 rounded-full font-medium ${
+                          className={`text-[9px] px-2.5 py-1 rounded-full font-medium tracking-wide ${
                             isUpcoming
-                              ? 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/25'
-                              : isClosed || lot.status === 'sold_out'
+                              ? 'bg-amber-500/15 text-amber-400 border border-amber-500/25'
+                              : isSoldOut
                               ? 'bg-red-500/15 text-red-400 border border-red-500/25'
                               : 'bg-white/5 text-white/40 border border-white/5'
                           }`}
