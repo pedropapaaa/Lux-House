@@ -29,7 +29,7 @@ const AttractionsSection = memo(function AttractionsSection() {
         artist: s.title,
         genre: s.description || '',
         description: s.description || '',
-        image: s.title === 'DJ Rayder' ? 'https://images.pexels.com/photos/5949086/pexels-photo-5949086.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
+        image: s.title.toLowerCase().includes('rayder') ? '/images/image copy 2.png' : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
         accent: ['#7A00FF', '#E90083', '#FF2BA6'][i % 3],
         badge: i === 0 ? 'DESTAQUE' : null,
       }));
@@ -142,11 +142,11 @@ const AttractionsSection = memo(function AttractionsSection() {
                 )}
 
                 <div
-                  className="relative rounded-[18px] overflow-hidden border border-white/8"
+                  className="relative rounded-2xl overflow-hidden border border-white/8"
                   style={{
-                    background: 'rgba(9, 2, 15, 0.8)',
-                    border: `1px solid ${a.accent}28`,
-                    boxShadow: isMobile ? 'none' : `0 16px 40px rgba(0,0,0,0.24)`,
+                    background: 'rgba(9, 2, 15, 0.85)',
+                    border: `1px solid ${a.accent}22`,
+                    boxShadow: isMobile ? 'none' : `0 20px 50px rgba(0,0,0,0.3)`,
                   }}
                 >
                   {a.badge && (
@@ -169,15 +169,15 @@ const AttractionsSection = memo(function AttractionsSection() {
                     </motion.div>
                   )}
 
-                  <div className="relative h-48 sm:h-56 sm:h-64 lg:h-80 overflow-hidden">
+                  <div className="relative h-52 sm:h-60 sm:h-72 lg:h-80 overflow-hidden">
                     <img
                       src={a.image}
                       alt={`${a.artist}`}
                       loading="lazy"
                       decoding="async"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/40 to-transparent" />
 
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
@@ -204,20 +204,20 @@ const AttractionsSection = memo(function AttractionsSection() {
                     />
                   </div>
 
-                  <div className="p-4 sm:p-6 lg:p-8">
+                  <div className="p-5 sm:p-6 lg:p-8">
                     <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                       <div
-                        className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center"
+                        className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center"
                         style={{
-                          background: `${a.accent}15`,
-                          boxShadow: isMobile ? 'none' : `0 0 20px ${a.accent}30`,
+                          background: `${a.accent}12`,
+                          boxShadow: isMobile ? 'none' : `0 0 20px ${a.accent}25`,
                         }}
                       >
                         <Headphones size={16} style={{ color: a.accent }} className="sm:!size-4" />
                       </div>
                       <div>
                         <div
-                          className="text-[10px] tracking-widest uppercase font-bold"
+                          className="text-[10px] tracking-[0.2em] uppercase font-bold"
                           style={{ color: a.accent }}
                         >
                           {a.label}
@@ -229,14 +229,13 @@ const AttractionsSection = memo(function AttractionsSection() {
                       {a.artist}
                     </h3>
 
-                    {a.description && <p className="text-ivory/40 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">{a.description}</p>}
+                    {a.description && <p className="text-ivory/40 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5">{a.description}</p>}
 
                     <div className="flex items-center gap-3">
                       <div
-                        className="h-2 flex-1 rounded-full"
+                        className="h-1.5 flex-1 rounded-full"
                         style={{
-                          background: `linear-gradient(90deg, ${a.accent}60, transparent)`,
-                          boxShadow: isMobile ? 'none' : `0 0 10px ${a.accent}40`,
+                          background: `linear-gradient(90deg, ${a.accent}50, transparent)`,
                         }}
                       />
                       <Sparkles size={14} style={{ color: a.accent, filter: isMobile ? 'none' : `drop-shadow(0 0 4px ${a.accent})` }} />

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import HeroSection from '../components/home/HeroSection';
+import AboutSection from '../components/home/AboutSection';
 import AttractionsSection from '../components/home/AttractionsSection';
 import AnnouncementsSection from '../components/home/AnnouncementsSection';
 import MapSection from '../components/home/MapSection';
@@ -18,6 +19,7 @@ export default function Home() {
     <div className="min-h-screen bg-dark-950 text-ivory">
       <Navbar onBuyClick={openModal} />
       <HeroSection onBuyClick={openModal} />
+      <AboutSection />
       <AttractionsSection />
       <AnnouncementsSection />
       <MapSection />
