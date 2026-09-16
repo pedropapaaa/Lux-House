@@ -239,26 +239,26 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
             </motion.div>
 
             {/* Description */}
-            <motion.p variants={itemVariant} className="text-ivory/50 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-sm sm:max-w-lg mx-auto lg:mx-0">
+            <motion.p variants={itemVariant} className="text-ivory/55 text-sm sm:text-base sm:text-lg leading-relaxed sm:leading-relaxed mb-6 sm:mb-8 max-w-sm sm:max-w-md mx-auto lg:mx-0">
               {subheadline}
             </motion.p>
 
             {/* Feature icons */}
-            <motion.div variants={itemVariant} className="grid grid-cols-4 gap-2 sm:gap-4 mb-8 sm:mb-10">
+            <motion.div variants={itemVariant} className="grid grid-cols-4 gap-2 sm:gap-3 mb-8 sm:mb-10">
               {features.map(({ icon: Icon, label, sub }) => (
                 <div key={label} className="flex flex-col items-center gap-2 group">
                   <div
-                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center border border-magenta-500/20 transition-all duration-300 group-hover:border-magenta-400/50 group-hover:scale-105"
+                    className="w-11 h-11 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center border border-magenta-500/30 transition-all duration-300 group-hover:border-magenta-400/60 group-hover:scale-105"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(122, 0, 255, 0.06), rgba(233, 0, 131, 0.04))',
-                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(122, 0, 255, 0.08)',
+                      background: 'rgba(122, 0, 255, 0.08)',
+                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(122, 0, 255, 0.1)',
                     }}
                   >
                     <Icon size={18} className="text-magenta-400 group-hover:text-pink-300 transition-colors sm:!size-5" />
                   </div>
                   <div className="text-center">
-                    <div className="text-[9px] sm:text-xs font-bold text-ivory/75 uppercase tracking-wide leading-tight">{label}</div>
-                    <div className="text-[8px] sm:text-[9px] text-ivory/30 leading-tight">{sub}</div>
+                    <div className="text-[9px] sm:text-xs font-bold text-ivory/80 uppercase tracking-wide leading-tight">{label}</div>
+                    <div className="text-[8px] sm:text-[9px] text-ivory/35 leading-tight">{sub}</div>
                   </div>
                 </div>
               ))}
@@ -295,15 +295,16 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
               {!isComingSoon && !isEnded && salesEnabled && (
                 <motion.button
                   onClick={onBuyClick}
-                  className="relative w-full lg:w-auto px-8 sm:px-12 py-4 sm:py-5 text-white font-bold text-sm sm:text-base uppercase tracking-[0.2em] overflow-hidden rounded-2xl"
+                  className="relative w-full lg:w-auto px-8 sm:px-10 py-4 sm:py-5 text-white font-bold text-sm sm:text-base sm:text-lg uppercase tracking-widest overflow-hidden"
                   style={{
                     background: 'linear-gradient(135deg, #E90083, #FF2BA6)',
                     border: 'none',
-                    boxShadow: isMobile ? 'none' : '0 4px 20px rgba(233, 0, 131, 0.35), 0 0 40px rgba(255, 43, 166, 0.12)',
+                    borderRadius: '14px',
+                    boxShadow: isMobile ? 'none' : '0 0 20px rgba(233, 0, 131, 0.4), 0 0 40px rgba(255, 43, 166, 0.15)',
                   }}
                   whileHover={isMobile ? undefined : {
-                    scale: 1.02,
-                    boxShadow: '0 8px 30px rgba(233, 0, 131, 0.5), 0 0 60px rgba(255, 43, 166, 0.18)',
+                    scale: 1.03,
+                    boxShadow: '0 0 40px rgba(233, 0, 131, 0.6), 0 0 80px rgba(255, 43, 166, 0.2)',
                   }}
                   whileTap={{ scale: 0.97 }}
                 >
