@@ -268,7 +268,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
             <motion.div variants={itemVariant} className="space-y-4 sm:space-y-5">
               <div className="text-center lg:text-left">
                 <div
-                  className="font-script text-xl sm:text-2xl sm:text-3xl"
+                  className="font-display text-lg sm:text-2xl sm:text-3xl font-semibold tracking-wide"
                   style={{
                     background: 'linear-gradient(135deg, #FF2BA6, #7A00FF)',
                     WebkitBackgroundClip: 'text',
@@ -282,7 +282,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
                     ? (event?.ended_info?.final_message || 'Obrigado a todos!')
                     : isLive
                     ? 'Atração ao vivo agora!'
-                    : 'Garanta ja seu ingresso!'}
+                    : 'Garanta já seu ingresso!'}
                 </div>
               </div>
 
