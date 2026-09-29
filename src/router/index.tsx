@@ -17,6 +17,8 @@ const AuditoriaPage = lazy(() => import('../pages/admin/AuditoriaPage'));
 const LivePanel     = lazy(() => import('../pages/admin/LivePanel'));
 const ParticipantsPage = lazy(() => import('../pages/admin/ParticipantsPage'));
 const EventEditPage = lazy(() => import('../pages/admin/EventEditPage'));
+const NewEventPage = lazy(() => import('../pages/admin/NewEventPage'));
+const ArchivedEventsPage = lazy(() => import('../pages/admin/ArchivedEventsPage'));
 const EobrainIAPage  = lazy(() => import('../pages/admin/EobrainIAPage'));
 
 // Simple loader without framer-motion for faster initial render
@@ -51,4 +53,6 @@ export const router = createBrowserRouter([
   { path: '/admin/financeiro',   element: wrap(<FinanceiroPage />) },
   { path: '/admin/eobrain',      element: wrap(<EobrainIAPage />) },
   { path: '/admin/auditoria',    element: wrap(<AuditoriaPage />) },
+  { path: '/admin/novo-evento',   element: wrap(<NewEventPage />) },
+  { path: '/admin/arquivados',    element: wrap(<ArchivedEventsPage />) },
 ]);

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, ScanLine, DollarSign,
   Sparkles, LogOut, Menu, X, ShieldCheck, Activity,
-  UserCheck, Brain, CalendarDays,
+  UserCheck, Brain, CalendarDays, CalendarPlus, Archive,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useIsMobile } from '../../hooks/useIsMobile';
@@ -20,6 +20,8 @@ const navItems: NavItem[] = [
   { to: '/admin/dashboard', label: 'Início', description: 'Visão geral do evento.', icon: LayoutDashboard },
   { to: '/admin/participantes', label: 'Participantes', description: 'Veja quem entrou e quem ainda falta entrar.', icon: UserCheck },
   { to: '/admin/evento', label: 'Modificar evento', description: 'Atualize os dados do evento selecionado.', icon: CalendarDays },
+  { to: '/admin/novo-evento', label: 'Novo evento', description: 'Crie um novo evento e arquive o anterior.', icon: CalendarPlus },
+  { to: '/admin/arquivados', label: 'Eventos arquivados', description: 'Acesse eventos passados com todos os dados.', icon: Archive },
   { to: '/admin/live', label: 'Ao Vivo', description: 'Acompanhe o evento em tempo real.', icon: Activity },
   { to: '/admin/checkin', label: 'Check-in', description: 'Controle a entrada dos participantes.', icon: ScanLine },
   { to: '/admin/financeiro', label: 'Financeiro', description: 'Receitas, despesas, custos e lucros.', icon: DollarSign },
