@@ -12,8 +12,8 @@ export function Spinner({ size = 24 }: { size?: number }) {
       <motion.div
         className="absolute inset-0 rounded-full border-2 border-transparent"
         style={{
-          borderTopColor: '#ec3ca8',
-          borderRightColor: '#9b61ff',
+          borderTopColor: '#ff6a1f',
+          borderRightColor: '#ff9a1f',
         }}
         animate={{ rotate: 360 }}
         transition={{

@@ -6,45 +6,45 @@ export default {
       colors: {
         // Deep dark backgrounds
         dark: {
-          950: '#09020F',
-          900: '#0D0418',
-          800: '#150828',
-          700: '#1E0D3A',
-          600: '#2A1050',
-          500: '#361868',
-          400: '#442080',
-          300: '#52309A',
+          950: '#0A0908',
+          900: '#0F0D0B',
+          800: '#171310',
+          700: '#211B16',
+          600: '#2C241D',
+          500: '#3A2F25',
+          400: '#4B3D30',
+          300: '#5E4D3D',
         },
         // Purple neon — primary identity
         purple: {
-          300: '#B970FF',
-          400: '#9A3FFF',
-          500: '#7A00FF',
-          600: '#6800DD',
-          700: '#5600BB',
+          300: '#FFC77A',
+          400: '#FFAE47',
+          500: '#FF9A1F',
+          600: '#E08510',
+          700: '#B86A0C',
         },
         // Magenta — primary identity
         magenta: {
-          300: '#FF4FB8',
-          400: '#F01AA0',
-          500: '#E90083',
-          600: '#C80070',
-          700: '#A7005E',
+          300: '#FFA04D',
+          400: '#FF8420',
+          500: '#FF5A0F',
+          600: '#E04A0A',
+          700: '#B8400A',
         },
         // Pink vibrant — primary identity
         pink: {
-          300: '#FF6DC4',
-          400: '#FF4DB5',
-          500: '#FF2BA6',
-          600: '#DD1A8A',
-          700: '#BB0E72',
+          300: '#FFC08A',
+          400: '#FF9A4D',
+          500: '#FF7A2B',
+          600: '#E0620F',
+          700: '#B84F0A',
         },
         // Electric blue — subtle depth accent
         blue: {
-          300: '#5B8FFF',
-          400: '#3A6FFF',
-          500: '#245CFF',
-          600: '#1A47DD',
+          300: '#C4B5FD',
+          400: '#A78BFA',
+          500: '#8B5CF6',
+          600: '#7C3AED',
         },
         // Sunset orange — sunset element only
         sunset: {
@@ -55,7 +55,7 @@ export default {
           700: '#C23A12',
         },
         // Off-white
-        ivory: '#F8F4FF',
+        ivory: '#F6F1E9',
         // Semantic colors
         success: {
           400: '#4ADE80',
@@ -83,16 +83,16 @@ export default {
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       boxShadow: {
-        'neon-purple': '0 0 20px rgba(122, 0, 255, 0.35), 0 0 40px rgba(122, 0, 255, 0.12)',
-        'neon-pink': '0 0 22px rgba(255, 43, 166, 0.4), 0 0 44px rgba(255, 43, 166, 0.15)',
-        'neon-magenta': '0 0 22px rgba(233, 0, 131, 0.4), 0 0 44px rgba(233, 0, 131, 0.15)',
-        'neon-blue': '0 0 20px rgba(36, 92, 255, 0.3), 0 0 40px rgba(36, 92, 255, 0.1)',
-        'neon-sunset': '0 0 20px rgba(255, 90, 36, 0.3), 0 0 40px rgba(255, 90, 36, 0.1)',
+        'neon-purple': '0 0 20px rgba(255, 154, 31, 0.35), 0 0 40px rgba(255, 154, 31, 0.12)',
+        'neon-pink': '0 0 22px rgba(255, 122, 43, 0.4), 0 0 44px rgba(255, 122, 43, 0.15)',
+        'neon-magenta': '0 0 22px rgba(255, 90, 15, 0.4), 0 0 44px rgba(255, 90, 15, 0.15)',
+        'neon-blue': '0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1)',
+        'neon-sunset': '0 0 20px rgba(255, 90, 15, 0.3), 0 0 40px rgba(255, 90, 15, 0.1)',
         'glass': '0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
         'glass-lg': '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
         'card': '0 4px 20px rgba(0, 0, 0, 0.25)',
         'card-hover': '0 12px 40px rgba(0, 0, 0, 0.35)',
-        'premium': '0 20px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(122, 0, 255, 0.1)',
+        'premium': '0 20px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 154, 31, 0.1)',
       },
       borderRadius: {
         '2xl': '1rem',
@@ -123,14 +123,14 @@ export default {
           '100%': { left: '100%' },
         },
         'pulse-glow': {
-          '0%, 100%': { opacity: '1', boxShadow: '0 0 20px rgba(255, 43, 166, 0.3)' },
-          '50%': { opacity: '0.85', boxShadow: '0 0 40px rgba(255, 43, 166, 0.5)' },
+          '0%, 100%': { opacity: '1', boxShadow: '0 0 20px rgba(255, 122, 43, 0.3)' },
+          '50%': { opacity: '0.85', boxShadow: '0 0 40px rgba(255, 122, 43, 0.5)' },
         },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'gradient-premium': 'linear-gradient(135deg, rgba(122, 0, 255, 0.1), rgba(233, 0, 131, 0.1))',
+        'gradient-premium': 'linear-gradient(135deg, rgba(255, 154, 31, 0.1), rgba(255, 90, 15, 0.1))',
       },
       transitionTimingFunction: {
         'premium': 'cubic-bezier(0.4, 0, 0.2, 1)',

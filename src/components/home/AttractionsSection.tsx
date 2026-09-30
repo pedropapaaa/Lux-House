@@ -30,7 +30,7 @@ const AttractionsSection = memo(function AttractionsSection() {
         genre: s.description || '',
         description: s.description || '',
         image: s.title === 'DJ Rayder' ? 'https://images.pexels.com/photos/5949086/pexels-photo-5949086.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
-        accent: ['#7A00FF', '#E90083', '#FF2BA6'][i % 3],
+        accent: ['#FF9A1F', '#FF5A0F', '#FF7A2B'][i % 3],
         badge: i === 0 ? 'DESTAQUE' : null,
       }));
 
@@ -55,16 +55,16 @@ const AttractionsSection = memo(function AttractionsSection() {
           className="text-center mb-10 sm:mb-16 lg:mb-20"
         >
           <div className="flex items-center justify-center gap-4 mb-5">
-            <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #E90083)' }} />
+            <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF5A0F)' }} />
             <span className="text-[10px] tracking-[0.5em] text-magenta-400/80 uppercase font-medium">Programacao</span>
-            <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #7A00FF)' }} />
+            <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF9A1F)' }} />
           </div>
           <h2 className="text-3xl sm:text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-ivory uppercase tracking-tight mb-3 sm:mb-4">
             ATRAÇÕES{' '}
             <span
               className="block"
               style={{
-                background: 'linear-gradient(135deg, #7A00FF 0%, #E90083 40%, #FF2BA6 100%)',
+                background: 'linear-gradient(135deg, #FF9A1F 0%, #FF5A0F 40%, #FF7A2B 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -144,7 +144,7 @@ const AttractionsSection = memo(function AttractionsSection() {
                 <div
                   className="relative rounded-[18px] overflow-hidden border border-white/8"
                   style={{
-                    background: 'rgba(9, 2, 15, 0.8)',
+                    background: 'rgba(10, 9, 8, 0.8)',
                     border: `1px solid ${a.accent}28`,
                     boxShadow: isMobile ? 'none' : `0 16px 40px rgba(0,0,0,0.24)`,
                   }}
@@ -188,7 +188,7 @@ const AttractionsSection = memo(function AttractionsSection() {
                       <div
                         className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl"
                         style={{
-                          background: 'rgba(9, 2, 15, 0.8)',
+                          background: 'rgba(10, 9, 8, 0.8)',
                           border: `1px solid ${a.accent}40`,
                           boxShadow: isMobile ? 'none' : `0 0 25px ${a.accent}30`,
                         }}

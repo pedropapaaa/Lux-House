@@ -35,7 +35,7 @@ const faqs = [
 ];
 
 function FAQItem({ q, a, isOpen, onToggle, index }: { q: string; a: string; isOpen: boolean; onToggle: () => void; index: number }) {
-  const accent = index % 2 === 0 ? '#9B61FF' : '#E90083';
+  const accent = index % 2 === 0 ? '#ff9a1f' : '#FF5A0F';
 
   return (
     <motion.div
@@ -49,13 +49,13 @@ function FAQItem({ q, a, isOpen, onToggle, index }: { q: string; a: string; isOp
         <div className="flex items-start gap-3 sm:gap-4">
           <div
             className="shrink-0 mt-0.5 transition-all duration-300"
-            style={{ color: isOpen ? accent : 'rgba(248,244,255,0.2)' }}
+            style={{ color: isOpen ? accent : 'rgba(246, 241, 233,0.2)' }}
           >
             <HelpCircle size={16} className="sm:!size-4" />
           </div>
           <span
             className="text-xs sm:text-sm sm:text-base transition-colors duration-300"
-            style={{ color: isOpen ? '#F8F4FF' : 'rgba(248,244,255,0.65)' }}
+            style={{ color: isOpen ? '#F6F1E9' : 'rgba(246, 241, 233,0.65)' }}
           >
             {q}
           </span>
@@ -63,7 +63,7 @@ function FAQItem({ q, a, isOpen, onToggle, index }: { q: string; a: string; isOp
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
-          style={{ color: isOpen ? accent : 'rgba(248,244,255,0.25)' }}
+          style={{ color: isOpen ? accent : 'rgba(246, 241, 233,0.25)' }}
         >
           <ChevronDown size={18} className="sm:!size-5" />
         </motion.div>
@@ -115,15 +115,15 @@ const FAQSection = memo(function FAQSection() {
           className="text-center mb-10 sm:mb-14 lg:mb-20"
         >
           <div className="flex items-center justify-center gap-4 mb-5">
-            <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #E90083)' }} />
+            <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF5A0F)' }} />
             <span className="text-[10px] tracking-[0.5em] text-magenta-400/80 uppercase font-medium">Duvidas</span>
-            <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #7A00FF)' }} />
+            <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF9A1F)' }} />
           </div>
           <h2 className="text-3xl sm:text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-ivory uppercase tracking-tight">
             PERGUNTAS{' '}
             <span
               style={{
-                background: 'linear-gradient(135deg, #7A00FF 0%, #E90083 40%, #FF2BA6 100%)',
+                background: 'linear-gradient(135deg, #FF9A1F 0%, #FF5A0F 40%, #FF7A2B 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -141,9 +141,9 @@ const FAQSection = memo(function FAQSection() {
           transition={{ delay: isMobile ? 0 : 0.2 }}
           className="rounded-2xl overflow-hidden"
           style={{
-            background: 'rgba(9, 2, 15, 0.6)',
-            border: '1px solid rgba(122, 0, 255, 0.15)',
-            boxShadow: isMobile ? 'none' : '0 0 40px rgba(122, 0, 255, 0.1)',
+            background: 'rgba(10, 9, 8, 0.6)',
+            border: '1px solid rgba(255, 154, 31, 0.15)',
+            boxShadow: isMobile ? 'none' : '0 0 40px rgba(255, 154, 31, 0.1)',
           }}
         >
           {faqs.map((faq, i) => (

@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Heart } from 'lucide-react';
 
 const contactInfo = [
-  { icon: MapPin, text: 'Vinhedo, SP', accent: '#7A00FF' },
-  { icon: Phone, text: '+55 (19) 97143-3837', accent: '#E90083' },
-  { icon: Mail, text: 'pedropapagames@gmail.com', accent: '#245CFF' },
+  { icon: MapPin, text: 'Vinhedo, SP', accent: '#FF9A1F' },
+  { icon: Phone, text: '+55 (19) 97143-3837', accent: '#FF5A0F' },
+  { icon: Mail, text: 'pedropapagames@gmail.com', accent: '#8B5CF6' },
 ];
 
 const footerLinks = [
@@ -47,7 +47,7 @@ export default function Footer() {
                     height={56}
                     loading="lazy"
                     className="w-11 h-11 sm:w-14 sm:h-14 object-contain rounded-full"
-                    style={{ filter: 'drop-shadow(0 0 10px rgba(122, 0, 255, 0.35))' }}
+                    style={{ filter: 'drop-shadow(0 0 10px rgba(255, 154, 31, 0.35))' }}
                   />
                 </picture>
               </motion.div>
@@ -55,7 +55,7 @@ export default function Footer() {
                 <div
                   className="font-roma text-2xl sm:text-3xl font-semibold"
                   style={{
-                    background: 'linear-gradient(135deg, #B970FF 0%, #7A00FF 50%, #E90083 100%)',
+                    background: 'linear-gradient(135deg, #FFC77A 0%, #FF9A1F 50%, #FF5A0F 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     letterSpacing: '0.08em',
@@ -139,7 +139,7 @@ export default function Footer() {
         <div className="border-t border-ivory/5 pt-6 sm:pt-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-[11px] sm:text-xs text-ivory/25 tracking-wide flex items-center gap-2">
-              Feito com <Heart size={12} className="text-magenta-500" style={{ filter: 'drop-shadow(0 0 4px #E90083)' }} /> pela Lux House
+              Feito com <Heart size={12} className="text-magenta-500" style={{ filter: 'drop-shadow(0 0 4px #FF5A0F)' }} /> pela Lux House
             </p>
             <div className="hidden md:block h-px flex-1 mx-8 max-w-xs bg-gradient-to-r from-transparent via-magenta-500/15 to-transparent" />
             <div className="flex items-center gap-3 sm:gap-4 text-[11px] sm:text-xs text-ivory/20">

@@ -44,7 +44,7 @@ export default function AnnouncementsSection() {
           {/* Subtle border glow */}
           <div
             className="absolute inset-0 rounded-2xl p-[1.5px] pointer-events-none"
-            style={{ background: 'linear-gradient(135deg, rgba(122,0,255,0.3), rgba(233,0,131,0.15), transparent)' }}
+            style={{ background: 'linear-gradient(135deg, rgba(255, 154, 31,0.3), rgba(255, 90, 15,0.15), transparent)' }}
           >
             <div className="w-full h-full rounded-2xl bg-dark-950" />
           </div>
@@ -62,7 +62,7 @@ export default function AnnouncementsSection() {
             }}
             className="relative w-full h-full object-cover rounded-2xl"
           />
-          <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(9,2,15,0.7) 100%)' }} />
+          <div className="absolute inset-0 rounded-2xl pointer-events-none" style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(10, 9, 8,0.7) 100%)' }} />
         </motion.div>
       </div>
     </section>

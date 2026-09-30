@@ -73,7 +73,7 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
               className={({ isActive }) =>
                 `flex items-start gap-3 px-4 py-3 rounded-xl text-sm transition-all duration-200 ${
                   isActive
-                    ? 'bg-magenta-500/12 text-magenta-300 border border-magenta-500/25 shadow-[inset_3px_0_0_#ec3ca8]' 
+                    ? 'bg-magenta-500/12 text-magenta-300 border border-magenta-500/25 shadow-[inset_3px_0_0_#ff6a1f]' 
                     : 'text-white/40 hover:text-white/80 hover:bg-white/5 border border-transparent'
                 }`
               }

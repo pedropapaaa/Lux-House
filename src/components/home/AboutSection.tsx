@@ -2,10 +2,10 @@ import { motion } from 'framer-motion';
 import { Mic2, Users, Music, Award, Flame } from 'lucide-react';
 
 const stats = [
-  { icon: Flame, label: 'Anos de Fogo', value: '12+', accent: '#E90083' },
-  { icon: Mic2, label: 'Shows Realizados', value: '800+', accent: '#7A00FF' },
-  { icon: Users, label: 'Capacidade', value: '500', accent: '#245CFF' },
-  { icon: Music, label: 'Artistas Parceiros', value: '200+', accent: '#FF2BA6' },
+  { icon: Flame, label: 'Anos de Fogo', value: '12+', accent: '#FF5A0F' },
+  { icon: Mic2, label: 'Shows Realizados', value: '800+', accent: '#FF9A1F' },
+  { icon: Users, label: 'Capacidade', value: '500', accent: '#8B5CF6' },
+  { icon: Music, label: 'Artistas Parceiros', value: '200+', accent: '#FF7A2B' },
 ];
 
 const fadeUp = {
@@ -44,7 +44,7 @@ export default function AboutSection() {
             <span
               className="block"
               style={{
-                background: 'linear-gradient(135deg, #7A00FF 0%, #E90083 40%, #FF2BA6 100%)',
+                background: 'linear-gradient(135deg, #FF9A1F 0%, #FF5A0F 40%, #FF7A2B 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -66,14 +66,14 @@ export default function AboutSection() {
             {/* Neon glow behind image */}
             <div
               className="absolute -inset-4 rounded-3xl opacity-30 blur-2xl"
-              style={{ background: 'linear-gradient(135deg, #7A00FF, #E90083)' }}
+              style={{ background: 'linear-gradient(135deg, #FF9A1F, #FF5A0F)' }}
             />
 
             <div className="relative rounded-2xl overflow-hidden">
               {/* Neon border */}
               <div
                 className="absolute inset-0 rounded-2xl p-[2px]"
-                style={{ background: 'linear-gradient(135deg, #7A00FF, #E90083, #245CFF)' }}
+                style={{ background: 'linear-gradient(135deg, #FF9A1F, #FF5A0F, #8B5CF6)' }}
               >
                 <div className="w-full h-full rounded-2xl bg-dark-950" />
               </div>
@@ -95,18 +95,18 @@ export default function AboutSection() {
                 transition={{ delay: 0.5 }}
                 className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 sm:right-auto sm:max-w-xs"
                 style={{
-                  background: 'rgba(9, 2, 15, 0.9)',
-                  border: '1px solid rgba(122, 0, 255, 0.3)',
+                  background: 'rgba(10, 9, 8, 0.9)',
+                  border: '1px solid rgba(255, 154, 31, 0.3)',
                   borderRadius: '16px',
-                  boxShadow: '0 0 30px rgba(122, 0, 255, 0.2)',
+                  boxShadow: '0 0 30px rgba(255, 154, 31, 0.2)',
                 }}
               >
                 <div className="p-4 sm:p-5 flex items-center gap-3 sm:gap-4">
                   <div
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0"
                     style={{
-                      background: 'linear-gradient(135deg, #7A00FF, #E90083)',
-                      boxShadow: '0 0 20px rgba(122, 0, 255, 0.4)',
+                      background: 'linear-gradient(135deg, #FF9A1F, #FF5A0F)',
+                      boxShadow: '0 0 20px rgba(255, 154, 31, 0.4)',
                     }}
                   >
                     <Award size={18} className="text-white sm:!size-5" />
@@ -132,7 +132,7 @@ export default function AboutSection() {
               Onde a noite{' '}
               <span
                 style={{
-                  background: 'linear-gradient(135deg, #7A00FF, #E90083)',
+                  background: 'linear-gradient(135deg, #FF9A1F, #FF5A0F)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
@@ -172,7 +172,7 @@ export default function AboutSection() {
                   <div
                     className="relative rounded-2xl p-4 sm:p-6 transition-all duration-300"
                     style={{
-                      background: 'rgba(9, 2, 15, 0.6)',
+                      background: 'rgba(10, 9, 8, 0.6)',
                       border: `1px solid ${accent}25`,
                     }}
                   >
@@ -189,7 +189,7 @@ export default function AboutSection() {
                       <div
                         className="text-2xl sm:text-3xl sm:text-4xl font-display font-bold"
                         style={{
-                          background: `linear-gradient(135deg, ${accent}, #F8F4FF)`,
+                          background: `linear-gradient(135deg, ${accent}, #F6F1E9)`,
                           WebkitBackgroundClip: 'text',
                           WebkitTextFillColor: 'transparent',
                         }}
