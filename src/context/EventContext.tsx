@@ -33,7 +33,8 @@ export function EventProvider({ children }: { children: ReactNode }) {
     staleTime: 1000 * 60,
   });
 
-  const selectedEvent = events.find((e) => e.id === selectedEventId) ?? events.find((e) => !e.is_archived) ?? events[0] ?? null;
+  const storedEvent = events.find((e) => e.id === selectedEventId);
+  const selectedEvent = (storedEvent && !storedEvent.is_archived) ? storedEvent : events.find((e) => !e.is_archived) ?? events[0] ?? null;
 
   useEffect(() => {
     if (selectedEvent && selectedEvent.id !== selectedEventId) {
