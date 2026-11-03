@@ -67,7 +67,7 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                   animate={{ opacity: 1 }}
                   className="absolute inset-0 rounded-xl pointer-events-none"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(212, 132, 46, 0.1), rgba(255, 140, 46, 0.1))',
+                    background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(244, 114, 182, 0.1))',
                   }}
                 />
               )}

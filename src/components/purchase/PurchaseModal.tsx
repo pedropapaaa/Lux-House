@@ -513,7 +513,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                 type="submit"
                 size="lg"
                 loading={submitting}
-                className={`w-full ${free ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 border-0' : ''}`}
+                className={`w-full ${free ? 'bg-gradient-to-r from-magenta-500 to-purple-500 hover:from-magenta-400 hover:to-purple-400 border-0' : ''}`}
               >
                 {free ? 'Confirmar Ingresso Gratuito' : 'Gerar QR Code Pix'}
               </Button>

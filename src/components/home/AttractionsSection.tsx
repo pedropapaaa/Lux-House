@@ -30,7 +30,7 @@ const AttractionsSection = memo(function AttractionsSection() {
         genre: s.description || '',
         description: s.description || '',
         image: s.title === 'DJ Rayder' ? 'https://images.pexels.com/photos/5949086/pexels-photo-5949086.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
-        accent: ['#FF9A1F', '#FF5A0F', '#FF7A2B'][i % 3],
+        accent: ['#f472b6', '#ec4899', '#a855f7'][i % 3],
         badge: i === 0 ? 'DESTAQUE' : null,
       }));
 
@@ -55,16 +55,16 @@ const AttractionsSection = memo(function AttractionsSection() {
           className="text-center mb-10 sm:mb-16 lg:mb-20"
         >
           <div className="flex items-center justify-center gap-4 mb-5">
-            <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF5A0F)' }} />
+            <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #ec4899)' }} />
             <span className="text-[10px] tracking-[0.5em] text-magenta-400/80 uppercase font-medium">Programacao</span>
-            <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF9A1F)' }} />
+            <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #f472b6)' }} />
           </div>
           <h2 className="text-3xl sm:text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-ivory uppercase tracking-tight mb-3 sm:mb-4">
             ATRAÇÕES{' '}
             <span
               className="block"
               style={{
-                background: 'linear-gradient(135deg, #FF9A1F 0%, #FF5A0F 40%, #FF7A2B 100%)',
+                background: 'linear-gradient(135deg, #f472b6 0%, #ec4899 40%, #a855f7 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}

@@ -47,7 +47,7 @@ export default function AnnouncementsSection() {
           {/* Subtle border glow */}
           <div
             className="absolute inset-0 rounded-2xl p-[1.5px] pointer-events-none"
-            style={{ background: 'linear-gradient(135deg, rgba(255, 154, 31,0.3), rgba(255, 90, 15,0.15), transparent)' }}
+            style={{ background: 'linear-gradient(135deg, rgba(244, 114, 182,0.3), rgba(236, 72, 153,0.15), transparent)' }}
           >
             <div className="w-full h-full rounded-2xl bg-dark-950" />
           </div>

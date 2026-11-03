@@ -41,7 +41,7 @@ export default function TicketDisplay({ ticket }: TicketDisplayProps) {
           <div className="relative px-5 sm:px-8 pt-8 sm:pt-10 pb-6 sm:pb-8 text-center border-b border-white/5">
             {/* Decorative dots */}
             <div className="absolute inset-0 opacity-[0.03]"
-              style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, #D4842E 1px, transparent 1px)', backgroundSize: '20px 20px' }}
+              style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, #A855F7 1px, transparent 1px)', backgroundSize: '20px 20px' }}
             />
 
             {/* Gradient overlay */}
@@ -61,11 +61,11 @@ export default function TicketDisplay({ ticket }: TicketDisplayProps) {
           {/* Ticket details */}
           <div className="px-5 sm:px-8 py-5 sm:py-6 space-y-3 sm:space-y-4">
             {[
-              { icon: User, label: 'Comprador', value: ticket.buyer_name, color: '#D4842E' },
-              { icon: TicketIcon, label: 'Lote', value: ticket.lot_name, color: '#FF8C2E' },
+              { icon: User, label: 'Comprador', value: ticket.buyer_name, color: '#A855F7' },
+              { icon: TicketIcon, label: 'Lote', value: ticket.lot_name, color: '#F472B6' },
               { icon: Calendar, label: 'Data', value: ticket.event_date, color: '#5B9BD5' },
-              { icon: Clock, label: 'Horário', value: ticket.event_time, color: '#E8A04F' },
-              { icon: MapPin, label: 'Local', value: ticket.event_location, color: '#FFB066' },
+              { icon: Clock, label: 'Horário', value: ticket.event_time, color: '#EC4899' },
+              { icon: MapPin, label: 'Local', value: ticket.event_location, color: '#F9A8D4' },
             ].map(({ icon: Icon, label, value, color }, i) => (
               <motion.div
                 key={label}

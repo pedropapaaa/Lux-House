@@ -14,7 +14,7 @@ interface BarChartProps {
 }
 
 const DEFAULT_COLORS = [
-  '#8B5CF6', '#FF5A00', '#38BDF8', '#22C55E', '#F59E0B', '#EF4444', '#A78BFA', '#FF8A33',
+  '#8B5CF6', '#EC4899', '#38BDF8', '#22C55E', '#F59E0B', '#EF4444', '#A78BFA', '#F472B6',
 ];
 
 export function BarChart({ data, formatValue, height = 200 }: BarChartProps) {
@@ -83,7 +83,7 @@ export function LineChart({ data, formatValue, height = 200 }: LineChartProps) {
           </linearGradient>
           <linearGradient id="strokeGradient" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#8B5CF6" />
-            <stop offset="100%" stopColor="#FF5A00" />
+            <stop offset="100%" stopColor="#EC4899" />
           </linearGradient>
         </defs>
         <motion.polygon
@@ -117,7 +117,7 @@ export function LineChart({ data, formatValue, height = 200 }: LineChartProps) {
               cx={x}
               cy={y}
               r="1.5"
-              fill="#FF5A00"
+              fill="#EC4899"
               vectorEffect="non-scaling-stroke"
             />
           );

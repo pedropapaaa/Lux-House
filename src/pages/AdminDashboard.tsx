@@ -359,7 +359,7 @@ export default function AdminDashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard icon={TicketIcon} label="Ingressos vendidos" description="Total de ingressos confirmados." value={String(totalSold)} gradient="bg-gradient-to-br from-purple-500 to-purple-600" isMobile={isMobile} delay={0} />
-        <StatCard icon={Clock} label="Pendentes" description="Compras aguardando pagamento." value={String(pending.length)} gradient="bg-gradient-to-br from-amber-500 to-orange-500" isMobile={isMobile} delay={0.05} />
+        <StatCard icon={Clock} label="Pendentes" description="Compras aguardando pagamento." value={String(pending.length)} gradient="bg-gradient-to-br from-magenta-500 to-purple-500" isMobile={isMobile} delay={0.05} />
         <StatCard icon={DollarSign} label="Receita total" description="Valor total arrecadado." value={fmtCurrency(totalRevenue)} gradient="bg-gradient-to-br from-emerald-500 to-green-500" isMobile={isMobile} delay={0.1} />
         <StatCard icon={BarChart3} label="Ticket médio" description="Média arrecadada por ingresso vendido." value={fmtCurrency(avgTicket)} gradient="bg-gradient-to-br from-cyan-500 to-blue-500" isMobile={isMobile} delay={0.15} />
       </div>

@@ -48,7 +48,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-[70%]"
-        style={{ background: 'radial-gradient(60% 55% at 50% 0%, rgba(255,106,19,0.28) 0%, rgba(255,106,19,0.08) 45%, transparent 75%)' }}
+        style={{ background: 'radial-gradient(60% 55% at 50% 0%, rgba(236, 72, 153,0.28) 0%, rgba(236, 72, 153,0.08) 45%, transparent 75%)' }}
       />
 
       <div className="lux-container relative pt-24 pb-28 sm:pt-32 sm:pb-20 lg:pb-24">
@@ -108,7 +108,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
               onClick={canBuy ? onBuyClick : undefined}
               disabled={!canBuy}
               className="mt-5 hidden w-full items-center justify-center gap-2 rounded-xl py-4 text-base font-bold text-dark-950 transition-colors disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-ivory/40 lg:flex"
-              style={canBuy ? { background: '#FF6A13' } : undefined}
+              style={canBuy ? { background: '#ec4899' } : undefined}
             >
               <Ticket size={18} />
               {buyLabel}
@@ -139,7 +139,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
           onClick={canBuy ? onBuyClick : undefined}
           disabled={!canBuy}
           className="flex w-full items-center justify-center gap-2 rounded-xl py-4 text-base font-bold text-dark-950 disabled:bg-white/10 disabled:text-ivory/40"
-          style={canBuy ? { background: '#FF6A13' } : undefined}
+          style={canBuy ? { background: '#ec4899' } : undefined}
         >
           <Ticket size={18} />
           {buyLabel}

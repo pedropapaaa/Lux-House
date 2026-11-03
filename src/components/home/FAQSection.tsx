@@ -35,7 +35,7 @@ const faqs = [
 ];
 
 function FAQItem({ q, a, isOpen, onToggle, index }: { q: string; a: string; isOpen: boolean; onToggle: () => void; index: number }) {
-  const accent = index % 2 === 0 ? '#ff9a1f' : '#FF5A0F';
+  const accent = index % 2 === 0 ? '#f472b6' : '#ec4899';
 
   return (
     <motion.div
@@ -115,15 +115,15 @@ const FAQSection = memo(function FAQSection() {
           className="text-center mb-10 sm:mb-14 lg:mb-20"
         >
           <div className="flex items-center justify-center gap-4 mb-5">
-            <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF5A0F)' }} />
+            <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #ec4899)' }} />
             <span className="text-[10px] tracking-[0.5em] text-magenta-400/80 uppercase font-medium">Duvidas</span>
-            <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF9A1F)' }} />
+            <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #f472b6)' }} />
           </div>
           <h2 className="text-3xl sm:text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-ivory uppercase tracking-tight">
             PERGUNTAS{' '}
             <span
               style={{
-                background: 'linear-gradient(135deg, #FF9A1F 0%, #FF5A0F 40%, #FF7A2B 100%)',
+                background: 'linear-gradient(135deg, #f472b6 0%, #ec4899 40%, #a855f7 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -142,8 +142,8 @@ const FAQSection = memo(function FAQSection() {
           className="rounded-2xl overflow-hidden"
           style={{
             background: 'rgba(10, 9, 8, 0.6)',
-            border: '1px solid rgba(255, 154, 31, 0.15)',
-            boxShadow: isMobile ? 'none' : '0 0 40px rgba(255, 154, 31, 0.1)',
+            border: '1px solid rgba(244, 114, 182, 0.15)',
+            boxShadow: isMobile ? 'none' : '0 0 40px rgba(244, 114, 182, 0.1)',
           }}
         >
           {faqs.map((faq, i) => (

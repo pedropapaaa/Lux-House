@@ -67,7 +67,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
                 height={48}
                 loading="eager"
                 className="h-9 w-9 sm:h-10 sm:w-10 object-contain rounded-full"
-                style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 14px rgba(255, 154, 31, 0.6))' }}
+                style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 14px rgba(244, 114, 182, 0.6))' }}
               />
             </picture>
           </motion.div>
@@ -75,7 +75,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
             <span
               className="font-roma text-lg sm:text-2xl font-semibold block"
               style={{
-                background: 'linear-gradient(135deg, #FFC77A 0%, #FF9A1F 50%, #FF5A0F 100%)',
+                background: 'linear-gradient(135deg, #fbcfe8 0%, #f472b6 50%, #ec4899 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 letterSpacing: '0.08em',
@@ -103,8 +103,8 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
                 <span
                   className="absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
                   style={{
-                    background: 'linear-gradient(90deg, #FF9A1F, #FF5A0F)',
-                    boxShadow: isMobile ? 'none' : '0 0 8px rgba(255, 90, 15, 0.5)',
+                    background: 'linear-gradient(90deg, #f472b6, #ec4899)',
+                    boxShadow: isMobile ? 'none' : '0 0 8px rgba(236, 72, 153, 0.5)',
                   }}
                 />
               </motion.button>

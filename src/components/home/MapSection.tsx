@@ -45,7 +45,7 @@ const MapSection = memo(function MapSection() {
             <Zap
               size={16}
               className="text-purple-400"
-              style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF9A1F)' }}
+              style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #f472b6)' }}
             />
             <span className="text-[10px] tracking-[0.5em] text-purple-400/80 uppercase font-medium">
               Localizacao
@@ -53,7 +53,7 @@ const MapSection = memo(function MapSection() {
             <Zap
               size={16}
               className="text-magenta-400"
-              style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #FF5A0F)' }}
+              style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #ec4899)' }}
             />
           </div>
 
@@ -61,7 +61,7 @@ const MapSection = memo(function MapSection() {
             COMO{' '}
             <span
               style={{
-                background: 'linear-gradient(135deg, #FF9A1F 0%, #FF5A0F 40%, #FF7A2B 100%)',
+                background: 'linear-gradient(135deg, #f472b6 0%, #ec4899 40%, #a855f7 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}
@@ -82,15 +82,15 @@ const MapSection = memo(function MapSection() {
             {!isMobile && (
               <div
                 className="absolute -inset-3 rounded-3xl opacity-25 blur-2xl"
-                style={{ background: 'linear-gradient(135deg, #FF9A1F, #FF5A0F)' }}
+                style={{ background: 'linear-gradient(135deg, #f472b6, #ec4899)' }}
               />
             )}
 
             <div
               className="relative rounded-2xl overflow-hidden h-56 sm:h-72 sm:h-80 lg:h-[480px]"
               style={{
-                border: '2px solid rgba(255, 154, 31, 0.25)',
-                boxShadow: isMobile ? 'none' : '0 0 40px rgba(255, 154, 31, 0.15)',
+                border: '2px solid rgba(244, 114, 182, 0.25)',
+                boxShadow: isMobile ? 'none' : '0 0 40px rgba(244, 114, 182, 0.15)',
               }}
             >
               <iframe
@@ -109,13 +109,13 @@ const MapSection = memo(function MapSection() {
               {
                 icon: MapPin,
                 label: 'LOCAL',
-                accent: '#FF9A1F',
+                accent: '#f472b6',
                 content: location,
               },
               {
                 icon: Clock,
                 label: 'HORÁRIO',
-                accent: '#ff9a1f',
+                accent: '#f472b6',
                 content: time,
               },
             ].map(({ icon: Icon, label, accent, content }, i) => (
@@ -173,14 +173,14 @@ const MapSection = memo(function MapSection() {
                   className="rounded-2xl p-4 sm:p-6 h-full"
                   style={{
                     background: 'rgba(10, 9, 8, 0.6)',
-                    border: '1px solid rgba(255, 154, 31, 0.15)',
+                    border: '1px solid rgba(244, 114, 182, 0.15)',
                   }}
                 >
                   <div
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-3 sm:mb-4"
                     style={{
-                      background: 'rgba(255, 154, 31, 0.15)',
-                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(255, 154, 31, 0.3)',
+                      background: 'rgba(244, 114, 182, 0.15)',
+                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(244, 114, 182, 0.3)',
                     }}
                   >
                     <Car size={18} className="text-purple-400 sm:!size-5" />
@@ -206,14 +206,14 @@ const MapSection = memo(function MapSection() {
                   className="rounded-2xl p-4 sm:p-6 h-full"
                   style={{
                     background: 'rgba(10, 9, 8, 0.6)',
-                    border: '1px solid rgba(255, 154, 31, 0.15)',
+                    border: '1px solid rgba(244, 114, 182, 0.15)',
                   }}
                 >
                   <div
                     className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-3 sm:mb-4"
                     style={{
                       background: 'rgba(139, 92, 246, 0.15)',
-                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(255, 154, 31, 0.3)',
+                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(244, 114, 182, 0.3)',
                     }}
                   >
                     <Train size={18} className="text-purple-400 sm:!size-5" />
@@ -240,17 +240,17 @@ const MapSection = memo(function MapSection() {
               <div
                 className="rounded-2xl p-4 sm:p-6 sm:p-8"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255, 154, 31, 0.1), rgba(255, 90, 15, 0.1))',
-                  border: '2px solid rgba(255, 154, 31, 0.25)',
-                  boxShadow: isMobile ? 'none' : '0 0 40px rgba(255, 154, 31, 0.15)',
+                  background: 'linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(236, 72, 153, 0.1))',
+                  border: '2px solid rgba(244, 114, 182, 0.25)',
+                  boxShadow: isMobile ? 'none' : '0 0 40px rgba(244, 114, 182, 0.15)',
                 }}
               >
                 <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                   <div
                     className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center"
                     style={{
-                      background: 'linear-gradient(135deg, #FF9A1F, #FF5A0F)',
-                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(255, 154, 31, 0.4)',
+                      background: 'linear-gradient(135deg, #f472b6, #ec4899)',
+                      boxShadow: isMobile ? 'none' : '0 0 20px rgba(244, 114, 182, 0.4)',
                     }}
                   >
                     <Calendar size={16} className="text-white sm:!size-4" />
