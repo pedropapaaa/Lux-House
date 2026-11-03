@@ -10,9 +10,9 @@ const MapSection = memo(function MapSection() {
   const isMobile = useIsMobile();
   const { data: event } = usePublicEvent();
 
-  const isComingSoon = event?.status === 'coming_soon';
-  const location = event?.location || (isComingSoon ? COMING_SOON : 'Rod. Edenor João Tasca, 980, Vinhedo - SP');
-  const time = event?.event_time || (isComingSoon ? COMING_SOON : '21h00 - 03h30');
+  const isComingSoon = !event || event.status === 'coming_soon';
+  const location = event?.location || COMING_SOON;
+  const time = event?.event_time || COMING_SOON;
 
   const dateObj = event?.event_date ? new Date(event.event_date + 'T00:00:00') : null;
   const weekday = dateObj ? ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'][dateObj.getDay()] : null;

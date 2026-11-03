@@ -26,7 +26,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
   const { data: event } = usePublicEvent();
   const { data: settings } = useSettings();
   const salesEnabled = settings?.sales_enabled ?? true;
-  const canBuy = salesEnabled && (event ? (event.status !== 'coming_soon' && event.status !== 'ended') : true);
+  const canBuy = !!event && salesEnabled && event.status !== 'coming_soon' && event.status !== 'ended';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);

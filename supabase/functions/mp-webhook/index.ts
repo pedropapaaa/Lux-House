@@ -228,6 +228,19 @@ Deno.serve(async (req: Request) => {
         event_id: order.event_id,
       });
 
+      if (order.coupon_id) {
+        await supabase.rpc("increment_coupon_usage", { coupon_id: order.coupon_id });
+        await supabase.from("coupon_usages").upsert(
+          {
+            coupon_id: order.coupon_id,
+            order_id: orderId,
+            buyer_name: `${order.buyer_name} ${order.buyer_last_name}`,
+            used_at: new Date().toISOString(),
+          },
+          { onConflict: "order_id", ignoreDuplicates: true },
+        );
+      }
+
       // Send email
       if (resendApiKey) {
         const ticketUrl = `${appBaseUrl}/ingresso/${ticketCode}`;

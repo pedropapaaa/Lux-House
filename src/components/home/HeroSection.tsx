@@ -19,24 +19,24 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
   const isEnded = event?.status === 'ended';
   const isLive = event?.status === 'live';
   const isLastTickets = event?.status === 'last_tickets';
-  const canBuy = salesEnabled && !isComingSoon && !isEnded;
+  const noEvent = !event;
+  const canBuy = !noEvent && salesEnabled && !isComingSoon && !isEnded;
 
-  const dateStr = event?.event_date || '2026-10-16';
-  const d = new Date(dateStr + 'T00:00:00');
-  const dateLabel = `${WEEKDAYS[d.getDay()]}, ${d.getDate()} de ${MONTHS[d.getMonth()]}`;
-  const timeLabel = event?.event_time || '21h às 03h';
-  const location = event?.location || 'Vinhedo, São Paulo';
-  const title = event?.name || 'Lux Halloween Night';
-  const description = event?.description || 'Uma noite de Halloween com DJ, drinks e fantasia liberada. Vem de terror!';
+  const eventDate = event?.event_date ? new Date(event.event_date + 'T00:00:00') : null;
+  const dateLabel = eventDate ? `${WEEKDAYS[eventDate.getDay()]}, ${eventDate.getDate()} de ${MONTHS[eventDate.getMonth()]}` : null;
+  const timeLabel = event?.event_time || null;
+  const location = event?.location || null;
+  const title = event?.name ?? 'Próximo evento em breve';
+  const description = event?.description ?? 'Estamos preparando a próxima noite. Fique de olho nas novidades.';
 
   const pill = isEnded ? 'Evento encerrado'
     : isLive ? 'Acontecendo agora'
     : isLastTickets ? 'Últimos ingressos'
-    : isComingSoon || !salesEnabled ? '1º lote em breve'
+    : isComingSoon || noEvent || !salesEnabled ? '1º lote em breve'
     : 'Ingressos à venda';
 
   const ticketMsg = isEnded ? (event?.ended_info?.final_message || 'Obrigado a todos!')
-    : isComingSoon || !salesEnabled ? (event?.coming_soon_message || 'As vendas do 1º lote abrem em breve.')
+    : isComingSoon || noEvent || !salesEnabled ? (event?.coming_soon_message || 'As vendas do 1º lote abrem em breve.')
     : isLive ? 'A festa já começou.'
     : 'Garanta o seu antes que o lote acabe.';
 
@@ -74,7 +74,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
                 { Icon: Calendar, text: dateLabel },
                 { Icon: Clock, text: timeLabel },
                 { Icon: MapPin, text: location },
-              ].map(({ Icon, text }) => (
+              ].filter(({ text }) => text).map(({ Icon, text }) => (
                 <li key={text} className="flex items-center gap-3 text-ivory/90">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-purple-400">
                     <Icon size={18} />
@@ -90,17 +90,17 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-sm text-ivory/50">Ingresso</p>
-                <p className="mt-0.5 text-lg font-semibold text-ivory">{isComingSoon || !salesEnabled ? '1º lote' : 'Pista'}</p>
+                <p className="mt-0.5 text-lg font-semibold text-ivory">{isComingSoon || noEvent || !salesEnabled ? '1º lote' : 'Pista'}</p>
               </div>
               <Ticket className="text-purple-400" size={22} />
             </div>
 
             <p className="mt-3 text-sm leading-relaxed text-ivory/60">{ticketMsg}</p>
 
-            {!isEnded && (
+            {event?.event_date && !isEnded && (
               <div className="mt-5 border-t border-white/10 pt-5">
                 <p className="mb-3 text-sm text-ivory/50">Faltam para a festa</p>
-                <CountdownTimer eventDate={event?.event_date || dateStr} eventTime={event?.event_time} />
+                <CountdownTimer eventDate={event.event_date} eventTime={event.event_time} />
               </div>
             )}
 

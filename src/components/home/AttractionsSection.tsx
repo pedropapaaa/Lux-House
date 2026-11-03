@@ -11,7 +11,7 @@ const AttractionsSection = memo(function AttractionsSection() {
   const { data: event } = usePublicEvent();
   const { data: schedule = [], isLoading } = usePublicSchedule(event?.id);
 
-  const isComingSoon = event?.status === 'coming_soon';
+  const isComingSoon = !event || event.status === 'coming_soon';
   const isEnded = event?.status === 'ended';
   const isLive = event?.status === 'live';
 
@@ -81,7 +81,7 @@ const AttractionsSection = memo(function AttractionsSection() {
                 <div className="w-1.5 h-1.5 rounded-full bg-magenta-500/60" />
                 <span className="text-magenta-400 font-bold">{day} de {monthName}</span>
                 <div className="w-1.5 h-1.5 rounded-full bg-magenta-500/60" />
-                <span>{event?.location || 'Vinhedo - SP'}</span>
+                <span>{event?.location || COMING_SOON}</span>
               </>
             )}
           </div>

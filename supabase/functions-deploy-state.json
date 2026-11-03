@@ -1,0 +1,17 @@
+{
+  "projectId": "68439785",
+  "functions": {
+    "create-payment": {
+      "hasChanged": false,
+      "hash": "57f574779f54e08339777e7033ed454297da7f66d83ee566d2bf3e76158229bc"
+    },
+    "mp-webhook": {
+      "hasChanged": false,
+      "hash": "7f20707c6939cd14ab15d607ee1f69064fbf289f00f452921447300f520add88"
+    },
+    "resend-ticket": {
+      "hasChanged": false,
+      "hash": "8eb85000454161810a5e09ac6c93a46f395946b4fdcb19dd713cd211ab55583f"
+    }
+  }
+}
