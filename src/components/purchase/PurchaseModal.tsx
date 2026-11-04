@@ -56,6 +56,8 @@ function isFree(price: number): boolean {
   return price <= 0;
 }
 
+const SERVICE_FEE = 4.5;
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
@@ -89,6 +91,8 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
   const selectedLot = lots.find((l) => l.id === selectedLotId);
   const finalPrice = selectedLot ? calcFinalPrice(selectedLot.price, appliedCoupon) : 0;
   const free = selectedLot ? isFree(finalPrice) : false;
+  const serviceFee = free ? 0 : SERVICE_FEE;
+  const totalAmount = finalPrice + serviceFee;
 
   const handleClose = () => {
     reset();
@@ -162,7 +166,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
           buyer_phone: data.phone,
           buyer_email: data.email,
           quantity: 1,
-          total_amount: finalPrice,
+          total_amount: totalAmount,
           coupon_id: appliedCoupon?.id ?? null,
           discount_amount: selectedLot.price - finalPrice,
           payment_status: 'pending',
@@ -465,12 +469,17 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                         <span className="font-playfair text-2xl text-yellow-400">GRÁTIS</span>
                       </div>
                     ) : (
-                      <div className="font-playfair text-2xl text-gradient-primary">
-                        {finalPrice.toLocaleString('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                        })}
-                      </div>
+                      <>
+                        <div className="font-playfair text-2xl text-gradient-primary">
+                          {totalAmount.toLocaleString('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL',
+                          })}
+                        </div>
+                        <div className="text-[10px] text-white/40 mt-0.5">
+                          {finalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} + {SERVICE_FEE.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} de taxa
+                        </div>
+                      </>
                     )}
 
                     <div className="text-[10px] text-white/30 flex items-center gap-1 mt-1">
