@@ -23,9 +23,9 @@ const AttractionsSection = memo(function AttractionsSection() {
     artist: s.title,
     genre: s.description || '',
     description: s.description || '',
-    image: s.title.trim().toLowerCase() === 'dj rayder'
+    image: s.title.trim().toLowerCase() === 'dj guhmix'
       ? '/images/image copy 5.png'
-      : s.title.trim().toLowerCase() === 'dj guhmix'
+      : s.title.trim().toLowerCase() === 'dj rayder'
       ? '/images/image copy 6.png'
       : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
     accent: ['#f472b6', '#ec4899', '#a855f7'][i % 3],
