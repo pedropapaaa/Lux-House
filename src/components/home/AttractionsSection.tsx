@@ -4,14 +4,11 @@ import { Headphones, Clock, Sparkles, Zap, Radio } from 'lucide-react';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import { usePublicEvent, usePublicSchedule } from '../../hooks/usePublicEvent';
 
-const COMING_SOON = 'Em breve';
-
 const AttractionsSection = memo(function AttractionsSection() {
   const isMobile = useIsMobile();
   const { data: event } = usePublicEvent();
   const { data: schedule = [], isLoading } = usePublicSchedule(event?.id);
 
-  const isComingSoon = !event || event.status === 'coming_soon';
   const isEnded = event?.status === 'ended';
   const isLive = event?.status === 'live';
 
@@ -20,19 +17,20 @@ const AttractionsSection = memo(function AttractionsSection() {
   const day = dateObj ? String(dateObj.getDate()).padStart(2,'0') : null;
   const monthName = dateObj ? ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'][dateObj.getMonth()] : null;
 
-  // Build cards from schedule; fall back to placeholder when coming soon or empty
-  const cards = isComingSoon || schedule.length === 0
-    ? []
-    : schedule.map((s, i) => ({
-        time: s.time_label,
-        label: i === 0 ? 'ABERTURA' : i === schedule.length - 1 ? 'FECHAMENTO' : 'ATRAÇÃO',
-        artist: s.title,
-        genre: s.description || '',
-        description: s.description || '',
-        image: s.title === 'DJ Rayder' ? 'https://images.pexels.com/photos/5949086/pexels-photo-5949086.jpeg?auto=compress&cs=tinysrgb&h=650&w=940' : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
-        accent: ['#f472b6', '#ec4899', '#a855f7'][i % 3],
-        badge: i === 0 ? 'DESTAQUE' : null,
-      }));
+  const cards = schedule.map((s, i) => ({
+    time: s.time_label,
+    label: i === 0 ? 'ABERTURA' : i === schedule.length - 1 ? 'FECHAMENTO' : 'ATRAÇÃO',
+    artist: s.title,
+    genre: s.description || '',
+    description: s.description || '',
+    image: s.title.trim().toLowerCase() === 'dj rayder'
+      ? '/images/image copy 5.png'
+      : s.title.trim().toLowerCase() === 'dj guhmix'
+      ? '/images/image copy 6.png'
+      : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
+    accent: ['#f472b6', '#ec4899', '#a855f7'][i % 3],
+    badge: i === 0 ? 'DESTAQUE' : null,
+  }));
 
   return (
     <section id="atracoes" className="py-16 sm:py-24 sm:py-32 lg:py-40 px-4 sm:px-6 relative bg-dark-900 grain-overlay">
@@ -59,31 +57,24 @@ const AttractionsSection = memo(function AttractionsSection() {
             <span className="text-[10px] tracking-[0.5em] text-magenta-400/80 uppercase font-medium">Programacao</span>
             <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #f472b6)' }} />
           </div>
-          <h2 className="text-3xl sm:text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-ivory uppercase tracking-tight mb-3 sm:mb-4">
-            ATRAÇÕES{' '}
-            <span
-              className="block"
-              style={{
-                background: 'linear-gradient(135deg, #f472b6 0%, #ec4899 40%, #a855f7 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              {isComingSoon ? 'EM BREVE' : 'DA NOITE'}
-            </span>
+          <h2
+            className="text-3xl sm:text-4xl sm:text-5xl lg:text-7xl font-display font-bold uppercase tracking-tight mb-3 sm:mb-4"
+            style={{
+              background: 'linear-gradient(135deg, #f472b6 0%, #ec4899 40%, #a855f7 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            ATRAÇÕES
           </h2>
           <div className="flex items-center justify-center gap-2 sm:gap-3 text-ivory/40 text-xs sm:text-sm sm:text-base">
-            {isComingSoon ? (
-              <span className="text-magenta-400 font-bold">{COMING_SOON}</span>
-            ) : (
-              <>
-                <span>{weekday}</span>
-                <div className="w-1.5 h-1.5 rounded-full bg-magenta-500/60" />
-                <span className="text-magenta-400 font-bold">{day} de {monthName}</span>
-                <div className="w-1.5 h-1.5 rounded-full bg-magenta-500/60" />
-                <span>{event?.location || COMING_SOON}</span>
-              </>
-            )}
+            <>
+              {weekday && <span>{weekday}</span>}
+              {weekday && <div className="w-1.5 h-1.5 rounded-full bg-magenta-500/60" />}
+              {day && monthName && <span className="text-magenta-400 font-bold">{day} de {monthName}</span>}
+              {day && monthName && <div className="w-1.5 h-1.5 rounded-full bg-magenta-500/60" />}
+              {event?.location && <span>{event.location}</span>}
+            </>
           </div>
         </motion.div>
 
@@ -117,7 +108,7 @@ const AttractionsSection = memo(function AttractionsSection() {
           >
             <Radio size={40} className="text-ivory/15 mx-auto mb-4" />
             <p className="text-ivory/30 text-sm">
-              {isComingSoon ? 'Informação será divulgada em breve.' : isEnded ? 'Este evento já aconteceu.' : 'Programação a ser divulgada.'}
+              {isEnded ? 'Este evento já aconteceu.' : 'Programação a ser divulgada.'}
             </p>
           </motion.div>
         ) : (
