@@ -52,7 +52,7 @@ Deno.serve(async (req: Request) => {
     if (order.payment_status !== "pending") return err("Este pedido ja foi processado.");
 
     const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
-    const expiresAtISO = expiresAt.toISOString().replace("Z", "-03:00");
+    const expiresAtISO = new Date(expiresAt.getTime() - 3 * 60 * 60 * 1000).toISOString().replace("Z", "-03:00");
 
     const cleanCpf = order.buyer_cpf.replace(/\D/g, "");
     const lotName = (order.lots as any)?.name ?? "Ingresso";

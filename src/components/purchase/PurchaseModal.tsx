@@ -221,7 +221,12 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
       handleClose();
       navigate(`/pagamento/${order.id}`);
     } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
+      const message =
+        err instanceof Error
+          ? err.message
+          : typeof err === 'object' && err !== null && 'message' in err && typeof err.message === 'string'
+            ? err.message
+            : '';
       setServerError(message || 'Erro inesperado. Tente novamente.');
     } finally {
       setSubmitting(false);
