@@ -29,7 +29,7 @@ const AttractionsSection = memo(function AttractionsSection() {
       ? '/images/image copy 6.png'
       : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
     accent: ['#f472b6', '#ec4899', '#a855f7'][i % 3],
-    badge: i === 0 ? 'DESTAQUE' : null,
+    badge: s.time_label === '00h00' ? 'DESTAQUE' : null,
   }));
 
   return (
