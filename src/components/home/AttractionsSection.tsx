@@ -54,7 +54,7 @@ const AttractionsSection = memo(function AttractionsSection() {
         >
           <div className="flex items-center justify-center gap-4 mb-5">
             <Zap size={16} className="text-magenta-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #ec4899)' }} />
-            <span className="text-[10px] tracking-[0.5em] text-magenta-400/80 uppercase font-medium">Programacao</span>
+            <span className="text-[10px] tracking-[0.5em] text-magenta-400/80 uppercase font-medium">Programação</span>
             <Zap size={16} className="text-purple-400" style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 8px #f472b6)' }} />
           </div>
           <h2
