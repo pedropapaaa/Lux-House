@@ -20,6 +20,7 @@ interface NavbarProps {
 export default function Navbar({ onBuyClick }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('#home');
   const location = useLocation();
   const isHome = location.pathname === '/';
   const isMobile = useIsMobile();
@@ -36,6 +37,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
 
   const scrollTo = (href: string) => {
     setOpen(false);
+    setActive(href);
     if (!isHome) return;
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -44,122 +46,79 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
     <motion.nav
       initial={isMobile ? false : { y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${ 
-        scrolled
-          ? 'bg-dark-950/96 backdrop-blur-xl py-3 border-b border-white/8'
-          : 'bg-dark-950/45 backdrop-blur-sm py-4 sm:py-5'
+      className={`fixed top-0 left-0 right-0 z-50 bg-[#f4f4f2]/95 backdrop-blur-md border-b transition-all duration-300 ${
+        scrolled ? 'py-2.5 border-black/10 shadow-[0_8px_24px_rgba(0,0,0,0.08)]' : 'py-3 sm:py-4 border-black/5'
       }`}
-      
     >
       <div className="lux-container flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center group">
-          <motion.div
-            whileHover={isMobile ? undefined : { scale: 1.05, rotate: 5 }}
+        <Link to="/" className="flex items-center gap-3 sm:gap-4 group">
+          <motion.img
+            src="/images/logo.webp"
+            alt="Lux House"
+            width={48}
+            height={48}
+            loading="eager"
+            whileHover={isMobile ? undefined : { scale: 1.06, rotate: -4 }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-          >
-            <picture>
-              <source srcSet="/images/logo.webp" type="image/webp" />
-              <img
-                src="/images/logo.webp"
-                alt="Lux House"
-                width={48}
-                height={48}
-                loading="eager"
-                className="h-9 w-9 sm:h-10 sm:w-10 object-contain rounded-full"
-                style={{ filter: isMobile ? 'none' : 'drop-shadow(0 0 14px rgba(244, 114, 182, 0.6))' }}
-              />
-            </picture>
-          </motion.div>
-          <div className="ml-2.5 sm:ml-3 leading-tight">
-            <span
-              className="font-roma text-lg sm:text-2xl font-semibold block"
-              style={{
-                background: 'linear-gradient(135deg, #fbcfe8 0%, #f472b6 50%, #ec4899 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '0.08em',
-              }}
-            >
-              Lux House
-            </span>
-            <span className="text-[7px] sm:text-[8px] tracking-[0.32em] sm:tracking-[0.4em] text-white/40 uppercase block mt-0.5">Casa de Show</span>
-          </div>
+            className="h-10 w-10 sm:h-11 sm:w-11 object-contain rounded-full ring-1 ring-black/10"
+          />
+          <span className="h-8 w-px bg-black/25" aria-hidden />
+          <span className="leading-none">
+            <span className="block text-[13px] sm:text-[15px] font-bold tracking-[0.18em] text-black">LUX HOUSE</span>
+            <span className="block mt-1 text-[8px] sm:text-[9px] font-semibold tracking-[0.42em] text-black/60 uppercase">Apresenta</span>
+          </span>
         </Link>
 
-        {/* Desktop nav */}
         {isHome && (
-          <div className="hidden md:flex items-center gap-7 lg:gap-9">
-            {links.map((l, i) => (
-              <motion.button
+          <div className="hidden md:flex items-center gap-8 lg:gap-12">
+            {links.map((l) => (
+              <button
                 key={l.href}
                 onClick={() => scrollTo(l.href)}
-                initial={isMobile ? false : { opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: isMobile ? 0 : i * 0.1 }}
-                className="text-[11px] tracking-[0.16em] uppercase text-ivory/58 hover:text-white transition-colors duration-200 relative group py-2"
+                className={`relative py-2 text-[13px] font-semibold uppercase tracking-[0.06em] transition-colors ${
+                  active === l.href ? 'text-black' : 'text-black/60 hover:text-black'
+                }`}
               >
                 {l.label}
                 <span
-                  className="absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
-                  style={{
-                    background: 'linear-gradient(90deg, #f472b6, #ec4899)',
-                    boxShadow: isMobile ? 'none' : '0 0 8px rgba(236, 72, 153, 0.5)',
-                  }}
+                  className={`absolute -bottom-1 left-1/2 h-[2px] -translate-x-1/2 bg-black transition-all duration-300 ${
+                    active === l.href ? 'w-[130%]' : 'w-0'
+                  }`}
                 />
-              </motion.button>
+              </button>
             ))}
           </div>
         )}
 
-        {/* CTA */}
         <div className="hidden md:flex items-center gap-5">
-          {onBuyClick && canBuy ? (
-            <motion.button
-              onClick={onBuyClick}
-              whileHover={isMobile ? undefined : { scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="btn-primary relative px-5 py-3 rounded-xl text-white text-[11px] tracking-[0.14em] uppercase font-bold flex items-center gap-2 overflow-hidden"
-              
-            >
-              <Ticket size={16} className="relative" />
-              <span className="relative">Ingresso</span>
-            </motion.button>
-          ) : (
-            <Link
-              to="/"
-              className="px-5 py-2.5 rounded-xl border border-magenta-500/40 text-magenta-400 text-xs tracking-widest uppercase hover:border-magenta-400 hover:bg-magenta-500/10 transition-all duration-300"
-            >
-              Inicio
-            </Link>
-          )}
-          <Link
-            to="/meus-ingressos"
-            className="text-[11px] text-ivory/55 hover:text-magenta-300 tracking-wide transition-colors flex items-center gap-1.5"
-          >
-            <Ticket size={13} />
+          <Link to="/meus-ingressos" className="text-[12px] font-medium text-black/55 hover:text-black transition-colors">
             Meus Ingressos
           </Link>
-          <Link
-            to="/admin"
-            className="text-[11px] text-ivory/35 hover:text-ivory/70 tracking-wide transition-colors"
-          >
+          <Link to="/admin" className="text-[12px] font-medium text-black/35 hover:text-black transition-colors">
             Admin
           </Link>
+          {onBuyClick && canBuy && (
+            <motion.button
+              onClick={onBuyClick}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center gap-2 rounded-lg border-2 border-black px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.04em] text-black transition-colors duration-200 hover:bg-black hover:text-white"
+            >
+              <Ticket size={16} />
+              Comprar
+            </motion.button>
+          )}
         </div>
 
-        {/* Mobile toggle */}
         <motion.button
           onClick={() => setOpen(!open)}
           whileTap={{ scale: 0.9 }}
-          className="md:hidden text-ivory/75 hover:text-ivory transition-colors p-2.5 rounded-lg hover:bg-white/8"
+          className="md:hidden p-2.5 rounded-lg text-black hover:bg-black/5 transition-colors"
           aria-label="Menu"
         >
           {open ? <X size={24} /> : <Menu size={24} />}
         </motion.button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -168,54 +127,42 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden overflow-hidden"
           >
-            <motion.div
-              initial={{ y: -20 }}
-              animate={{ y: 0 }}
-              className="mx-3 sm:mx-4 mt-2 rounded-2xl p-3 sm:p-4 flex flex-col gap-1.5 sm:gap-2 bg-dark-950/98 border border-white/10 shadow-2xl"
-              
-            >
-              {isHome && links.map((l, i) => (
-                <motion.button
+            <div className="mx-4 mt-3 mb-2 flex flex-col gap-1 rounded-2xl border border-black/10 bg-white p-3 shadow-xl">
+              {isHome && links.map((l) => (
+                <button
                   key={l.href}
                   onClick={() => scrollTo(l.href)}
-                  initial={isMobile ? false : { opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: isMobile ? 0 : i * 0.05 }}
-                  className="text-left text-xs sm:text-sm tracking-widest uppercase text-ivory/50 hover:text-magenta-400 transition-colors py-2.5 px-3 rounded-lg hover:bg-white/5"
+                  className="rounded-lg px-3 py-3 text-left text-sm font-semibold uppercase tracking-[0.08em] text-black/70 hover:bg-black/5 hover:text-black"
                 >
                   {l.label}
-                </motion.button>
+                </button>
               ))}
-              <div className="h-px bg-ivory/5 my-2" />
+              <div className="my-2 h-px bg-black/10" />
               {onBuyClick && canBuy && (
-                <motion.button
+                <button
                   onClick={() => { setOpen(false); onBuyClick(); }}
-                  initial={isMobile ? false : { opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: isMobile ? 0 : 0.2 }}
-                  className="relative mt-1 px-5 py-3 sm:py-3.5 rounded-xl text-white text-xs sm:text-sm tracking-widest uppercase font-bold flex items-center justify-center gap-2 overflow-hidden"
-                  
+                  className="flex items-center justify-center gap-2 rounded-xl bg-black px-5 py-3.5 text-sm font-bold uppercase tracking-[0.08em] text-white"
                 >
                   <Ticket size={16} />
                   Comprar Ingresso
-                </motion.button>
+                </button>
               )}
               <Link
                 to="/meus-ingressos"
-                className="text-xs sm:text-sm text-ivory/40 hover:text-magenta-400 tracking-wide py-2.5 px-3 rounded-lg hover:bg-white/5 flex items-center gap-2"
                 onClick={() => setOpen(false)}
+                className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm text-black/60 hover:bg-black/5"
               >
                 <Ticket size={14} />
                 Meus Ingressos
               </Link>
               <Link
                 to="/admin"
-                className="text-xs sm:text-sm text-ivory/25 tracking-wide py-2.5 px-3 rounded-lg hover:bg-white/5"
                 onClick={() => setOpen(false)}
+                className="rounded-lg px-3 py-3 text-sm text-black/40 hover:bg-black/5"
               >
                 Admin
               </Link>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
