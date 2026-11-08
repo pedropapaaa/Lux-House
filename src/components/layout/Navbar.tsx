@@ -8,7 +8,8 @@ import { useSettings } from '../../hooks/useSettings';
 
 const links = [
   { label: 'Início', href: '#home' },
-  { label: 'Atrações', href: '#atracoes' },
+  { label: 'Sobre', href: '#sobre' },
+  { label: 'Avisos', href: '#avisos' },
   { label: 'Local', href: '#local' },
   { label: 'FAQ', href: '#faq' },
 ];
@@ -46,42 +47,44 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
     <motion.nav
       initial={isMobile ? false : { y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 bg-[#f4f4f2]/95 backdrop-blur-md border-b transition-all duration-300 ${
-        scrolled ? 'py-2.5 border-black/10 shadow-[0_8px_24px_rgba(0,0,0,0.08)]' : 'py-3 sm:py-4 border-black/5'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? 'bg-black/70 backdrop-blur-xl py-2.5 border-b border-white/10'
+          : 'bg-transparent py-4 border-b border-transparent'
       }`}
     >
       <div className="lux-container flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 sm:gap-4 group">
           <motion.img
-            src="/images/logo.webp"
+            src="/images/Monograma_Gotico_LH_em_Preto.png"
             alt="Lux House"
             width={48}
             height={48}
             loading="eager"
             whileHover={isMobile ? undefined : { scale: 1.06, rotate: -4 }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-            className="h-10 w-10 sm:h-11 sm:w-11 object-contain rounded-full ring-1 ring-black/10"
+            className="h-10 w-10 sm:h-11 sm:w-11 object-contain rounded-full ring-1 ring-white/20 bg-white/5 p-0.5 invert"
           />
-          <span className="h-8 w-px bg-black/25" aria-hidden />
+          <span className="h-8 w-px bg-white/25" aria-hidden />
           <span className="leading-none">
-            <span className="block text-[13px] sm:text-[15px] font-bold tracking-[0.18em] text-black">LUX HOUSE</span>
-            <span className="block mt-1 text-[8px] sm:text-[9px] font-semibold tracking-[0.42em] text-black/60 uppercase">Apresenta</span>
+            <span className="block text-[13px] sm:text-[15px] font-bold tracking-[0.18em] text-white">LUX HOUSE</span>
+            <span className="block mt-1 text-[8px] sm:text-[9px] font-semibold tracking-[0.42em] text-white/50 uppercase">Festa do Branco</span>
           </span>
         </Link>
 
         {isHome && (
-          <div className="hidden md:flex items-center gap-8 lg:gap-12">
+          <div className="hidden md:flex items-center gap-7 lg:gap-10">
             {links.map((l) => (
               <button
                 key={l.href}
                 onClick={() => scrollTo(l.href)}
                 className={`relative py-2 text-[13px] font-semibold uppercase tracking-[0.06em] transition-colors ${
-                  active === l.href ? 'text-black' : 'text-black/60 hover:text-black'
+                  active === l.href ? 'text-white' : 'text-white/50 hover:text-white'
                 }`}
               >
                 {l.label}
                 <span
-                  className={`absolute -bottom-1 left-1/2 h-[2px] -translate-x-1/2 bg-black transition-all duration-300 ${
+                  className={`absolute -bottom-1 left-1/2 h-[2px] -translate-x-1/2 bg-white transition-all duration-300 ${
                     active === l.href ? 'w-[130%]' : 'w-0'
                   }`}
                 />
@@ -91,17 +94,18 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
         )}
 
         <div className="hidden md:flex items-center gap-5">
-          <Link to="/meus-ingressos" className="text-[12px] font-medium text-black/55 hover:text-black transition-colors">
+          <Link to="/meus-ingressos" className="text-[12px] font-medium text-white/45 hover:text-white transition-colors">
             Meus Ingressos
           </Link>
-          <Link to="/admin" className="text-[12px] font-medium text-black/35 hover:text-black transition-colors">
+          <Link to="/admin" className="text-[12px] font-medium text-white/30 hover:text-white transition-colors">
             Admin
           </Link>
           {onBuyClick && canBuy && (
             <motion.button
               onClick={onBuyClick}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 rounded-lg border-2 border-black px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.04em] text-black transition-colors duration-200 hover:bg-black hover:text-white"
+              whileHover={{ y: -2 }}
+              className="bw-shimmer-btn flex items-center gap-2 rounded-lg border-2 border-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.04em] text-white transition-colors duration-200 hover:bg-white hover:text-black"
             >
               <Ticket size={16} />
               Comprar
@@ -112,7 +116,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
         <motion.button
           onClick={() => setOpen(!open)}
           whileTap={{ scale: 0.9 }}
-          className="md:hidden p-2.5 rounded-lg text-black hover:bg-black/5 transition-colors"
+          className="md:hidden p-2.5 rounded-lg text-white hover:bg-white/10 transition-colors"
           aria-label="Menu"
         >
           {open ? <X size={24} /> : <Menu size={24} />}
@@ -127,21 +131,21 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden overflow-hidden"
           >
-            <div className="mx-4 mt-3 mb-2 flex flex-col gap-1 rounded-2xl border border-black/10 bg-white p-3 shadow-xl">
+            <div className="mx-4 mt-3 mb-2 flex flex-col gap-1 rounded-2xl border border-white/10 bg-black/90 p-3 shadow-2xl backdrop-blur-xl">
               {isHome && links.map((l) => (
                 <button
                   key={l.href}
                   onClick={() => scrollTo(l.href)}
-                  className="rounded-lg px-3 py-3 text-left text-sm font-semibold uppercase tracking-[0.08em] text-black/70 hover:bg-black/5 hover:text-black"
+                  className="rounded-lg px-3 py-3 text-left text-sm font-semibold uppercase tracking-[0.08em] text-white/70 hover:bg-white/5 hover:text-white"
                 >
                   {l.label}
                 </button>
               ))}
-              <div className="my-2 h-px bg-black/10" />
+              <div className="my-2 h-px bg-white/10" />
               {onBuyClick && canBuy && (
                 <button
                   onClick={() => { setOpen(false); onBuyClick(); }}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-black px-5 py-3.5 text-sm font-bold uppercase tracking-[0.08em] text-white"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-bold uppercase tracking-[0.08em] text-black"
                 >
                   <Ticket size={16} />
                   Comprar Ingresso
@@ -150,7 +154,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
               <Link
                 to="/meus-ingressos"
                 onClick={() => setOpen(false)}
-                className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm text-black/60 hover:bg-black/5"
+                className="flex items-center gap-2 rounded-lg px-3 py-3 text-sm text-white/50 hover:bg-white/5"
               >
                 <Ticket size={14} />
                 Meus Ingressos
@@ -158,7 +162,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
               <Link
                 to="/admin"
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-sm text-black/40 hover:bg-black/5"
+                className="rounded-lg px-3 py-3 text-sm text-white/30 hover:bg-white/5"
               >
                 Admin
               </Link>

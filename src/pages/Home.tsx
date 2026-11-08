@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import HeroSection from '../components/home/HeroSection';
-import AttractionsSection from '../components/home/AttractionsSection';
+import AboutSection from '../components/home/AboutSection';
 import AnnouncementsSection from '../components/home/AnnouncementsSection';
 import MapSection from '../components/home/MapSection';
 import FAQSection from '../components/home/FAQSection';
@@ -15,10 +15,10 @@ export default function Home() {
   const closeModal = useCallback(() => setModalOpen(false), []);
 
   return (
-    <div className="min-h-screen bg-dark-950 text-ivory">
+    <div className="landing-monochrome min-h-screen bg-dark-950 text-ivory">
       <Navbar onBuyClick={openModal} />
       <HeroSection onBuyClick={openModal} />
-      <AttractionsSection />
+      <AboutSection />
       <AnnouncementsSection />
       <MapSection />
       <FAQSection />

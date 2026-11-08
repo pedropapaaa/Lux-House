@@ -700,6 +700,81 @@ body {
   color: var(--lux-text);
 }
 
+/* Black & White landing theme overrides */
+.landing-monochrome .cd-box {
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 12px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+@media (min-width: 640px) {
+  .landing-monochrome .cd-box {
+    box-shadow: 0 0 20px rgba(255,255,255,0.12), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+}
+.landing-monochrome .cd-glow {
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.1), transparent 70%);
+}
+.landing-monochrome .cd-digit {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255,255,255,0.25);
+}
+.landing-monochrome .cd-live {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(255,255,255,0.3);
+}
+.landing-monochrome ::selection {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+.landing-monochrome ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #fff, #888);
+}
+.landing-monochrome ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #fff, #aaa);
+}
+.landing-monochrome * {
+  scrollbar-color: #888 rgba(20,20,20,0.5);
+}
+
+/* Decorative noise grain for B&W theme */
+.bw-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Animated grid lines decoration */
+.bw-grid-lines {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Shimmer sweep for buttons */
+.bw-shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+.bw-shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  animation: bw-sweep 4s ease-in-out infinite;
+}
+@keyframes bw-sweep {
+  0%, 100% { left: -100%; }
+  50% { left: 160%; }
+}
+
 button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 button, a { touch-action: manipulation; }
 
