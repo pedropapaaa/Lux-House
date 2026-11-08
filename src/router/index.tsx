@@ -1,25 +1,46 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, type ComponentType } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { Spinner } from '../components/ui/Spinner';
 
+const RELOAD_FLAG = 'lux-chunk-reload';
+
+// After a deploy, an open tab can request a page file that no longer exists; reload once to get the current version.
+function lazyPage(factory: () => Promise<{ default: ComponentType }>) {
+  return lazy(() =>
+    factory()
+      .then((module) => {
+        sessionStorage.removeItem(RELOAD_FLAG);
+        return module;
+      })
+      .catch((error) => {
+        if (!sessionStorage.getItem(RELOAD_FLAG)) {
+          sessionStorage.setItem(RELOAD_FLAG, '1');
+          window.location.reload();
+          return new Promise<{ default: ComponentType }>(() => {});
+        }
+        throw error;
+      })
+  );
+}
+
 // Lazy load all pages for optimal code splitting
-const Home          = lazy(() => import('../pages/Home'));
-const Payment       = lazy(() => import('../pages/Payment'));
-const TicketPage    = lazy(() => import('../pages/TicketPage'));
-const MyTickets     = lazy(() => import('../pages/MyTickets'));
-const AdminLogin    = lazy(() => import('../pages/AdminLogin'));
-const AdminDashboard = lazy(() => import('../pages/AdminDashboard'));
+const Home          = lazyPage(() => import('../pages/Home'));
+const Payment       = lazyPage(() => import('../pages/Payment'));
+const TicketPage    = lazyPage(() => import('../pages/TicketPage'));
+const MyTickets     = lazyPage(() => import('../pages/MyTickets'));
+const AdminLogin    = lazyPage(() => import('../pages/AdminLogin'));
+const AdminDashboard = lazyPage(() => import('../pages/AdminDashboard'));
 // Ultra-light check-in page - minimal dependencies
-const CheckinLite   = lazy(() => import('../pages/CheckinLite'));
+const CheckinLite   = lazyPage(() => import('../pages/CheckinLite'));
 // ERP modules
-const FinanceiroPage = lazy(() => import('../pages/admin/FinanceiroPage'));
-const AuditoriaPage = lazy(() => import('../pages/admin/AuditoriaPage'));
-const LivePanel     = lazy(() => import('../pages/admin/LivePanel'));
-const ParticipantsPage = lazy(() => import('../pages/admin/ParticipantsPage'));
-const EventEditPage = lazy(() => import('../pages/admin/EventEditPage'));
-const NewEventPage = lazy(() => import('../pages/admin/NewEventPage'));
-const ArchivedEventsPage = lazy(() => import('../pages/admin/ArchivedEventsPage'));
-const EobrainIAPage  = lazy(() => import('../pages/admin/EobrainIAPage'));
+const FinanceiroPage = lazyPage(() => import('../pages/admin/FinanceiroPage'));
+const AuditoriaPage = lazyPage(() => import('../pages/admin/AuditoriaPage'));
+const LivePanel     = lazyPage(() => import('../pages/admin/LivePanel'));
+const ParticipantsPage = lazyPage(() => import('../pages/admin/ParticipantsPage'));
+const EventEditPage = lazyPage(() => import('../pages/admin/EventEditPage'));
+const NewEventPage = lazyPage(() => import('../pages/admin/NewEventPage'));
+const ArchivedEventsPage = lazyPage(() => import('../pages/admin/ArchivedEventsPage'));
+const EobrainIAPage  = lazyPage(() => import('../pages/admin/EobrainIAPage'));
 
 // Simple loader without framer-motion for faster initial render
 function PageLoader() {
