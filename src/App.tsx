@@ -60,8 +60,7 @@ export default function App() {
       }
     };
 
-    // Loop contínuo de 5ms
-    const intervalId = setInterval(universalKill, 5);
+    universalKill();
 
     // Escutadores globais
     window.addEventListener('popstate', universalKill);
@@ -69,7 +68,6 @@ export default function App() {
     document.addEventListener('visibilitychange', universalKill);
 
     return () => {
-      clearInterval(intervalId);
       window.removeEventListener('popstate', universalKill);
       window.removeEventListener('pageshow', universalKill);
       document.removeEventListener('visibilitychange', universalKill);

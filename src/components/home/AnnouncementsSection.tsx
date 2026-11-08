@@ -9,7 +9,7 @@ export default function AnnouncementsSection() {
 
   if (!event) return null;
 
-  const imageUrl = '/images/Festa_do_Branco_em_Valinhos.png';
+  const imageUrl = '/images/poster-festa-branco.webp';
 
   const eventDate = event?.event_date ? new Date(event.event_date + 'T00:00:00') : null;
   const weekday = eventDate ? ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'][eventDate.getDay()] : null;
@@ -94,7 +94,7 @@ export default function AnnouncementsSection() {
             {/* Artist thumbnail */}
             <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/60 min-h-[170px] sm:min-h-[210px]">
               <img
-                src="/images/image-removebg-preview.png"
+                src="/images/dj-rayder-cutout.webp"
                 alt="DJ Guhmix"
                 className="absolute inset-0 h-full w-full object-cover object-top opacity-90"
                 loading="lazy"

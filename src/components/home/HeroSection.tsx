@@ -10,8 +10,8 @@ interface HeroSectionProps {
 
 const MONTHS = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 const WEEKDAYS = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-const BANNER_SRC = '/images/Evento_Lux_House_Arte_Visual.png';
-const DJ_SRC = '/images/';
+const BANNER_SRC = '/images/hero-banner.webp';
+const DJ_SRC = '/images/dj-guhmix-retrato.webp';
 
 export default function HeroSection({ onBuyClick }: HeroSectionProps) {
   const { data: event } = usePublicEvent();

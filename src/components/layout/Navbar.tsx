@@ -56,7 +56,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
       <div className="lux-container flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 sm:gap-4 group">
           <motion.img
-            src="/images/Monograma_Gotico_LH_em_Preto.png"
+            src="/images/monograma-lh.webp"
             alt="Lux House"
             width={48}
             height={48}

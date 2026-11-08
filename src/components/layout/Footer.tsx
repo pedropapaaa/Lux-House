@@ -34,9 +34,9 @@ export default function Footer() {
                 transition={{ type: 'spring', stiffness: 400, damping: 17 }}
               >
                 <picture>
-                  <source srcSet="/images/Monograma_Gotico_LH_em_Preto.png" type="image/png" />
+                  <source srcSet="/images/monograma-lh.webp" type="image/webp" />
                   <img
-                    src="/images/Monograma_Gotico_LH_em_Preto.png"
+                    src="/images/monograma-lh.webp"
                     alt="Lux House"
                     width={56}
                     height={56}

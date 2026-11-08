@@ -64,7 +64,7 @@ export default function AboutSection() {
 
             <div className="relative rounded-2xl overflow-hidden border-2 border-white/15">
               <img
-                src="/images/Retrato_de_homem_em_traje_branco_fazendo_silencio copy.png"
+                src="/images/about-retrato.webp"
                 alt="DJ Guhmix em traje branco"
                 loading="lazy"
                 decoding="async"

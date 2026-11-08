@@ -24,9 +24,9 @@ const AttractionsSection = memo(function AttractionsSection() {
     genre: s.description || '',
     description: s.description || '',
     image: s.title.trim().toLowerCase() === 'dj guhmix'
-      ? '/images/Retrato_de_homem_em_traje_branco_fazendo_silencio.png'
+      ? '/images/dj-guhmix-retrato.webp'
       : s.title.trim().toLowerCase() === 'dj rayder'
-      ? '/images/image-removebg-preview.png'
+      ? '/images/dj-rayder-cutout.webp'
       : event?.photos?.[i % (event.photos.length || 1)] || `/images/files_10828746-2026-07-03T03-41-0${i % 3 + 4}13Z-image.png`,
     accent: ['#f472b6', '#ec4899', '#a855f7'][i % 3],
     badge: s.time_label === '00h00' ? 'DESTAQUE' : null,
