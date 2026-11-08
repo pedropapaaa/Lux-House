@@ -94,7 +94,7 @@ export default function AnnouncementsSection() {
             {/* Artist thumbnail */}
             <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-black/60 min-h-[170px] sm:min-h-[210px]">
               <img
-                src="/images/Retrato_de_homem_em_traje_branco_fazendo_silencio copy.png"
+                src="/images/image-removebg-preview.png"
                 alt="DJ Guhmix"
                 className="absolute inset-0 h-full w-full object-cover object-top opacity-90"
                 loading="lazy"
