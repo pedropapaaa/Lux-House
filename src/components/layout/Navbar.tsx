@@ -10,7 +10,7 @@ const links = [
   { label: 'Início', href: '#home' },
   { label: 'Sobre', href: '#sobre' },
   { label: 'Avisos', href: '#avisos' },
-  { label: 'Local', href: '#local' },
+  { label: 'Evento', href: '#avisos' },
   { label: 'FAQ', href: '#faq' },
 ];
 
@@ -102,7 +102,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
               onClick={onBuyClick}
               whileTap={{ scale: 0.97 }}
               whileHover={{ y: -2 }}
-              className="bw-shimmer-btn flex items-center gap-2 rounded-lg border-2 border-white px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.04em] text-white transition-colors duration-200 hover:bg-white hover:text-black"
+              className={`bw-shimmer-btn flex items-center gap-2 rounded-lg border-2 px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.04em] transition-colors duration-200 ${scrolled ? 'border-white text-white hover:bg-white hover:text-black' : 'border-neutral-950 bg-neutral-950 text-white hover:bg-neutral-700'}`}
             >
               <Ticket size={16} />
               Comprar
@@ -113,7 +113,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
         <motion.button
           onClick={() => setOpen(!open)}
           whileTap={{ scale: 0.9 }}
-          className="md:hidden p-2.5 rounded-lg text-white hover:bg-white/10 transition-colors"
+          className={`md:hidden rounded-lg p-2.5 transition-colors ${scrolled ? 'text-white hover:bg-white/10' : 'text-neutral-950 hover:bg-black/5'}`}
           aria-label="Menu"
         >
           {open ? <X size={24} /> : <Menu size={24} />}

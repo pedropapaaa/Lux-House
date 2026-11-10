@@ -19,6 +19,8 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
   const timeLabel = event?.event_time || 'A partir das 21h';
   const location = event?.location || 'Valinhos–SP';
   const buyLabel = canBuy ? 'Comprar ingresso' : event?.status === 'ended' ? 'Evento encerrado' : 'Vendas em breve';
+  const countdownDate = event?.event_date ?? '2026-12-04';
+  const countdownTime = event?.event_time ?? '21h00';
 
   return (
     <section id="home" className="relative min-h-[760px] overflow-hidden bg-[#f5f5f3] text-neutral-950 sm:min-h-[820px] lg:min-h-[900px]">
@@ -51,7 +53,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
           <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25 }} className="relative z-40 border border-neutral-950/20 bg-white/95 p-5 shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur-md sm:p-6">
             <div className="flex items-start justify-between"><div><p className="text-[10px] uppercase tracking-[0.2em] text-neutral-500">Ingresso</p><p className="mt-2 font-display text-2xl font-bold uppercase">Pista</p></div><Ticket size={22} /></div>
             <p className="mt-3 text-sm leading-6 text-neutral-600">Garanta o seu antes que o lote acabe.</p>
-            {event?.event_date && event.status !== 'ended' && <div className="mt-5 border-t border-neutral-200 pt-5"><CountdownTimer eventDate={event.event_date} eventTime={event.event_time} /></div>}
+            {event?.status !== 'ended' && <div className="mt-5 border-t border-neutral-200 pt-5"><CountdownTimer eventDate={countdownDate} eventTime={countdownTime} /></div>}
             <button onClick={canBuy ? onBuyClick : undefined} disabled={!canBuy} className="mt-5 flex h-14 w-full items-center justify-center gap-2 bg-neutral-950 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-neutral-700 disabled:cursor-not-allowed disabled:bg-neutral-200 disabled:text-neutral-400"><Ticket size={17} />{buyLabel}</button>
             <p className="mt-4 flex items-center justify-center gap-2 text-xs text-neutral-500"><ShieldCheck size={14} />Pagamento seguro via Pix</p>
           </motion.div>

@@ -699,10 +699,13 @@ body {
 }
 
 /* Black & White landing theme overrides */
+.landing-monochrome .cd-title {
+  color: #525252;
+}
 .landing-monochrome .cd-box {
-  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 0 12px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.06);
+  background: #0a0a0a;
+  border: 1px solid #0a0a0a;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.12);
 }
 @media (min-width: 640px) {
   .landing-monochrome .cd-box {
@@ -716,9 +719,12 @@ body {
   color: #fff;
   text-shadow: 0 0 8px rgba(255,255,255,0.25);
 }
+.landing-monochrome .cd-label {
+  color: #737373;
+}
 .landing-monochrome .cd-live {
-  color: #fff;
-  text-shadow: 0 0 12px rgba(255,255,255,0.3);
+  color: #171717;
+  text-shadow: none;
 }
 .landing-monochrome ::selection {
   background: rgba(255,255,255,0.2);
