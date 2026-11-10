@@ -18,8 +18,8 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
   return (
     <div>
       <div className="flex items-center gap-2 mb-4">
-        <Ticket size={14} className="text-neutral-700" />
-        <span className="text-[10px] tracking-[0.2em] uppercase text-neutral-500 font-medium">
+        <Ticket size={14} className="text-neutral-950" />
+        <span className="text-[10px] tracking-[0.2em] uppercase text-neutral-500 font-semibold">
           Selecionar Lote
         </span>
       </div>
@@ -54,9 +54,9 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
               whileTap={isActive ? { scale: 0.99 } : {}}
               className={`w-full text-left p-4 sm:p-5 rounded-xl border transition-all duration-300 relative overflow-hidden group ${
                 isSelected
-                  ? 'border-neutral-950 bg-neutral-100'
+                  ? 'border-neutral-950 bg-neutral-100 shadow-[0_8px_24px_rgba(0,0,0,0.08)]'
                   : isActive
-                  ? 'border-neutral-200 bg-neutral-50 hover:border-neutral-500 hover:bg-neutral-100'
+                  ? 'border-neutral-200 bg-white hover:border-neutral-500 hover:bg-neutral-50'
                   : 'border-neutral-200 bg-neutral-100 opacity-50 cursor-not-allowed'
               }`}
             >
@@ -67,7 +67,7 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                   animate={{ opacity: 1 }}
                   className="absolute inset-0 rounded-xl pointer-events-none"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(244, 114, 182, 0.1))',
+                    background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.8))',
                   }}
                 />
               )}
@@ -80,8 +80,8 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                       isSelected
                         ? 'border-neutral-950 bg-neutral-950'
                         : isClosed
-                        ? 'border-neutral-200'
-                        : 'border-neutral-300 group-hover:border-neutral-700'
+                        ? 'border-neutral-300'
+                        : 'border-neutral-300 group-hover:border-neutral-950'
                     }`}
                   >
                     {isSelected && (
@@ -105,7 +105,7 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                         <span
                           className={`text-[9px] px-2.5 py-1 rounded-full font-medium tracking-wide ${
                             isUpcoming
-                              ? 'bg-amber-500/15 text-amber-400 border border-amber-500/25'
+                              ? 'bg-neutral-100 text-neutral-700 border border-neutral-300'
                               : isSoldOut
                               ? 'bg-red-500/15 text-red-400 border border-red-500/25'
                               : 'bg-neutral-100 text-neutral-500 border border-neutral-200'
@@ -124,7 +124,7 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                 </div>
 
                 <div className="text-right shrink-0">
-                  <div className={`font-playfair text-xl transition-colors ${isSelected ? 'text-neutral-700' : isActive ? 'text-neutral-800' : 'text-neutral-400'}`}>
+                  <div className={`font-playfair text-xl transition-colors ${isSelected ? 'text-neutral-950' : isActive ? 'text-neutral-700' : 'text-neutral-400'}`}>
                     {formatPrice(lot.price)}
                   </div>
                   <div className="text-[10px] text-neutral-400">por ingresso</div>

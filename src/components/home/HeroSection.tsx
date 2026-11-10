@@ -22,9 +22,9 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
 
   return (
     <section id="home" className="relative min-h-[760px] overflow-hidden bg-[#f5f5f3] text-neutral-950 sm:min-h-[820px] lg:min-h-[900px]">
-      <img src="/images/Evento_Lux_House_Arte_Visual copy 2.png" alt="Festa do Branco" className="absolute inset-0 h-full w-full object-cover object-center" loading="eager" fetchPriority="high" />
-      <div className="absolute inset-0 bg-gradient-to-r from-white/25 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/40" />
+      <img src="/images/hero-banner.webp" alt="Festa do Branco" className="absolute inset-0 h-full w-full object-cover object-center opacity-35" loading="eager" fetchPriority="high" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/55 to-white/10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/25 via-transparent to-white/80" />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
 
       <motion.img

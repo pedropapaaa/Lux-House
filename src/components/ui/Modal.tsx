@@ -39,7 +39,7 @@ export function Modal({ open, onClose, title, children, maxWidth = 'lg' }: Modal
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute inset-0 bg-black/90 backdrop-blur-md"
+            className="absolute inset-0 bg-neutral-950/75 backdrop-blur-sm"
             onClick={onClose}
           />
 
@@ -49,14 +49,14 @@ export function Modal({ open, onClose, title, children, maxWidth = 'lg' }: Modal
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className={`relative w-full ${widths[maxWidth]} rounded-2xl overflow-hidden border border-neutral-200 bg-white text-neutral-950 shadow-2xl`}
+            className={`relative w-full ${widths[maxWidth]} overflow-hidden rounded-[28px] border border-neutral-200 bg-white text-neutral-950 shadow-[0_28px_90px_rgba(0,0,0,0.28)]`}
           >
             {/* Header */}
             {title && (
-              <div className="flex items-center justify-between border-b border-neutral-200 px-6 py-5 sm:px-7">
+              <div className="flex items-center justify-between border-b border-neutral-200 px-6 py-5 sm:px-8">
                 <div>
-                  <h2 className="font-luxe text-2xl font-semibold text-neutral-950">{title}</h2>
-                  <div className="mt-2 h-0.5 w-12 rounded-full bg-neutral-950" />
+                  <h2 className="font-display text-2xl font-black uppercase tracking-[-0.04em] text-neutral-950">{title}</h2>
+                  <div className="mt-3 h-1 w-12 rounded-full bg-neutral-950" />
                 </div>
                 <motion.button
                   onClick={onClose}

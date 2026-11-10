@@ -235,7 +235,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
 
   return (
     <Modal open={open} onClose={handleClose} title="Comprar Ingresso" maxWidth="lg">
-      <div className="p-4 sm:p-6 lg:p-8">
+      <div className="bg-white p-4 sm:p-7 lg:p-9">
         {lotsLoading ? (
           <div className="flex justify-center py-16">
             <Spinner size={40} />
@@ -269,10 +269,10 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
-              className="flex items-center gap-2 mb-4 sm:mb-5"
+              className="mb-5 flex items-center gap-3 border-b border-neutral-200 pb-4 sm:mb-6"
             >
-              <User size={14} className="text-neutral-700" />
-              <span className="text-[10px] tracking-[0.2em] text-neutral-500 uppercase font-medium">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-950 text-white"><User size={14} /></span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
                 Dados do Comprador
               </span>
             </motion.div>
@@ -286,12 +286,14 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
             >
               <Input
                 label="Nome"
+                tone="light"
                 placeholder="Joao"
                 error={errors.name?.message}
                 {...register('name')}
               />
               <Input
                 label="Sobrenome"
+                tone="light"
                 placeholder="Silva"
                 error={errors.last_name?.message}
                 {...register('last_name')}
@@ -307,6 +309,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
             >
               <Input
                 label="CPF"
+                tone="light"
                 placeholder="000.000.000-00"
                 maxLength={14}
                 error={errors.cpf?.message}
@@ -318,6 +321,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
               />
               <Input
                 label="Telefone"
+                tone="light"
                 placeholder="(11) 99999-9999"
                 maxLength={15}
                 error={errors.phone?.message}
@@ -338,6 +342,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
             >
               <Input
                 label="E-mail"
+                tone="light"
                 type="email"
                 placeholder="joao@email.com"
                 error={errors.email?.message}
@@ -345,6 +350,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
               />
               <Input
                 label="Confirmar E-mail"
+                tone="light"
                 type="email"
                 placeholder="joao@email.com"
                 error={errors.confirm_email?.message}
@@ -361,7 +367,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
             >
               <div className="flex items-center gap-2 mb-2">
                 <Tag size={13} className="text-emerald-400/70" />
-                <span className="text-[10px] tracking-[0.15em] uppercase text-neutral-500 font-medium">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-neutral-500">
                   Cupom de Desconto
                 </span>
               </div>
@@ -396,7 +402,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                   <button
                     type="button"
                     onClick={handleRemoveCoupon}
-                    className="p-1 rounded-lg hover:bg-red-500/10 transition-colors text-neutral-400 hover:text-red-400"
+                    className="rounded-lg p-2 text-neutral-400 transition-colors hover:bg-red-50 hover:text-red-500"
                   >
                     <X size={14} />
                   </button>
@@ -415,7 +421,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                       (e.preventDefault(), handleApplyCoupon())
                     }
                     placeholder="CÓDIGO DO CUPOM"
-                    className="input-premium w-0 min-w-0 flex-1 rounded-xl px-4 py-3 text-sm text-neutral-950 outline-none uppercase placeholder:normal-case placeholder:tracking-normal tracking-widest"
+                    className="w-0 min-w-0 flex-1 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm uppercase tracking-widest text-neutral-950 outline-none placeholder:normal-case placeholder:tracking-normal focus:border-neutral-950 focus:bg-white"
                     maxLength={20}
                   />
 
@@ -423,7 +429,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                     type="button"
                     onClick={handleApplyCoupon}
                     disabled={!couponInput.trim() || couponLoading}
-                    className="shrink-0 px-4 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-sm font-medium transition-colors hover:bg-emerald-500/20 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2"
+                    className="flex shrink-0 items-center gap-2 rounded-xl border border-neutral-950 bg-neutral-950 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     {couponLoading ? (
                       <Loader2 size={14} className="animate-spin" />
@@ -453,14 +459,14 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <Ticket size={14} className={free ? 'text-yellow-400' : 'text-neutral-700'} />
-                      <span className="text-xs text-neutral-500">{selectedLot.name}</span>
+                      <span className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">{selectedLot.name}</span>
                     </div>
-                    <div className="text-sm text-neutral-600">1 ingresso</div>
+                    <div className="mt-1 text-sm text-neutral-600">1 ingresso</div>
                   </div>
 
                   <div className="text-right">
                     {appliedCoupon && (
-                      <div className="text-xs text-neutral-400 line-through mb-0.5">
+                      <div className="mb-0.5 text-xs text-neutral-400 line-through">
                         {selectedLot.price.toLocaleString('pt-BR', {
                           style: 'currency',
                           currency: 'BRL',
@@ -471,23 +477,23 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                     {free ? (
                       <div className="flex items-center gap-2">
                         <Gift size={16} className="text-yellow-400" />
-                        <span className="font-playfair text-2xl text-yellow-400">GRÁTIS</span>
+                        <span className="font-display text-2xl font-bold text-neutral-950">GRÁTIS</span>
                       </div>
                     ) : (
                       <>
-                        <div className="font-playfair text-2xl text-gradient-primary">
+                        <div className="font-display text-2xl font-bold text-neutral-950">
                           {totalAmount.toLocaleString('pt-BR', {
                             style: 'currency',
                             currency: 'BRL',
                           })}
                         </div>
-                        <div className="text-[10px] text-neutral-500 mt-0.5">
+                        <div className="mt-1 text-[10px] text-neutral-500">
                           {finalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} + {SERVICE_FEE.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} de taxa
                         </div>
                       </>
                     )}
 
-                    <div className="text-[10px] text-neutral-400 flex items-center gap-1 mt-1">
+                    <div className="mt-1 flex items-center gap-1 text-[10px] text-neutral-500">
                       {free ? (
                         <>
                           <Gift size={10} className="text-yellow-400/60" />
@@ -525,6 +531,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
             >
               <Button
                 type="submit"
+                variant="mono"
                 size="lg"
                 loading={submitting}
                 className={`w-full ${free ? 'bg-neutral-950 hover:bg-neutral-700 border-0' : ''}`}
@@ -533,7 +540,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
               </Button>
             </motion.div>
 
-            <p className="text-center text-xs text-neutral-400 mt-4 leading-relaxed">
+            <p className="mt-4 text-center text-xs leading-relaxed text-neutral-400">
               Ao continuar, voce concorda com nossos termos de uso.
             </p>
           </form>
