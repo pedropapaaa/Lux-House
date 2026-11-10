@@ -6,6 +6,7 @@ export interface Lot {
   sold_quantity: number;
   status: 'active' | 'sold_out' | 'closed';
   sort_order: number;
+  guests_per_unit: number;
   created_at: string;
   updated_at: string;
 }
@@ -21,6 +22,7 @@ export interface Order {
   buyer_email: string;
   buyer_city: string | null;
   quantity: number;
+  guests: { name: string; cpf: string }[];
   total_amount: number;
   payment_id: string | null;
   payment_status: 'pending' | 'approved' | 'rejected' | 'expired';
@@ -38,6 +40,8 @@ export interface Ticket {
   code: string;
   lot_name: string;
   buyer_name: string;
+  holder_name: string | null;
+  holder_cpf: string | null;
   buyer_email: string;
   event_date: string;
   event_time: string;

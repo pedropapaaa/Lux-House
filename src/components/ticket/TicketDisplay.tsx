@@ -61,7 +61,7 @@ export default function TicketDisplay({ ticket }: TicketDisplayProps) {
           {/* Ticket details */}
           <div className="px-5 sm:px-8 py-5 sm:py-6 space-y-3 sm:space-y-4">
             {[
-              { icon: User, label: 'Comprador', value: ticket.buyer_name, color: '#A855F7' },
+              { icon: User, label: ticket.holder_name ? 'Participante' : 'Comprador', value: ticket.holder_name ?? ticket.buyer_name, color: '#A855F7' },
               { icon: TicketIcon, label: 'Lote', value: ticket.lot_name, color: '#F472B6' },
               { icon: Calendar, label: 'Data', value: ticket.event_date, color: '#5B9BD5' },
               { icon: Clock, label: 'Horário', value: ticket.event_time, color: '#EC4899' },

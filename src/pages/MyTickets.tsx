@@ -24,7 +24,7 @@ function TicketCard({ ticket, index }: { ticket: Ticket; index: number }) {
               <TicketIcon size={20} className="text-purple-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-sm text-white/80 font-medium truncate">{ticket.buyer_name}</div>
+              <div className="text-sm text-white/80 font-medium truncate">{ticket.holder_name ?? ticket.buyer_name}</div>
               <div className="text-xs text-white/40 mt-0.5">{ticket.lot_name}</div>
               <div className="font-mono text-xs text-purple-400/70 mt-1 tracking-wider">{ticket.code}</div>
             </div>

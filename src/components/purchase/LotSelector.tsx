@@ -115,6 +115,11 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                         </span>
                       )}
                     </div>
+                    {isActive && lot.guests_per_unit > 1 && (
+                      <span className="text-xs text-neutral-500 mt-0.5 block">
+                        Inclui {lot.guests_per_unit} ingressos nominais
+                      </span>
+                    )}
                     {isActive && showRemaining && (
                       <span className="text-xs text-neutral-500 mt-0.5 block">
                         {available} {available === 1 ? 'ingresso disponivel' : 'ingressos disponiveis'}
@@ -127,7 +132,7 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                   <div className={`font-playfair text-xl transition-colors ${isSelected ? 'text-neutral-950' : isActive ? 'text-neutral-700' : 'text-neutral-400'}`}>
                     {formatPrice(lot.price)}
                   </div>
-                  <div className="text-[10px] text-neutral-400">por ingresso</div>
+                  <div className="text-[10px] text-neutral-400">por {lot.guests_per_unit > 1 ? 'camarote' : 'ingresso'}</div>
                 </div>
               </div>
             </motion.button>

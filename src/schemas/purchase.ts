@@ -3,6 +3,11 @@ import { z } from 'zod';
 const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 const phoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/;
 
+const guestSchema = z.object({
+  name: z.string().trim().min(2, 'Nome deve ter pelo menos 2 caracteres'),
+  cpf: z.string().regex(cpfRegex, 'CPF inválido (ex: 000.000.000-00)'),
+});
+
 export const purchaseSchema = z
   .object({
     name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
@@ -12,6 +17,7 @@ export const purchaseSchema = z
     email: z.string().email('E-mail inválido'),
     confirm_email: z.string().email('E-mail inválido'),
     lot_id: z.string().uuid('Selecione um lote'),
+    guests: z.array(guestSchema),
   })
   .refine((d) => d.email === d.confirm_email, {
     message: 'Os e-mails não coincidem',

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -9,11 +9,13 @@ import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { Spinner } from '../ui/Spinner';
 import LotSelector from './LotSelector';
+import GuestFields from './GuestFields';
 import { useLots } from '../../hooks/useLots';
 import { useSettings } from '../../hooks/useSettings';
 import { usePublicEvent } from '../../hooks/usePublicEvent';
 import { purchaseSchema, type PurchaseFormData } from '../../schemas/purchase';
 import { supabase } from '../../lib/supabase';
+import { maskCPF } from '../../lib/masks';
 
 interface PurchaseModalProps {
   open: boolean;
@@ -25,15 +27,6 @@ interface AppliedCoupon {
   code: string;
   discount_type: 'percent' | 'fixed';
   discount_value: number;
-}
-
-function maskCPF(v: string) {
-  return v
-    .replace(/\D/g, '')
-    .replace(/(\d{3})(\d)/, '$1.$2')
-    .replace(/(\d{3})(\d)/, '$1.$2')
-    .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-    .slice(0, 14);
 }
 
 function maskPhone(v: string) {
@@ -80,12 +73,15 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
     handleSubmit,
     setValue,
     watch,
+    control,
     formState: { errors },
     reset,
   } = useForm<PurchaseFormData>({
     resolver: zodResolver(purchaseSchema),
-    defaultValues: { lot_id: '' },
+    defaultValues: { lot_id: '', guests: [] },
   });
+
+  const { fields: guestFields, replace: replaceGuests } = useFieldArray({ control, name: 'guests' });
 
   const selectedLotId = watch('lot_id');
   const selectedLot = lots.find((l) => l.id === selectedLotId);
@@ -143,6 +139,13 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
     }
   };
 
+  const handleLotChange = (id: string) => {
+    setValue('lot_id', id, { shouldValidate: true });
+    const lot = lots.find((l) => l.id === id);
+    const guestCount = lot && lot.guests_per_unit > 1 ? lot.guests_per_unit : 0;
+    replaceGuests(Array.from({ length: guestCount }, () => ({ name: '', cpf: '' })));
+  };
+
   const handleRemoveCoupon = () => {
     setAppliedCoupon(null);
     setCouponError('');
@@ -166,6 +169,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
           buyer_phone: data.phone,
           buyer_email: data.email,
           quantity: 1,
+          guests: data.guests,
           total_amount: totalAmount,
           coupon_id: appliedCoupon?.id ?? null,
           discount_amount: selectedLot.price - finalPrice,
@@ -251,7 +255,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
               <LotSelector
                 lots={lots}
                 selectedId={selectedLotId}
-                onChange={(id) => setValue('lot_id', id, { shouldValidate: true })}
+                onChange={handleLotChange}
                 error={errors.lot_id?.message}
                 showRemaining={settings?.show_remaining_tickets ?? false}
               />
@@ -358,6 +362,10 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
               />
             </motion.div>
 
+            {guestFields.length > 0 && (
+              <GuestFields fields={guestFields} register={register} errors={errors} />
+            )}
+
             {/* Coupon field */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -461,7 +469,9 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                       <Ticket size={14} className={free ? 'text-yellow-400' : 'text-neutral-700'} />
                       <span className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">{selectedLot.name}</span>
                     </div>
-                    <div className="mt-1 text-sm text-neutral-600">1 ingresso</div>
+                    <div className="mt-1 text-sm text-neutral-600">
+                      {selectedLot.guests_per_unit > 1 ? `${selectedLot.guests_per_unit} ingressos nominais` : '1 ingresso'}
+                    </div>
                   </div>
 
                   <div className="text-right">

@@ -16,9 +16,23 @@ function randomTicketCode(): string {
   return code;
 }
 
+async function generateUniqueTicketCode(supabase: ReturnType<typeof createClient>): Promise<string> {
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const candidate = randomTicketCode();
+    const { data: existing } = await supabase
+      .from("tickets")
+      .select("id")
+      .eq("code", candidate)
+      .maybeSingle();
+    if (!existing) return candidate;
+  }
+  return `RLIO-${Date.now()}`;
+}
+
 function emailTemplate(params: {
   buyerName: string;
   ticketCode: string;
+  ticketsCount: number;
   lotName: string;
   eventDate: string;
   eventTime: string;
@@ -39,6 +53,7 @@ function emailTemplate(params: {
       <p style="margin:0 0 32px;color:rgba(255,255,255,0.4);font-size:14px;line-height:1.6;">
         Seu pagamento foi confirmado. Aqui está seu ingresso para o evento.
       </p>
+      ${params.ticketsCount > 1 ? `<p style="margin:0 0 32px;color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6;">Seu pedido inclui ${params.ticketsCount} ingressos, um para cada participante. Acesse Meus Ingressos no site para ver todos.</p>` : ""}
       <div style="background:#1a1a1a;border:1px solid rgba(201,168,76,0.15);border-radius:12px;padding:24px;margin-bottom:24px;">
         <table style="width:100%;border-collapse:collapse;">
           ${[
@@ -196,37 +211,34 @@ Deno.serve(async (req: Request) => {
       // Increment sold_quantity on the lot
       await supabase.rpc("increment_lot_sold", { lot_id: order.lot_id });
 
-      // Generate unique ticket code (retry on collision)
-      let ticketCode = "";
-      for (let attempt = 0; attempt < 5; attempt++) {
-        const candidate = randomTicketCode();
-        const { data: existing } = await supabase
-          .from("tickets")
-          .select("id")
-          .eq("code", candidate)
-          .maybeSingle();
-        if (!existing) { ticketCode = candidate; break; }
-      }
-
-      if (!ticketCode) ticketCode = `RLIO-${Date.now()}`;
-
       const event = order.events as { event_date?: string | null; event_time?: string | null; location?: string | null } | null;
       const eventDate = event?.event_date ?? "Data do evento";
       const eventTime = event?.event_time ?? "Consulte os detalhes do evento";
       const eventLocation = event?.location ?? "Vinhedo — São Paulo, SP";
 
-      // Insert ticket
-      await supabase.from("tickets").insert({
-        order_id: orderId,
-        code: ticketCode,
-        lot_name: lotName,
-        buyer_name: `${order.buyer_name} ${order.buyer_last_name}`,
-        buyer_email: order.buyer_email,
-        event_date: eventDate,
-        event_time: eventTime,
-        event_location: eventLocation,
-        event_id: order.event_id,
-      });
+      const guests = Array.isArray(order.guests) ? (order.guests as { name: string; cpf: string }[]) : [];
+      const ticketsToIssue = guests.length > 0 ? guests : [null];
+      const ticketCodes: string[] = [];
+
+      for (const guest of ticketsToIssue) {
+        const code = await generateUniqueTicketCode(supabase);
+        ticketCodes.push(code);
+        await supabase.from("tickets").insert({
+          order_id: orderId,
+          code,
+          lot_name: lotName,
+          buyer_name: `${order.buyer_name} ${order.buyer_last_name}`,
+          buyer_email: order.buyer_email,
+          event_date: eventDate,
+          event_time: eventTime,
+          event_location: eventLocation,
+          event_id: order.event_id,
+          holder_name: guest?.name ?? null,
+          holder_cpf: guest?.cpf ?? null,
+        });
+      }
+
+      const ticketCode = ticketCodes[0];
 
       if (order.coupon_id) {
         await supabase.rpc("increment_coupon_usage", { coupon_id: order.coupon_id });
@@ -247,6 +259,7 @@ Deno.serve(async (req: Request) => {
         const html = emailTemplate({
           buyerName: order.buyer_name,
           ticketCode,
+          ticketsCount: ticketCodes.length,
           lotName,
           eventDate,
           eventTime,
