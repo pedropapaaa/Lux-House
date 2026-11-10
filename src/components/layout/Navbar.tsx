@@ -49,8 +49,8 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-black/70 backdrop-blur-xl py-2.5 border-b border-white/10'
-          : 'bg-transparent py-4 border-b border-transparent'
+          ? 'bg-black/90 text-white backdrop-blur-xl py-2.5 border-b border-white/10'
+          : 'bg-white/80 text-neutral-950 backdrop-blur-md py-4 border-b border-black/10'
       }`}
     >
       <div className="lux-container flex items-center justify-between">
@@ -63,12 +63,12 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
             loading="eager"
             whileHover={isMobile ? undefined : { scale: 1.06, rotate: -4 }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-            className="h-10 w-10 sm:h-11 sm:w-11 object-contain rounded-full ring-1 ring-white/20 bg-white/5 p-0.5 invert"
+            className={`h-10 w-10 sm:h-11 sm:w-11 object-contain rounded-full ring-1 ${scrolled ? 'ring-white/20 invert' : 'ring-black/15'} bg-white/80 p-0.5`}
           />
-          <span className="h-8 w-px bg-white/25" aria-hidden />
+          <span className={`h-8 w-px ${scrolled ? 'bg-white/25' : 'bg-black/20'}`} aria-hidden />
           <span className="leading-none">
-            <span className="block text-[13px] sm:text-[15px] font-bold tracking-[0.18em] text-white">LUX HOUSE</span>
-            <span className="block mt-1 text-[8px] sm:text-[9px] font-semibold tracking-[0.42em] text-white/50 uppercase">Festa do Branco</span>
+            <span className={`block text-[13px] sm:text-[15px] font-bold tracking-[0.18em] ${scrolled ? 'text-white' : 'text-neutral-950'}`}>LUX HOUSE</span>
+            <span className={`block mt-1 text-[8px] sm:text-[9px] font-semibold tracking-[0.42em] uppercase ${scrolled ? 'text-white/50' : 'text-neutral-500'}`}>Festa do Branco</span>
           </span>
         </Link>
 
@@ -79,12 +79,12 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
                 key={l.href}
                 onClick={() => scrollTo(l.href)}
                 className={`relative py-2 text-[13px] font-semibold uppercase tracking-[0.06em] transition-colors ${
-                  active === l.href ? 'text-white' : 'text-white/50 hover:text-white'
+                  active === l.href ? (scrolled ? 'text-white' : 'text-neutral-950') : (scrolled ? 'text-white/50 hover:text-white' : 'text-neutral-500 hover:text-neutral-950')
                 }`}
               >
                 {l.label}
                 <span
-                  className={`absolute -bottom-1 left-1/2 h-[2px] -translate-x-1/2 bg-white transition-all duration-300 ${
+                  className={`absolute -bottom-1 left-1/2 h-[2px] -translate-x-1/2 transition-all duration-300 ${scrolled ? 'bg-white' : 'bg-neutral-950'} ${
                     active === l.href ? 'w-[130%]' : 'w-0'
                   }`}
                 />
@@ -94,11 +94,8 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
         )}
 
         <div className="hidden md:flex items-center gap-5">
-          <Link to="/meus-ingressos" className="text-[12px] font-medium text-white/45 hover:text-white transition-colors">
+          <Link to="/meus-ingressos" className={`text-[12px] font-medium transition-colors ${scrolled ? 'text-white/45 hover:text-white' : 'text-neutral-500 hover:text-neutral-950'}`}>
             Meus Ingressos
-          </Link>
-          <Link to="/admin" className="text-[12px] font-medium text-white/30 hover:text-white transition-colors">
-            Admin
           </Link>
           {onBuyClick && canBuy && (
             <motion.button
@@ -158,13 +155,6 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
               >
                 <Ticket size={14} />
                 Meus Ingressos
-              </Link>
-              <Link
-                to="/admin"
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-sm text-white/30 hover:bg-white/5"
-              >
-                Admin
               </Link>
             </div>
           </motion.div>

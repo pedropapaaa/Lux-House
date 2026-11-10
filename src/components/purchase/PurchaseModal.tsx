@@ -259,9 +259,9 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
 
             {/* Divider */}
             <div className="my-6 sm:my-8 flex items-center gap-4" aria-hidden="true">
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
-              <User size={14} className="text-purple-500/40" />
-              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neutral-950/15 to-transparent" />
+              <User size={14} className="text-neutral-500" />
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neutral-950/15 to-transparent" />
             </div>
 
             {/* Section title */}
@@ -271,8 +271,8 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
               transition={{ delay: 0.15 }}
               className="flex items-center gap-2 mb-4 sm:mb-5"
             >
-              <User size={14} className="text-purple-400" />
-              <span className="text-[10px] tracking-[0.2em] text-purple-400/80 uppercase font-medium">
+              <User size={14} className="text-neutral-700" />
+              <span className="text-[10px] tracking-[0.2em] text-neutral-500 uppercase font-medium">
                 Dados do Comprador
               </span>
             </motion.div>
@@ -361,7 +361,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
             >
               <div className="flex items-center gap-2 mb-2">
                 <Tag size={13} className="text-emerald-400/70" />
-                <span className="text-[10px] tracking-[0.15em] uppercase text-white/40 font-medium">
+                <span className="text-[10px] tracking-[0.15em] uppercase text-neutral-500 font-medium">
                   Cupom de Desconto
                 </span>
               </div>
@@ -396,7 +396,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                   <button
                     type="button"
                     onClick={handleRemoveCoupon}
-                    className="p-1 rounded-lg hover:bg-red-500/10 transition-colors text-white/30 hover:text-red-400"
+                    className="p-1 rounded-lg hover:bg-red-500/10 transition-colors text-neutral-400 hover:text-red-400"
                   >
                     <X size={14} />
                   </button>
@@ -415,7 +415,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                       (e.preventDefault(), handleApplyCoupon())
                     }
                     placeholder="CÓDIGO DO CUPOM"
-                    className="input-premium w-0 min-w-0 flex-1 rounded-xl px-4 py-3 text-sm text-white outline-none uppercase placeholder:normal-case placeholder:tracking-normal tracking-widest"
+                    className="input-premium w-0 min-w-0 flex-1 rounded-xl px-4 py-3 text-sm text-neutral-950 outline-none uppercase placeholder:normal-case placeholder:tracking-normal tracking-widest"
                     maxLength={20}
                   />
 
@@ -447,20 +447,20 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
               <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className={`mb-6 p-4 sm:p-5 rounded-xl border ${free ? 'border-yellow-500/25 bg-yellow-500/5' : 'border-magenta-500/20 bg-magenta-500/5'}`}
+                className={`mb-6 p-4 sm:p-5 rounded-xl border ${free ? 'border-yellow-500/25 bg-yellow-500/5' : 'border-neutral-300 bg-neutral-50'}`}
               >
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <Ticket size={14} className={free ? 'text-yellow-400' : 'text-pink-400'} />
-                      <span className="text-xs text-white/40">{selectedLot.name}</span>
+                      <Ticket size={14} className={free ? 'text-yellow-400' : 'text-neutral-700'} />
+                      <span className="text-xs text-neutral-500">{selectedLot.name}</span>
                     </div>
-                    <div className="text-sm text-white/60">1 ingresso</div>
+                    <div className="text-sm text-neutral-600">1 ingresso</div>
                   </div>
 
                   <div className="text-right">
                     {appliedCoupon && (
-                      <div className="text-xs text-white/30 line-through mb-0.5">
+                      <div className="text-xs text-neutral-400 line-through mb-0.5">
                         {selectedLot.price.toLocaleString('pt-BR', {
                           style: 'currency',
                           currency: 'BRL',
@@ -481,13 +481,13 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                             currency: 'BRL',
                           })}
                         </div>
-                        <div className="text-[10px] text-white/40 mt-0.5">
+                        <div className="text-[10px] text-neutral-500 mt-0.5">
                           {finalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} + {SERVICE_FEE.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} de taxa
                         </div>
                       </>
                     )}
 
-                    <div className="text-[10px] text-white/30 flex items-center gap-1 mt-1">
+                    <div className="text-[10px] text-neutral-400 flex items-center gap-1 mt-1">
                       {free ? (
                         <>
                           <Gift size={10} className="text-yellow-400/60" />
@@ -527,13 +527,13 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                 type="submit"
                 size="lg"
                 loading={submitting}
-                className={`w-full ${free ? 'bg-gradient-to-r from-magenta-500 to-purple-500 hover:from-magenta-400 hover:to-purple-400 border-0' : ''}`}
+                className={`w-full ${free ? 'bg-neutral-950 hover:bg-neutral-700 border-0' : ''}`}
               >
                 {free ? 'Confirmar Ingresso Gratuito' : 'Gerar QR Code Pix'}
               </Button>
             </motion.div>
 
-            <p className="text-center text-xs text-white/20 mt-4 leading-relaxed">
+            <p className="text-center text-xs text-neutral-400 mt-4 leading-relaxed">
               Ao continuar, voce concorda com nossos termos de uso.
             </p>
           </form>

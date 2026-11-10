@@ -4,7 +4,6 @@ import Footer from '../components/layout/Footer';
 import HeroSection from '../components/home/HeroSection';
 import AboutSection from '../components/home/AboutSection';
 import AnnouncementsSection from '../components/home/AnnouncementsSection';
-import MapSection from '../components/home/MapSection';
 import FAQSection from '../components/home/FAQSection';
 import PurchaseModal from '../components/purchase/PurchaseModal';
 
@@ -15,12 +14,11 @@ export default function Home() {
   const closeModal = useCallback(() => setModalOpen(false), []);
 
   return (
-    <div className="landing-monochrome min-h-screen bg-dark-950 text-ivory">
+    <div className="landing-monochrome min-h-screen bg-white text-neutral-950">
       <Navbar onBuyClick={openModal} />
       <HeroSection onBuyClick={openModal} />
       <AboutSection />
       <AnnouncementsSection />
-      <MapSection />
       <FAQSection />
       <Footer />
       <PurchaseModal open={modalOpen} onClose={closeModal} />

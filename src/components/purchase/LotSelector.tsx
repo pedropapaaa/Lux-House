@@ -18,8 +18,8 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
   return (
     <div>
       <div className="flex items-center gap-2 mb-4">
-        <Ticket size={14} className="text-purple-400" />
-        <span className="text-[10px] tracking-[0.2em] uppercase text-white/40 font-medium">
+        <Ticket size={14} className="text-neutral-700" />
+        <span className="text-[10px] tracking-[0.2em] uppercase text-neutral-500 font-medium">
           Selecionar Lote
         </span>
       </div>
@@ -54,10 +54,10 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
               whileTap={isActive ? { scale: 0.99 } : {}}
               className={`w-full text-left p-4 sm:p-5 rounded-xl border transition-all duration-300 relative overflow-hidden group ${
                 isSelected
-                  ? 'border-purple-500/60 bg-purple-500/10'
+                  ? 'border-neutral-950 bg-neutral-100'
                   : isActive
-                  ? 'border-white/10 bg-dark-800/60 hover:border-purple-500/30 hover:bg-purple-500/5'
-                  : 'border-white/5 bg-dark-800/30 opacity-50 cursor-not-allowed'
+                  ? 'border-neutral-200 bg-neutral-50 hover:border-neutral-500 hover:bg-neutral-100'
+                  : 'border-neutral-200 bg-neutral-100 opacity-50 cursor-not-allowed'
               }`}
             >
               {/* Gradient border effect when selected */}
@@ -78,10 +78,10 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                   <div
                     className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-300 ${
                       isSelected
-                        ? 'border-purple-500 bg-purple-500'
+                        ? 'border-neutral-950 bg-neutral-950'
                         : isClosed
-                        ? 'border-white/10'
-                        : 'border-white/20 group-hover:border-purple-500/40'
+                        ? 'border-neutral-200'
+                        : 'border-neutral-300 group-hover:border-neutral-700'
                     }`}
                   >
                     {isSelected && (
@@ -93,12 +93,12 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                         <Check size={11} className="text-white stroke-[3]" />
                       </motion.div>
                     )}
-                    {isClosed && <Lock size={9} className="text-white/25" />}
+                    {isClosed && <Lock size={9} className="text-neutral-400" />}
                   </div>
 
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className={`text-sm font-semibold transition-colors ${isSelected ? 'text-white' : 'text-white/80'}`}>
+                      <span className={`text-sm font-semibold transition-colors ${isSelected ? 'text-neutral-950' : 'text-neutral-800'}`}>
                         {lot.name}
                       </span>
                       {badgeLabel && (
@@ -108,7 +108,7 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                               ? 'bg-amber-500/15 text-amber-400 border border-amber-500/25'
                               : isSoldOut
                               ? 'bg-red-500/15 text-red-400 border border-red-500/25'
-                              : 'bg-white/5 text-white/40 border border-white/5'
+                              : 'bg-neutral-100 text-neutral-500 border border-neutral-200'
                           }`}
                         >
                           {badgeLabel}
@@ -116,7 +116,7 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                       )}
                     </div>
                     {isActive && showRemaining && (
-                      <span className="text-xs text-white/40 mt-0.5 block">
+                      <span className="text-xs text-neutral-500 mt-0.5 block">
                         {available} {available === 1 ? 'ingresso disponivel' : 'ingressos disponiveis'}
                       </span>
                     )}
@@ -124,10 +124,10 @@ export default function LotSelector({ lots, selectedId, onChange, error, showRem
                 </div>
 
                 <div className="text-right shrink-0">
-                  <div className={`font-playfair text-xl transition-colors ${isSelected ? 'text-purple-400' : isActive ? 'text-white/80' : 'text-white/30'}`}>
+                  <div className={`font-playfair text-xl transition-colors ${isSelected ? 'text-neutral-700' : isActive ? 'text-neutral-800' : 'text-neutral-400'}`}>
                     {formatPrice(lot.price)}
                   </div>
-                  <div className="text-[10px] text-white/30">por ingresso</div>
+                  <div className="text-[10px] text-neutral-400">por ingresso</div>
                 </div>
               </div>
             </motion.button>

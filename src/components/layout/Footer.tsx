@@ -1,132 +1,13 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Heart } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 
-const contactInfo = [
-  { icon: MapPin, text: 'Vinhedo, SP' },
-  { icon: Phone, text: '+55 (19) 97143-3837' },
-  { icon: Mail, text: 'pedropapagames@gmail.com' },
-];
-
-const footerLinks = [
-  { label: 'Comprar Ingressos', to: '/' },
-  { label: 'Painel Administrativo', to: '/admin' },
-];
+const contactInfo = [{ Icon: MapPin, text: 'Valinhos, SP' }, { Icon: Phone, text: '+55 (19) 97143-3837' }, { Icon: Mail, text: 'pedropapagames@gmail.com' }];
 
 export default function Footer() {
   return (
-    <footer className="relative bg-black border-t border-white/10 bw-grain overflow-hidden">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-      <div className="absolute bottom-0 left-1/3 w-[500px] h-[250px] rounded-full bg-white/3 blur-[150px] pointer-events-none" />
-
-      <div className="lux-container py-16 sm:py-20 relative">
-        <div className="grid md:grid-cols-3 gap-8 sm:gap-12 lg:gap-16 mb-10 sm:mb-16">
-          {/* Brand */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              >
-                <picture>
-                  <source srcSet="/images/monograma-lh.webp" type="image/webp" />
-                  <img
-                    src="/images/monograma-lh.webp"
-                    alt="Lux House"
-                    width={56}
-                    height={56}
-                    loading="lazy"
-                    className="w-11 h-11 sm:w-14 sm:h-14 object-contain rounded-full invert p-0.5 bg-white/5 ring-1 ring-white/15"
-                  />
-                </picture>
-              </motion.div>
-              <div>
-                <div className="text-xl sm:text-2xl font-bold text-white tracking-[0.08em]" style={{ fontFamily: "'Anton', sans-serif" }}>
-                  Lux House
-                </div>
-                <div className="text-[8px] sm:text-[9px] tracking-[0.32em] sm:tracking-[0.4em] text-white/40 uppercase mt-0.5">Festa do Branco</div>
-              </div>
-            </div>
-            <p className="text-white/35 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 max-w-xs">
-              A experiência mais vibrante em Vinhedo-SP, com os melhores DJs e atrações. Curta cada segundo.
-            </p>
-            <div className="h-px w-16 bg-gradient-to-r from-white/30 to-transparent" />
-          </motion.div>
-
-          {/* Contact */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <h4 className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-bold mb-5">Contato</h4>
-            <div className="space-y-3 sm:space-y-4">
-              {contactInfo.map(({ icon: Icon, text }, i) => (
-                <motion.div
-                  key={text}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 + i * 0.05 }}
-                  className="flex items-center gap-4 group"
-                >
-                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 border border-white/12 bg-white/5 transition-all duration-300 group-hover:border-white/25">
-                    <Icon size={14} className="text-white sm:!size-4" />
-                  </div>
-                  <span className="text-xs sm:text-sm text-white/50 leading-snug">{text}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <h4 className="text-[10px] tracking-[0.3em] uppercase text-white/40 font-bold mb-5">Links</h4>
-            <div className="space-y-2 sm:space-y-3">
-              {footerLinks.map(({ label, to }, i) => (
-                <motion.div
-                  key={label}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.25 + i * 0.05 }}
-                >
-                  <Link
-                    to={to}
-                    className="block text-sm text-white/40 hover:text-white transition-colors duration-300 py-1"
-                  >
-                    {label}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t border-white/8 pt-6 sm:pt-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-[11px] sm:text-xs text-white/25 tracking-wide flex items-center gap-2">
-              Feito com <Heart size={12} className="text-white/50" /> pela Lux House
-            </p>
-            <div className="hidden md:block h-px flex-1 mx-8 max-w-xs bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-            <div className="flex items-center gap-3 sm:gap-4 text-[11px] sm:text-xs text-white/20">
-              <span className="tracking-wider">2026 Lux House — Festa do Branco</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <footer className="bg-white text-neutral-950">
+      <section className="border-t border-neutral-200 bg-[#f5f5f3]"><div className="mx-auto flex max-w-[1440px] flex-col gap-8 px-5 py-16 sm:px-10 sm:py-24 lg:flex-row lg:items-end lg:justify-between lg:px-16"><div><p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-neutral-500">Uma noite. Uma experiência única.</p><h2 className="mt-5 font-display text-6xl font-black uppercase leading-[0.84] tracking-[-0.06em] sm:text-8xl">Vista branco.<br />Viva a noite.</h2></div><div className="w-full sm:max-w-xs"><p className="text-sm leading-6 text-neutral-700">04 de dezembro · A partir das 21h<br />Valinhos–SP</p><Link to="/#home" className="mt-5 flex h-14 items-center justify-between bg-neutral-950 px-5 text-sm font-bold uppercase tracking-[0.08em] text-white transition hover:bg-neutral-700">Comprar ingresso <ArrowUpRight size={22} /></Link></div></div></section>
+      <div className="mx-auto max-w-[1440px] px-5 py-12 sm:px-10 lg:px-16"><div className="grid gap-10 sm:grid-cols-3"><div><Link to="/" className="flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center bg-neutral-950"><img src="/images/monograma-lh.webp" alt="Lux House" className="h-9 w-9 invert" /></span><span className="font-display text-lg font-bold tracking-[0.16em]">LUX HOUSE</span></Link><p className="mt-5 max-w-xs text-sm leading-6 text-neutral-600">Festa do Branco. Música, presença e uma noite para guardar.</p></div><div><h3 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-500">Contato</h3><div className="mt-5 space-y-3">{contactInfo.map(({ Icon, text }) => <div key={text} className="flex items-center gap-3 text-sm text-neutral-700"><Icon size={16} />{text}</div>)}</div></div><div><h3 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-500">Navegação</h3><div className="mt-5 space-y-3 text-sm text-neutral-700"><a className="block hover:text-black" href="#sobre">A experiência</a><a className="block hover:text-black" href="#avisos">Informações do evento</a><a className="block hover:text-black" href="#faq">FAQ</a></div></div></div><div className="mt-12 flex flex-col gap-3 border-t border-neutral-200 pt-6 text-[10px] uppercase tracking-[0.16em] text-neutral-500 sm:flex-row sm:justify-between"><span>© 2026 Lux House</span><span>Festa do Branco</span></div></div>
     </footer>
   );
 }

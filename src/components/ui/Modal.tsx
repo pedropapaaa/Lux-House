@@ -49,20 +49,20 @@ export function Modal({ open, onClose, title, children, maxWidth = 'lg' }: Modal
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className={`relative w-full ${widths[maxWidth]} glass-card rounded-2xl overflow-hidden border-white/10 shadow-2xl`}
+            className={`relative w-full ${widths[maxWidth]} rounded-2xl overflow-hidden border border-neutral-200 bg-white text-neutral-950 shadow-2xl`}
           >
             {/* Header */}
             {title && (
-              <div className="flex items-center justify-between px-6 py-5 sm:px-7 border-b border-white/8">
+              <div className="flex items-center justify-between border-b border-neutral-200 px-6 py-5 sm:px-7">
                 <div>
-                  <h2 className="font-luxe text-2xl font-semibold text-white">{title}</h2>
-                  <div className="h-0.5 w-12 bg-gradient-to-r from-purple-500 to-pink-500 mt-2 rounded-full" />
+                  <h2 className="font-luxe text-2xl font-semibold text-neutral-950">{title}</h2>
+                  <div className="mt-2 h-0.5 w-12 rounded-full bg-neutral-950" />
                 </div>
                 <motion.button
                   onClick={onClose}
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-9 h-9 rounded-full flex items-center justify-center text-white/40 hover:text-white hover:bg-white/5 transition-all duration-200"
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-neutral-400 transition-all duration-200 hover:bg-neutral-100 hover:text-neutral-950"
                 >
                   <X size={16} />
                 </motion.button>
