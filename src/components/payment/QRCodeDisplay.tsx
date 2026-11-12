@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, CheckCircle } from 'lucide-react';
+import { Check, CheckCircle2, Copy, ScanLine } from 'lucide-react';
 
-interface QRCodeDisplayProps {
-  pixCode: string;
-  qrBase64?: string | null;
-}
+interface QRCodeDisplayProps { pixCode: string; qrBase64?: string | null; }
 
 export default function QRCodeDisplay({ pixCode, qrBase64 }: QRCodeDisplayProps) {
   const [copied, setCopied] = useState(false);
@@ -14,80 +11,15 @@ export default function QRCodeDisplay({ pixCode, qrBase64 }: QRCodeDisplayProps)
   const copyCode = async () => {
     await navigator.clipboard.writeText(pixCode);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    window.setTimeout(() => setCopied(false), 2500);
   };
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      {/* QR Code */}
-      <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        className="p-4 sm:p-5 bg-white rounded-2xl"
-        style={{ boxShadow: '0 0 40px rgba(212, 132, 46, 0.2), 0 10px 30px rgba(0, 0, 0, 0.3)' }}
-      >
-        {qrBase64 ? (
-          <img
-            src={`data:image/png;base64,${qrBase64}`}
-            alt="QR Code Pix"
-            width={200}
-            height={200}
-            className="block"
-          />
-        ) : (
-          <QRCodeSVG
-            value={pixCode}
-            size={200}
-            bgColor="#ffffff"
-            fgColor="#090909"
-            level="M"
-          />
-        )}
-      </motion.div>
-
-      {/* Copy code */}
-      <div className="w-full">
-        <div className="text-[10px] tracking-widest text-white/30 uppercase mb-3 text-center font-medium">
-          Pix Copia e Cola
-        </div>
-        <div className="flex flex-col sm:flex-row items-stretch gap-3">
-          <div className="flex-1 bg-dark-800 border border-white/10 rounded-xl px-4 py-4 text-xs text-white/50 font-mono truncate text-center sm:text-left">
-            {pixCode}
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={copyCode}
-            className={`flex items-center justify-center gap-2 px-5 py-4 rounded-xl border text-sm font-medium tracking-wider transition-all duration-300 shrink-0 ${
-              copied
-                ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                : 'border-purple-500/30 bg-purple-500/10 text-purple-400 hover:border-purple-400/50 hover:bg-purple-500/15'
-            }`}
-          >
-            <AnimatePresence mode="wait">
-              {copied ? (
-                <motion.span
-                  key="copied"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex items-center gap-2"
-                >
-                  <CheckCircle size={16} /> Copiado
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="copy"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex items-center gap-2"
-                >
-                  <Copy size={16} /> Copiar
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.button>
-        </div>
-      </div>
+    <div className="flex flex-col items-center">
+      <div className="mb-6 flex w-full items-center justify-between border-b border-neutral-200 pb-4"><div><p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Pagamento instantâneo</p><h2 className="mt-2 font-display text-2xl font-black uppercase tracking-[-0.04em] text-neutral-950">Escaneie o QR Code</h2></div><span className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-950 text-white"><ScanLine size={18} /></span></div>
+      <motion.div initial={{ scale: 0.94, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="rounded-[24px] border border-neutral-200 bg-white p-4 shadow-[0_20px_50px_rgba(0,0,0,0.12)] sm:p-5"><div className="rounded-2xl bg-white p-2">{qrBase64 ? <img src={`data:image/png;base64,${qrBase64}`} alt="QR Code Pix" width={240} height={240} className="block h-auto w-[220px] sm:w-[240px]" /> : <QRCodeSVG value={pixCode} size={240} bgColor="#ffffff" fgColor="#090909" level="M" className="h-auto w-[220px] sm:w-[240px]" />}</div></motion.div>
+      <p className="mt-5 max-w-xs text-center text-xs leading-5 text-neutral-500">Abra o aplicativo do seu banco e aponte a câmera para pagar.</p>
+      <div className="mt-7 w-full"><div className="mb-3 flex items-center justify-between"><span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-500">Pix copia e cola</span>{copied && <span className="flex items-center gap-1 text-xs font-semibold text-emerald-700"><CheckCircle2 size={14} />Copiado</span>}</div><div className="flex flex-col gap-2 sm:flex-row"><div className="min-w-0 flex-1 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3.5 font-mono text-xs leading-5 text-neutral-600"><span className="block truncate">{pixCode}</span></div><motion.button whileHover={{ y: -1 }} whileTap={{ scale: 0.98 }} onClick={copyCode} className={`flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition ${copied ? 'bg-emerald-700 text-white' : 'bg-neutral-950 text-white hover:bg-neutral-700'}`}><AnimatePresence mode="wait">{copied ? <motion.span key="done" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2"><Check size={16} />Copiado</motion.span> : <motion.span key="copy" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2"><Copy size={16} />Copiar código</motion.span>}</AnimatePresence></motion.button></div></div>
     </div>
   );
 }

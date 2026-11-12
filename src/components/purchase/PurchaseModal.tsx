@@ -187,12 +187,6 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
 
         if (approveError) throw approveError;
 
-        if (appliedCoupon) {
-          void Promise.resolve(
-            supabase.rpc('increment_coupon_usage', { coupon_id: appliedCoupon.id })
-          ).catch(() => {});
-        }
-
         handleClose();
         // Navigate to payment page which will auto-redirect to ticket once approved
         navigate(`/pagamento/${order.id}`);

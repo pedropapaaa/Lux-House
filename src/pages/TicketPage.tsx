@@ -12,7 +12,7 @@ export default function TicketPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-dark-950 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-[#f5f5f3]">
         <Spinner size={48} />
       </div>
     );
@@ -20,7 +20,7 @@ export default function TicketPage() {
 
   if (error || !ticket) {
     return (
-      <div className="min-h-screen bg-dark-950 flex flex-col items-center justify-center gap-6 px-6 text-center">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-[#f5f5f3] px-6 text-center text-neutral-950">
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -28,8 +28,8 @@ export default function TicketPage() {
         >
           <AlertCircle size={36} className="text-red-400" />
         </motion.div>
-        <h2 className="font-playfair text-2xl sm:text-3xl text-white">Ingresso nao encontrado</h2>
-        <p className="text-white/40 text-sm max-w-xs">
+        <h2 className="font-display text-2xl font-black uppercase tracking-[-0.05em] text-neutral-950 sm:text-3xl">Ingresso não encontrado</h2>
+        <p className="max-w-xs text-sm text-neutral-500">
           O codigo do ingresso e invalido ou este ingresso nao existe.
         </p>
         <Link to="/">
@@ -40,10 +40,9 @@ export default function TicketPage() {
   }
 
   return (
-    <div className="min-h-screen bg-dark-950 px-4 py-10 sm:py-16">
+    <div className="min-h-screen bg-[#f5f5f3] px-4 py-10 sm:py-16">
       {/* Ambient glow */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-80 bg-purple-500/5 rounded-full blur-[150px] pointer-events-none" />
-
+      
       <div className="max-w-md mx-auto relative">
         {/* Header */}
         <motion.div
@@ -91,7 +90,7 @@ export default function TicketPage() {
         >
           <Link
             to="/"
-            className="text-xs text-white/25 hover:text-white/50 transition-colors tracking-wider inline-flex items-center gap-2"
+            className="inline-flex items-center gap-2 text-xs tracking-wider text-neutral-500 transition-colors hover:text-neutral-950"
           >
             Voltar ao site
           </Link>

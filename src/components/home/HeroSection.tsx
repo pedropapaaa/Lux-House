@@ -35,7 +35,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="pointer-events-none absolute bottom-0 right-[-8%] z-20 h-[72%] w-auto max-w-none object-contain object-bottom sm:right-[1%] sm:h-[78%] lg:right-[10%] lg:h-[92%]"
+        className="pointer-events-none absolute bottom-0 right-[-14%] z-20 h-[86%] w-auto max-w-none object-contain object-bottom opacity-60 sm:right-[1%] sm:h-[78%] sm:opacity-100 lg:right-[10%] lg:z-20 lg:h-[92%]"
       />
 
       <div className="relative z-30 mx-auto flex min-h-[760px] max-w-[1440px] flex-col justify-end px-5 pb-12 pt-32 sm:min-h-[820px] sm:px-10 sm:pb-16 lg:min-h-[900px] lg:px-16 lg:pb-20">

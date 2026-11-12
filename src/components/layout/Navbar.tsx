@@ -50,7 +50,7 @@ export default function Navbar({ onBuyClick }: NavbarProps) {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
           ? 'bg-black/90 text-white backdrop-blur-xl py-2.5 border-b border-white/10'
-          : 'bg-white/80 text-neutral-950 backdrop-blur-md py-4 border-b border-black/10'
+          : 'bg-transparent text-neutral-950 py-4 border-b border-transparent'
       }`}
     >
       <div className="lux-container flex items-center justify-between">
