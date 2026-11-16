@@ -165,9 +165,15 @@ export default function AdminDashboard() {
 
   const setActiveLotMutation = useMutation({
     mutationFn: async (lotId: string) => {
+      const isCamarote = (lots.find((l) => l.id === lotId)?.guests_per_unit ?? 1) > 1;
       const updates = lots.map((l) => ({
         id: l.id,
-        status: l.id === lotId ? 'active' : (l.status === 'active' ? 'closed' : l.status),
+        status:
+          l.id === lotId
+            ? 'active'
+            : l.status === 'active' && (l.guests_per_unit > 1) === isCamarote
+              ? 'closed'
+              : l.status,
       }));
       for (const u of updates) {
         const { error } = await supabase.from('lots').update({ status: u.status }).eq('id', u.id);
