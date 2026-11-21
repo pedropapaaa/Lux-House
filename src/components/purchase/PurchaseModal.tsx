@@ -61,6 +61,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
   const { data: settings } = useSettings();
   const [serverError, setServerError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   const [couponInput, setCouponInput] = useState('');
   const [couponLoading, setCouponLoading] = useState(false);
@@ -85,13 +86,15 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
 
   const selectedLotId = watch('lot_id');
   const selectedLot = lots.find((l) => l.id === selectedLotId);
-  const finalPrice = selectedLot ? calcFinalPrice(selectedLot.price, appliedCoupon) : 0;
+  const basePrice = quantity === 2 ? 110 : quantity === 3 ? 159 : selectedLot?.price ?? 0;
+  const finalPrice = selectedLot ? calcFinalPrice(basePrice, appliedCoupon) : 0;
   const free = selectedLot ? isFree(finalPrice) : false;
   const serviceFee = free ? 0 : SERVICE_FEE;
   const totalAmount = finalPrice + serviceFee;
 
   const handleClose = () => {
     reset();
+    setQuantity(1);
     setServerError('');
     setCouponInput('');
     setCouponError('');
@@ -140,6 +143,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
   };
 
   const handleLotChange = (id: string) => {
+    setQuantity(1);
     setValue('lot_id', id, { shouldValidate: true });
     const lot = lots.find((l) => l.id === id);
     const guestCount = lot && lot.guests_per_unit > 1 ? lot.guests_per_unit : 0;
@@ -168,11 +172,11 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
           buyer_cpf: data.cpf,
           buyer_phone: data.phone,
           buyer_email: data.email,
-          quantity: 1,
+          quantity,
           guests: data.guests,
           total_amount: totalAmount,
           coupon_id: appliedCoupon?.id ?? null,
-          discount_amount: selectedLot.price - finalPrice,
+          discount_amount: basePrice - finalPrice,
           payment_status: 'pending',
         })
         .select()
@@ -180,7 +184,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
 
       if (orderError) throw orderError;
 
-      if (free) {
+      if (Number(order.total_amount) === 0) {
         // Free order: approve immediately via secure RPC, skip QR code
         const { error: approveError } = await supabase
           .rpc('approve_free_order', { order_id: order.id });
@@ -210,11 +214,6 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
         throw new Error(errBody.error ?? 'Erro ao processar pagamento.');
       }
 
-      if (appliedCoupon) {
-        void Promise.resolve(
-          supabase.rpc('increment_coupon_usage', { coupon_id: appliedCoupon.id })
-        ).catch(() => {});
-      }
 
       handleClose();
       navigate(`/pagamento/${order.id}`);
@@ -254,6 +253,19 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                 showRemaining={settings?.show_remaining_tickets ?? false}
               />
             </motion.div>
+
+            {selectedLot && selectedLot.guests_per_unit === 1 && Number(selectedLot.price) === 59 && (
+              <div className="mt-6 grid gap-3 sm:grid-cols-3" aria-label="Modalidade de ingresso">
+                {[{ n: 1, label: 'Individual', price: 59, badge: '' }, { n: 2, label: 'Combo Duplo', price: 110, badge: 'ECONOMIZE R$ 8' }, { n: 3, label: 'Combo Triplo', price: 159, badge: 'MELHOR OFERTA · R$ 18' }].map((option) => (
+                  <button key={option.n} type="button" disabled={selectedLot.total_quantity - selectedLot.sold_quantity < option.n} onClick={() => setQuantity(option.n)} className={`rounded-xl border p-4 text-left transition disabled:opacity-40 ${quantity === option.n ? 'border-neutral-950 bg-neutral-950 text-white' : 'border-neutral-200 bg-white text-neutral-950'}`}>
+                    <span className={`block text-[10px] font-semibold ${quantity === option.n ? 'text-emerald-300' : 'text-emerald-700'}`}>{option.badge || '1 INGRESSO'}</span>
+                    <span className="mt-2 block font-semibold">{option.label}</span>
+                    <span className="mt-2 block text-lg font-bold">{option.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                    <span className="mt-1 block text-xs">{option.n} ingresso{option.n > 1 ? 's' : ''} + R$ 4,50 por pedido</span>
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Divider */}
             <div className="my-6 sm:my-8 flex items-center gap-4" aria-hidden="true">
@@ -464,14 +476,14 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                       <span className="text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">{selectedLot.name}</span>
                     </div>
                     <div className="mt-1 text-sm text-neutral-600">
-                      {selectedLot.guests_per_unit > 1 ? `${selectedLot.guests_per_unit} ingressos nominais` : '1 ingresso'}
+                      {selectedLot.guests_per_unit > 1 ? `${selectedLot.guests_per_unit} ingressos nominais` : `${quantity === 2 ? 'Combo Duplo' : quantity === 3 ? 'Combo Triplo' : 'Individual'} · ${quantity} ingresso${quantity > 1 ? 's' : ''}`}
                     </div>
                   </div>
 
                   <div className="text-right">
                     {appliedCoupon && (
                       <div className="mb-0.5 text-xs text-neutral-400 line-through">
-                        {selectedLot.price.toLocaleString('pt-BR', {
+                        {basePrice.toLocaleString('pt-BR', {
                           style: 'currency',
                           currency: 'BRL',
                         })}
@@ -492,7 +504,7 @@ export default function PurchaseModal({ open, onClose }: PurchaseModalProps) {
                           })}
                         </div>
                         <div className="mt-1 text-[10px] text-neutral-500">
-                          {finalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} + {SERVICE_FEE.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} de taxa
+                          {finalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} + {SERVICE_FEE.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} de taxa única
                         </div>
                       </>
                     )}

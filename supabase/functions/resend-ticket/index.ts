@@ -107,20 +107,21 @@ Deno.serve(async (req: Request) => {
     }
 
     // Fetch ticket
-    const { data: ticket } = await supabase
+    const { data: tickets, error: ticketsError } = await supabase
       .from("tickets")
       .select("*")
       .eq("order_id", orderId)
-      .maybeSingle();
+      .order('created_at');
+    const ticket = tickets?.[0];
 
-    if (!ticket) {
+    if (ticketsError || !ticket) {
       return new Response(JSON.stringify({ error: "Ingresso não encontrado para este pedido." }), {
         status: 404,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const ticketUrl = `${appBaseUrl}/ingresso/${ticket.code}`;
+    const ticketUrl = tickets.length > 1 ? `${appBaseUrl}/pagamento/${orderId}` : `${appBaseUrl}/ingresso/${ticket.code}`;
     const html = emailTemplate({
       buyerName: order.buyer_name,
       ticketCode: ticket.code,

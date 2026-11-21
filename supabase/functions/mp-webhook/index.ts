@@ -7,28 +7,6 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Client-Info, Apikey",
 };
 
-function randomTicketCode(): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let code = "RLIO-";
-  for (let i = 0; i < 6; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return code;
-}
-
-async function generateUniqueTicketCode(supabase: ReturnType<typeof createClient>): Promise<string> {
-  for (let attempt = 0; attempt < 5; attempt++) {
-    const candidate = randomTicketCode();
-    const { data: existing } = await supabase
-      .from("tickets")
-      .select("id")
-      .eq("code", candidate)
-      .maybeSingle();
-    if (!existing) return candidate;
-  }
-  return `RLIO-${Date.now()}`;
-}
-
 function emailTemplate(params: {
   buyerName: string;
   ticketCode: string;
@@ -199,63 +177,34 @@ Deno.serve(async (req: Request) => {
       });
     }
 
-    // Update order status
-    await supabase
-      .from("orders")
-      .update({ payment_status: newStatus, payment_id: paymentId })
-      .eq("id", orderId);
+    if (Number(mpPayment.transaction_amount) !== Number(order.total_amount) || mpPayment.currency_id !== 'BRL' || (order.payment_id && order.payment_id !== paymentId)) {
+      throw new Error('Payment does not match order');
+    }
+    if (newStatus !== 'approved') {
+      const { error } = await supabase.from('orders').update({ payment_status: newStatus, payment_id: paymentId }).eq('id', orderId);
+      if (error) throw error;
+    }
 
     if (newStatus === "approved") {
       const lotName = (order.lots as any)?.name ?? "Ingresso";
 
-      // Increment sold_quantity on the lot
-      await supabase.rpc("increment_lot_sold", { lot_id: order.lot_id });
+      const { data: fulfilled, error: fulfillError } = await supabase.rpc('fulfill_ticket_order', { p_order: orderId, p_payment: paymentId, p_amount: Number(mpPayment.transaction_amount) });
+      if (fulfillError) throw fulfillError;
+      if (!fulfilled) return new Response(JSON.stringify({ received: true, skipped: 'already_approved' }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
       const event = order.events as { event_date?: string | null; event_time?: string | null; location?: string | null } | null;
       const eventDate = event?.event_date ?? "Data do evento";
       const eventTime = event?.event_time ?? "Consulte os detalhes do evento";
       const eventLocation = event?.location ?? "Vinhedo — São Paulo, SP";
 
-      const guests = Array.isArray(order.guests) ? (order.guests as { name: string; cpf: string }[]) : [];
-      const ticketsToIssue = guests.length > 0 ? guests : [null];
-      const ticketCodes: string[] = [];
-
-      for (const guest of ticketsToIssue) {
-        const code = await generateUniqueTicketCode(supabase);
-        ticketCodes.push(code);
-        await supabase.from("tickets").insert({
-          order_id: orderId,
-          code,
-          lot_name: lotName,
-          buyer_name: `${order.buyer_name} ${order.buyer_last_name}`,
-          buyer_email: order.buyer_email,
-          event_date: eventDate,
-          event_time: eventTime,
-          event_location: eventLocation,
-          event_id: order.event_id,
-          holder_name: guest?.name ?? null,
-          holder_cpf: guest?.cpf ?? null,
-        });
-      }
-
+      const { data: tickets, error: ticketsError } = await supabase.from('tickets').select('code').eq('order_id', orderId).order('created_at');
+      if (ticketsError || !tickets?.length) throw new Error('Unable to load issued tickets');
+      const ticketCodes = tickets.map((ticket) => ticket.code);
       const ticketCode = ticketCodes[0];
-
-      if (order.coupon_id) {
-        await supabase.rpc("increment_coupon_usage", { coupon_id: order.coupon_id });
-        await supabase.from("coupon_usages").upsert(
-          {
-            coupon_id: order.coupon_id,
-            order_id: orderId,
-            buyer_name: `${order.buyer_name} ${order.buyer_last_name}`,
-            used_at: new Date().toISOString(),
-          },
-          { onConflict: "order_id", ignoreDuplicates: true },
-        );
-      }
 
       // Send email
       if (resendApiKey) {
-        const ticketUrl = `${appBaseUrl}/ingresso/${ticketCode}`;
+        const ticketUrl = ticketCodes.length > 1 ? `${appBaseUrl}/pagamento/${orderId}` : `${appBaseUrl}/ingresso/${ticketCode}`;
         const html = emailTemplate({
           buyerName: order.buyer_name,
           ticketCode,

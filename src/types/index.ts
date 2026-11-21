@@ -22,6 +22,9 @@ export interface Order {
   buyer_email: string;
   buyer_city: string | null;
   quantity: number;
+  modality: 'individual' | 'double' | 'triple' | 'camarote';
+  ticket_subtotal: number | null;
+  service_fee: number | null;
   guests: { name: string; cpf: string }[];
   total_amount: number;
   payment_id: string | null;

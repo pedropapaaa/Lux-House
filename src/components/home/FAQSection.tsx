@@ -1,6 +1,5 @@
 import { useState, memo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   ['Como funciona o ingresso digital?', 'Após a confirmação do pagamento via Pix, você receberá automaticamente um e-mail com seu ingresso digital e QR Code exclusivo.'],

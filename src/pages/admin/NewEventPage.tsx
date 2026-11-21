@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { CalendarPlus, Archive, AlertCircle, Plus, Trash2, Check } from 'lucide-react';
+import { CalendarPlus, Archive, AlertCircle, Plus, Trash2 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAdminGuard } from '../../hooks/useAdminGuard';
 import { useEventContext } from '../../context/EventContext';
@@ -87,7 +87,7 @@ function Field({ label, value, onChange, multiline = false, placeholder = '', ty
 }
 
 export default function NewEventPage() {
-  const { loading, isAdmin } = useAdminGuard();
+  const { loading } = useAdminGuard();
   const { events, selectEvent } = useEventContext();
   const navigate = useNavigate();
   const qc = useQueryClient();

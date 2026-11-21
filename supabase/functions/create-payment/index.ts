@@ -51,7 +51,8 @@ Deno.serve(async (req: Request) => {
     if (orderErr || !order) return err("Pedido nao encontrado.", 404);
     if (order.payment_status !== "pending") return err("Este pedido ja foi processado.");
 
-    const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
+    const expiresAt = new Date(order.expires_at ?? Date.now() + 30 * 60 * 1000);
+    if (expiresAt.getTime() <= Date.now()) return err('Pedido expirado. Inicie uma nova compra.');
     const expiresAtISO = new Date(expiresAt.getTime() - 3 * 60 * 60 * 1000).toISOString().replace("Z", "-03:00");
 
     const cleanCpf = order.buyer_cpf.replace(/\D/g, "");
@@ -73,7 +74,7 @@ Deno.serve(async (req: Request) => {
 
     const mpPayload = {
       transaction_amount: amount,
-      description: `Lux House - ${lotName}`,
+      description: `Lux House - ${lotName} - ${order.modality ?? 'individual'} (${order.quantity} unidade(s))`,
       payment_method_id: "pix",
       external_reference: orderId,
       date_of_expiration: expiresAtISO,

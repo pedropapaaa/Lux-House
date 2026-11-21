@@ -337,11 +337,14 @@ export default function AdminCheckin() {
 
   const checkinMutation = useMutation({
     mutationFn: async (ticketId: string) => {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('tickets')
         .update({ is_used: true, used_at: new Date().toISOString() })
-        .eq('id', ticketId);
+        .eq('id', ticketId)
+        .eq('is_used', false)
+        .select('id');
       if (error) throw error;
+      if (!data?.length) throw new Error('Ingresso já utilizado.');
     },
     onSuccess: () => {
       setState('success');

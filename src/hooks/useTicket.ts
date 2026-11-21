@@ -20,19 +20,19 @@ export function useTicketByCode(code: string | undefined) {
 }
 
 export function useTicketByOrderId(orderId: string | undefined, enabled: boolean) {
-  return useQuery<Ticket | null>({
+  return useQuery<Ticket[]>({
     queryKey: ['ticket', 'order', orderId],
     enabled: !!orderId && enabled,
     refetchInterval: 3000,
     queryFn: async () => {
-      if (!orderId) return null;
+      if (!orderId) return [];
       const { data, error } = await supabase
         .from('tickets')
         .select('*')
         .eq('order_id', orderId)
-        .maybeSingle();
+        .order('created_at');
       if (error) throw error;
-      return data;
+      return data ?? [];
     },
   });
 }

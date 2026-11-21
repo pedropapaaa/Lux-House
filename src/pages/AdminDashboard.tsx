@@ -171,7 +171,7 @@ export default function AdminDashboard() {
         status:
           l.id === lotId
             ? 'active'
-            : l.status === 'active' && (l.guests_per_unit > 1) === isCamarote
+            : l.status === 'active' && !isCamarote && l.guests_per_unit === 1
               ? 'closed'
               : l.status,
       }));
@@ -287,10 +287,10 @@ export default function AdminDashboard() {
   });
 
   const exportCSV = () => {
-    const headers = ['ID', 'Nome', 'Sobrenome', 'CPF', 'Telefone', 'Email', 'Lote', 'Valor', 'Status', 'Data'];
+    const headers = ['ID', 'Nome', 'Sobrenome', 'CPF', 'Telefone', 'Email', 'Lote', 'Modalidade', 'Ingressos', 'Subtotal', 'Taxa unica', 'Valor', 'Status', 'Data'];
     const rows = orders.map((o) => [
       o.id, o.buyer_name, o.buyer_last_name, o.buyer_cpf, o.buyer_phone,
-      o.buyer_email, (o.lots as any)?.name ?? '', o.total_amount,
+      o.buyer_email, (o.lots as any)?.name ?? '', modalityLabel(o), o.quantity * (o.lots?.guests_per_unit ?? 1), o.ticket_subtotal ?? '', o.service_fee ?? '', o.total_amount,
       o.payment_status, new Date(o.created_at).toLocaleString('pt-BR'),
     ]);
     const csv = [headers, ...rows].map((r) => r.join(';')).join('\n');
@@ -304,7 +304,12 @@ export default function AdminDashboard() {
   const approved = orders.filter((o) => o.payment_status === 'approved');
   const pending = orders.filter((o) => o.payment_status === 'pending');
   const totalRevenue = approved.reduce((s, o) => s + Number(o.total_amount), 0);
-  const totalSold = approved.reduce((s, o) => s + (o.quantity ?? 0), 0);
+  const totalSold = approved.reduce((s, o) => s + (o.quantity ?? 1) * (o.lots?.guests_per_unit ?? 1), 0);
+  const modalityLabel = (o: Order) => o.modality === 'double' ? 'Combo Duplo' : o.modality === 'triple' ? 'Combo Triplo' : (o.lots?.guests_per_unit ?? 1) > 1 ? 'Camarote' : 'Individual';
+  const modalitySales = ['Individual', 'Combo Duplo', 'Combo Triplo', 'Camarote'].map((label) => {
+    const sales = approved.filter((o) => modalityLabel(o) === label);
+    return { label, orders: sales.length, tickets: sales.reduce((sum, o) => sum + o.quantity * (o.lots?.guests_per_unit ?? 1), 0), revenue: sales.reduce((sum, o) => sum + Number(o.total_amount), 0) };
+  });
   const ticketCount = ticketsData?.count ?? 0;
   const totalTicketCount = totalTickets?.count ?? 0;
   const peopleRemaining = totalTicketCount - ticketCount;
@@ -377,6 +382,11 @@ export default function AdminDashboard() {
         <StatCard icon={TicketIcon} label="Total de pedidos" description="Compras realizadas." value={String(orders.length)} gradient="bg-gradient-to-br from-teal-500 to-cyan-500" isMobile={isMobile} delay={0.3} />
         <StatCard icon={TrendingUp} label="Taxa de conversão" description="Percentual de visitantes que compraram ingresso." value={`${orders.length > 0 ? ((approved.length / orders.length) * 100).toFixed(0) : 0}%`} gradient="bg-gradient-to-br from-violet-500 to-fuchsia-500" isMobile={isMobile} delay={0.35} />
       </div>
+
+      <section className="glass-card mb-6 rounded-2xl p-5">
+        <h3 className="mb-4 font-semibold text-white">Vendas por modalidade</h3>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{modalitySales.map((sale) => <div key={sale.label} className="rounded-xl border border-white/10 p-4 text-white"><h4 className="font-semibold">{sale.label}</h4><p className="mt-2 text-sm">{sale.orders} pedidos · {sale.tickets} ingressos</p><p className="mt-2 text-lg font-bold">{fmtCurrency(sale.revenue)}</p></div>)}</div>
+      </section>
 
       {/* Charts row */}
       <div className="grid lg:grid-cols-2 gap-4 mb-6">
@@ -799,7 +809,7 @@ export default function AdminDashboard() {
                       <td className="px-5 py-4 text-white/80 whitespace-nowrap font-medium">{order.buyer_name} {order.buyer_last_name}</td>
                       <td className="px-5 py-4 text-white/45 text-xs">{order.buyer_email}</td>
                       <td className="px-5 py-4 text-white/30 text-xs font-mono">{order.buyer_cpf}</td>
-                      <td className="px-5 py-4 text-white/45 text-xs">{(order.lots as any)?.name ?? '—'}</td>
+                      <td className="px-5 py-4 text-white/45 text-xs">{(order.lots as any)?.name ?? '—'}<div className="mt-1 text-xs text-white/70">{modalityLabel(order)} · {order.quantity * (order.lots?.guests_per_unit ?? 1)} ingressos</div></td>
                       <td className="px-5 py-4 text-purple-400/90 text-xs font-mono font-medium">{Number(order.total_amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                       <td className="px-5 py-4">{statusBadge(order.payment_status)}</td>
                       <td className="px-5 py-4 text-white/25 text-xs whitespace-nowrap">{new Date(order.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>

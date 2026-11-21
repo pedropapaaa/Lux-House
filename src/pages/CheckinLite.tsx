@@ -75,12 +75,16 @@ export default function CheckinLite() {
   const confirmCheckin = useCallback(async () => {
     if (!ticket) return;
     setState('scanning');
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('tickets')
       .update({ is_used: true, used_at: new Date().toISOString() })
-      .eq('code', ticket.code);
+      .eq('code', ticket.code)
+      .eq('is_used', false)
+      .select('id');
     if (error) {
       setState('error');
+    } else if (!data?.length) {
+      setState('already_used');
     } else {
       setState('success');
     }

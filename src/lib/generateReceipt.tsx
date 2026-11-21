@@ -1,12 +1,19 @@
 import html2canvas from 'html2canvas';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { QRCodeSVG } from 'qrcode.react';
 import type { Ticket } from '../types';
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
+}
 
 function buildReceiptHtml(ticket: Ticket): string {
   const ticketUrl = `${window.location.origin}/ingresso/${ticket.code}`;
-  const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(ticketUrl)}`;
+  const qrSvg = renderToStaticMarkup(<QRCodeSVG value={ticketUrl} size={300} level="H" />);
+  const qrApiUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qrSvg)}`;
 
   const rows = [
-    ['Comprador', ticket.buyer_name],
+    [ticket.holder_name ? 'Participante' : 'Comprador', ticket.holder_name ?? ticket.buyer_name],
     ['Lote', ticket.lot_name],
     ['Data', ticket.event_date],
     ['Horário', ticket.event_time],
@@ -16,7 +23,7 @@ function buildReceiptHtml(ticket: Ticket): string {
       ([label, value]) => `
       <tr>
         <td style="padding:10px 0;color:rgba(255,255,255,0.3);font-size:10px;letter-spacing:2px;text-transform:uppercase;width:90px;font-family:Helvetica,Arial,sans-serif;">${label}</td>
-        <td style="padding:10px 0;color:rgba(255,255,255,0.85);font-size:13px;font-family:Helvetica,Arial,sans-serif;">${value}</td>
+        <td style="padding:10px 0;color:rgba(255,255,255,0.85);font-size:13px;font-family:Helvetica,Arial,sans-serif;">${escapeHtml(value)}</td>
       </tr>`,
     )
     .join('');
@@ -41,7 +48,7 @@ function buildReceiptHtml(ticket: Ticket): string {
       </div>
       <div style="text-align:center;margin-bottom:8px;">
         <div style="font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:6px;font-family:Helvetica,Arial,sans-serif;">Codigo do Ingresso</div>
-        <div style="font-family:Courier,monospace;font-size:22px;color:#c9a84c;letter-spacing:4px;font-weight:bold;">${ticket.code}</div>
+        <div style="font-family:Courier,monospace;font-size:14px;color:#c9a84c;letter-spacing:1px;font-weight:bold;overflow-wrap:anywhere;">${escapeHtml(ticket.code)}</div>
       </div>
     </div>
     <div style="padding:18px 32px;border-top:1px solid rgba(201,168,76,0.08);text-align:center;">
@@ -66,6 +73,7 @@ export async function generateReceiptImage(ticket: Ticket): Promise<void> {
   const receiptEl = container.querySelector('#receipt') as HTMLElement;
 
   try {
+    await Promise.all(Array.from(container.querySelectorAll('img')).map((image) => image.decode()));
     const canvas = await html2canvas(receiptEl, {
       scale: 3,
       backgroundColor: '#080808',
