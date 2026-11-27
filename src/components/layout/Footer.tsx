@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 
-const contactInfo = [{ Icon: MapPin, text: 'Valinhos, SP' }, { Icon: Phone, text: '+55 (19) 97143-3837' }, { Icon: Mail, text: 'luxhousecasadeshow@gmail.com' }];
+const contactInfo = [{ Icon: MapPin, text: 'Av. Celestino José dos Santos, 25, Valinhos, SP' }, { Icon: Phone, text: '+55 (19) 97143-3837' }, { Icon: Mail, text: 'luxhousecasadeshow@gmail.com' }];
 
 export default function Footer() {
   return (
