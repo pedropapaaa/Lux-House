@@ -17,7 +17,7 @@ export default function HeroSection({ onBuyClick }: HeroSectionProps) {
   const canBuy = Boolean(event && salesEnabled && event.status !== 'coming_soon' && event.status !== 'ended');
   const dateLabel = eventDate ? `${WEEKDAYS[eventDate.getDay()]}, ${eventDate.getDate()} de ${MONTHS[eventDate.getMonth()]}` : 'Sexta-feira, 04 de dezembro';
   const timeLabel = event?.event_time || 'A partir das 21h';
-  const location = event?.location || 'Valinhos–SP';
+  const location = event?.location || 'Av. Celestino José dos Santos, 25, Valinhos–SP';
   const buyLabel = canBuy ? 'Comprar ingresso' : event?.status === 'ended' ? 'Evento encerrado' : 'Vendas em breve';
   const countdownDate = event?.event_date ?? '2026-12-04';
   const countdownTime = event?.event_time ?? '21h00';
